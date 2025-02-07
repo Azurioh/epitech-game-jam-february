@@ -5,7 +5,7 @@ This project was made in the context of a JAM at Epitech Mulhouse.\
 It was entirely made in C++ and using Raylib\
 
 ### Description
-It's simple. Imagine the worst case scenario for the **JO PARIS 2024** and reproduce it in the game :)
+It's simple. Our game is based on a tower defense game, and we have added a number of features to be in harmony with the Jam's subject.
 
 ## Installation
 
