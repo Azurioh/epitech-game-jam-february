@@ -43,7 +43,7 @@ void Game::Mob::AMob::drawMob(Vector2 position) const
 		(Rectangle) {0, 0, (float)_texture.width, (float)_texture.height},
 		(Rectangle) {position.x, position.y, (float)_texture.width * _widthScale, (float)_texture.height * _heightScale},
 		(Vector2) {((float)_texture.width * _widthScale) / 2, ((float)_texture.height * _heightScale) / 2},
-		0, WHITE
+		_rotation, WHITE
 	);
 }
 
@@ -67,9 +67,24 @@ void Game::Mob::AMob::setGold(int gold)
     _gold = gold;
 }
 
-void handleRotation(std::tuple<char, char> offset)
+void Game::Mob::AMob::handleRotation(std::tuple<char, char> offset)
 {
-    
+    char offsetY = std::get<0>(offset);
+    char offsetX = std::get<1>(offset);
+
+    if (offsetY == -1 && offsetX == 0) {
+        _rotation = 270;
+    }
+    if (offsetY == 0 && offsetX == -1) {
+        _rotation = 180;
+    }
+    if (offsetY == 1 && offsetX == 0) {
+        _rotation = 90;
+    }
+    if (offsetY == 0 && offsetX == 1) {
+        _rotation = 0;
+    }
+    std::cout << _rotation << std::endl;
 }
 
 void Game::Mob::AMob::initMobMovement(Map &map)
@@ -113,6 +128,9 @@ void Game::Mob::AMob::moveMob(Map &map)
 
     float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
 
+    if (_type == MOAB_RED_MOB || _type == MOAB_BLUE_MOB) {
+        handleRotation(_offset);
+    }
     drawMob(_position);
 
     if (_time + 0.005 > GetTime() || _stopMoving) {
