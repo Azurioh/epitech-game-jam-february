@@ -28,8 +28,6 @@ class JAM {
         void UpdateWindowSize();
 
     private:
-        int screenWidth;
-        int screenHeight;
         std::size_t _currentScene;
         std::vector<std::unique_ptr<Game::IScene>> _scenes;
 };

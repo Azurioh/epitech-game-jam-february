@@ -14,3 +14,8 @@ Game::SceneFactory::SceneFactory()
 Game::SceneFactory::~SceneFactory()
 {
 }
+
+std::unique_ptr<Game::IScene> Game::SceneFactory::createMainMenu()
+{
+    return std::unique_ptr<Game::MainMenu>(new Game::MainMenu);
+}
