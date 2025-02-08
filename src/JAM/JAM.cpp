@@ -6,7 +6,7 @@
 */
 
 #include "JAM.hpp"
-#include "JAM/Scenes/SceneFactory.hh"
+#include "Scenes/SceneFactory.hh"
 
 JAM::JAM(): _currentScene(MAIN_MENU)
 {
