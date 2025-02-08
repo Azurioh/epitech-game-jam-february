@@ -17,8 +17,6 @@ class BlueMob : public Game::Mob::AMob {
 
     protected:
     private:
-    int move_mob();
-
 };
 
 #endif /* !BLUEMOB_HPP_ */

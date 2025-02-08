@@ -9,13 +9,26 @@
 
 BlueMob::BlueMob()
 {
+    _texture = LoadTexture("asset/bloons/blue.png");
+    _widthScale = 1.1132 * 0.7;
+    _heightScale = 1.1176 * 0.7;
+    _rotation = 0;
+
+    _speed = 3.2 - (3);
+    _mapValue = 2;
+
+    _mapPos = {-1, -1};
+    _position = {-1, -1};
+    _nextPosition = {-1, -1};
+    _time = 0;
+
+    _visible = true;
+    _stopMoving = false;
+
+    _type = Game::Mob::BLUE_MOB;
 }
 
 BlueMob::~BlueMob()
 {
-}
-
-int BlueMob::move_mob()
-{
-    return 0;
+    UnloadTexture(_texture);
 }

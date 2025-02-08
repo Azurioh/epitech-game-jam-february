@@ -22,6 +22,16 @@ Map::~Map()
 {
 }
 
+std::vector<std::vector<std::shared_ptr<Case>>> Map::getMap()
+{
+    return _map;
+}
+
+std::tuple<char, char> Map::getStart()
+{
+    return _start;
+}
+
 bool Map::open(std::string filepath)
 {
     std::ifstream stream;
@@ -49,68 +59,72 @@ std::tuple<char, char> Map::findStart()
     return std::make_tuple(-1, -1);
 }
 
-std::tuple<char, char> Map::findPath(size_t y, size_t x)
+std::tuple<char, char> Map::findPath(size_t y, size_t x, char value)
 {
-    if (y > 0 && (*_map[y - 1][x]).getValue() == 'x') { // Check top
+    if (y > 0 && (*_map[y - 1][x]).getValue() == value) { // Check top
         return std::make_tuple(-1, 0);
     }
-    if (x > 0 && (*_map[y][x - 1]).getValue() == 'x') { // Check left
+    if (x > 0 && (*_map[y][x - 1]).getValue() == value) { // Check left
         return std::make_tuple(0, -1);
     }
-    if (y < _map.size() && (*_map[y + 1][x]).getValue() == 'x') { // Check bottom
+    if (y < _map.size() && (*_map[y + 1][x]).getValue() == value) { // Check bottom
         return std::make_tuple(1, 0);
     }
-    if (x < _map[0].size() && (*_map[y][x + 1]).getValue() == 'x') { // Check right
+    if (x < _map[0].size() && (*_map[y][x + 1]).getValue() == value) { // Check right
         return std::make_tuple(0, 1);
     }
     return std::make_tuple(-1, -1);
 }
 
-
-bool Map::isOffsetValid(std::tuple<char, char> &offset, char offsetY, char offsetX)
+bool Map::isOffsetValid(Vector2 &pos, char offsetY, char offsetX, unsigned char &value, bool change)
 {
     if (offsetY == -1 && offsetX == -1) {
         return false;
     }
 
-    std::tuple<char, char> offsetTmp(
-        std::get<0>(offset) + offsetY,
-        std::get<1>(offset) + offsetX
-    );
-    if (std::get<0>(offsetTmp) < 0 || size_t(std::get<0>(offsetTmp)) >= _map.size() ||
-        std::get<1>(offsetTmp) < 0 || size_t(std::get<1>(offsetTmp)) >= _map[0].size()) {
+    Vector2 posTmp = {
+        (float)(pos.x + offsetY),
+        (float)(pos.y + offsetX)
+    };
+    if (posTmp.x < 0 || size_t(posTmp.x) >= _map.size() ||
+        posTmp.y < 0 || size_t(posTmp.y) >= _map[0].size()) {
         return false;
     }
-    if ((*_map[std::get<0>(offsetTmp)][std::get<1>(offsetTmp)]).getValue() != 'x' &&
-        (*_map[std::get<0>(offsetTmp)][std::get<1>(offsetTmp)]).getValue() == '\0') {
+    if ((*_map[posTmp.x][posTmp.y]).getValue() != value &&
+        (*_map[posTmp.x][posTmp.y]).getValue() == '\0') {
         return false;
     }
-    if ((*_map[std::get<0>(offsetTmp)][std::get<1>(offsetTmp)]).getValue() != 'x' &&
-        (*_map[std::get<0>(offsetTmp)][std::get<1>(offsetTmp)]).getValue() > 0) {
-        offset = offsetTmp;
+    if ((*_map[posTmp.x][posTmp.y]).getValue() != value &&
+        (*_map[posTmp.x][posTmp.y]).getValue() > 0) {
+        if (change) {
+            value--;
+        }
+        pos = posTmp;
         return true;
     }
     return true;
 }
 
+
 void Map::createPath()
 {
-    std::tuple<char, char> start = findStart();
-    std::tuple<char, char> offset(std::get<0>(start), std::get<1>(start));
+    Vector2 offset = {(float)std::get<0>(_start), (float)std::get<1>(_start)};
     std::tuple<char, char> nextCase;
+
+    unsigned char path = 'x';
 
     char offsetY = -1;
     char offsetX = -1;
     size_t index = 2;
 
-    if (std::get<0>(start) == -1 || std::get<1>(start) == -1) {
-        return;
+    if (std::get<0>(_start) == -1 || std::get<1>(_start) == -1) {
+        throw std::exception();
     }
 
-    (*_map[std::get<0>(start)][std::get<1>(start)]).setValue(1);
+    (*_map[std::get<0>(_start)][std::get<1>(_start)]).setValue(1);
     while (1) {
-        if (!isOffsetValid(offset, offsetY, offsetX)) {
-            nextCase = findPath(std::get<0>(offset), std::get<1>(offset));
+        if (!isOffsetValid(offset, offsetY, offsetX, path, false)) {
+            nextCase = findPath(offset.x, offset.y, path);
         }
 
         offsetY = std::get<0>(nextCase);
@@ -119,14 +133,22 @@ void Map::createPath()
             break;
         }
 
-        offset = std::make_tuple(
-            std::get<0>(offset) + offsetY,
-            std::get<1>(offset) + offsetX
-        );
-        (*_map[std::get<0>(offset)][std::get<1>(offset)]).setValue(index);
+        offset = {
+            offset.x + offsetY,
+            offset.y + offsetX
+        };
+        (*_map[offset.x][offset.y]).setValue(index);
 
         index++;
     }
+}
+
+std::tuple<char, char> Map::getNextCase(Vector2 pos, char offsetY, char offsetX, unsigned char &value)
+{
+    if (!isOffsetValid(pos, offsetY, offsetX, value, true)) {
+        return findPath(pos.x, pos.y, value);
+    }
+    return std::make_tuple(offsetY, offsetX);
 }
 
 void Map::createMap()
@@ -149,6 +171,7 @@ void Map::createMap()
         }
         index++;
     }
+    _start = findStart();
     createPath();
 }
 
@@ -170,14 +193,14 @@ void Map::displayMap()
 
 void Map::drawMap()
 {
-    Vector2 pos = {200.0f, 200.0f};
+    Vector2 pos = {100.0f, 100.0f};
 
     for (auto lines_it = _map.begin(); lines_it != _map.end(); lines_it++) {
         for (auto cols_it = (*lines_it).begin(); cols_it != (*lines_it).end(); cols_it++) {
             (*cols_it)->drawCase(scale, pos);
             pos.x += (*cols_it)->getTexture().width * scale;
         }
-        pos.x = 200;
+        pos.x = 100;
         pos.y += (*(*lines_it).begin())->getTexture().height * scale;
     }
 }

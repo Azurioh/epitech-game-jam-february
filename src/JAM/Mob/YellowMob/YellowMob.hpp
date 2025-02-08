@@ -8,8 +8,9 @@
 #ifndef YELLOWMOB_HPP_
 #define YELLOWMOB_HPP_
 
-#include "../AMob.hpp"
+    #include <filesystem>
 
+#include "../AMob.hpp"
 
 class YellowMob : public Game::Mob::AMob {
     public:
@@ -18,8 +19,6 @@ class YellowMob : public Game::Mob::AMob {
 
     protected:
     private:
-    int move_mob();
-
 };
 
 #endif /* !YELLOWMOB_HPP_ */

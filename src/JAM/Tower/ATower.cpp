@@ -193,10 +193,10 @@ bool Game::Tower::ATower::_mobIsClosest(Game::Mob::IMob *mob1, Game::Mob::IMob *
 {
     int posX = std::get<0>(_position);
     int posY = std::get<1>(_position);
-    int posMob1X = std::get<0>(mob1->getPosition());
-    int posMob1Y = std::get<1>(mob1->getPosition());
-    int posMob2X = std::get<0>(mob2->getPosition());
-    int posMob2Y = std::get<1>(mob2->getPosition());
+    int posMob1X = mob1->getPosition().x;
+    int posMob1Y = mob1->getPosition().y;
+    int posMob2X = mob2->getPosition().x;
+    int posMob2Y = mob2->getPosition().y;
 
     int distance1x = posMob1X - posX;
     int distance1y = posMob1Y - posY;

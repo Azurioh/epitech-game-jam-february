@@ -14,8 +14,8 @@ void Game::Projectile::AProjectile::move()
 {
 	int x1 = std::get<0>(_position);
     int y1 = std::get<1>(_position);
-    int x2 = std::get<0>(_target->getPosition());
-    int y2 = std::get<1>(_target->getPosition());
+    int x2 = _target->getPosition().x;
+    int y2 = _target->getPosition().y;
     int dx = x2 - x1;
     int dy = y2 - y1;
     float distance = std::sqrt(std::pow(dx, 2) + std::pow(dy, 2));
@@ -98,8 +98,8 @@ float Game::Projectile::AProjectile::_calculAngle(void) const
 {
 	int x1 = std::get<0>(_position);
     int y1 = std::get<1>(_position);
-    int x2 = std::get<0>(_target->getPosition());
-    int y2 = std::get<1>(_target->getPosition());
+    int x2 = _target->getPosition().x;
+    int y2 = _target->getPosition().y;
 
     double deltaX = static_cast<double>(x2 - x1);
     double deltaY = static_cast<double>(y2 - y1);

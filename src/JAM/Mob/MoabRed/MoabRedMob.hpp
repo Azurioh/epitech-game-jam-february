@@ -17,7 +17,6 @@ class MoabRedMob : public Game::Mob::AMob {
 
     protected:
     private:
-    int move_mob();
 };
 
 #endif /* !MOABREDMOB_HPP_ */

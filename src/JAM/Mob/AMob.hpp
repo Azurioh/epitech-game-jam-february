@@ -22,23 +22,43 @@ namespace Game {
                 int getHp();
                 int getSpeed();
                 void setSpeed(int speed);
-                void setPos(int pos_x, int pos_y);
                 int takeDamage(int hp);
 
-                std::tuple<int, int> getPosition(void) const;
+                Vector2 getPosition(void) const;
                 int getGold(void) const;
 
-                void setPosition(std::tuple<int, int> pos);
+                void setPosition(Vector2 pos);
                 void setGold(int gold);
 
-                void drawMob(void) const;
+                void handleRotation(std::tuple<char, char> offset);
+                void initMobMovement(Map &map);
+                void moveMob(Map &map);
+                void drawMob(Vector2 position) const;
+
 
             protected:
                 int _hp;
-                int _speed;
+                float _speed;
                 int _gold;
-                std::tuple<unsigned int, unsigned int> _position;
-                Texture2D _mobTexture;
+
+                Vector2 _position;
+                Texture2D _texture;
+
+                float _widthScale;
+                float _heightScale;
+                float _rotation;
+
+                std::tuple<char, char> _offset;
+                Vector2 _mapPos;
+                Vector2 _nextPosition;
+                unsigned char _mapValue;
+
+                double _time;
+
+                bool _visible;
+                bool _stopMoving;
+
+                MobType _type;
             private:
         };
     }
