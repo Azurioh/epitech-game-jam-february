@@ -75,7 +75,6 @@ std::shared_ptr<Game::Mob::IMob> Game::Tower::ATower::getMobToAttack(std::vector
     if (_projectile && _projectile->getAttackStatus() == Game::Projectile::IProjectile::TRACKING) {
         return _target;
     }
-    int i = 0;
     for (auto it = mobs.begin(); it != mobs.end(); it++) {
         if (!_mobIsInRange((*it).get()) || !(*it)->isVisible()) {
             continue;
@@ -112,23 +111,26 @@ void Game::Tower::ATower::setCost(unsigned int cost)
     _cost = cost;
 }
 
-void Game::Tower::ATower::attack(void)
+int Game::Tower::ATower::attack(void)
 {
     Game::Projectile::IProjectile::AttackResultType attackType;
 
     if (!_target) {
-        return;
+        return 0;
     }
     if (!_projectile || _projectile.get() == nullptr) {
         _projectile = std::move(createProjectile(_position, _target, _attackSpeed));
-        return;
+        return 0;
     }
     attackType = _projectile->getAttackStatus();
     if (attackType == Game::Projectile::IProjectile::TRACKING) {
-        return;
+        return 0;
     }
-    _target->takeDamage(_damage);
+    if (_target->takeDamage(_damage) < 0) {
+        return _target->getGold();
+    }
     _projectile.reset();
+    return 0;
 }
 
 std::shared_ptr<Game::Projectile::IProjectile> Game::Tower::ATower::getProjectile(void)
