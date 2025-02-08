@@ -27,7 +27,8 @@
         LEVEL_SEVEN_SCENE,
         LEVEL_EIGHT_SCENE,
         LEVEL_NINE_SCENE,
-        SETTINGS_SCENE
+        SETTINGS_SCENE,
+        GAME_SCENE
     };
 
 class JAM {
@@ -35,11 +36,17 @@ class JAM {
         JAM();
         ~JAM();
         void gameLoop(void);
+        void setVolumeDown();
+        void setVolumeUp();
+        void setVolume();
         void UpdateWindowSize();
 
     private:
         std::size_t _currentScene;
         std::vector<std::unique_ptr<Game::IScene>> _scenes;
+        Music _menuMusic;
+        Music _inGameMusic;
+        float _MusicValue;
 };
 
 #endif /* !JAM_HPP_ */

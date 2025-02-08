@@ -24,6 +24,8 @@ class Map: public Case {
 
         std::vector<std::vector<std::shared_ptr<Case>>> getMap();
         std::tuple<char, char> getStart();
+        size_t getMobPassed();
+        void addMobPassed();
 
         bool open(std::string filepath);
 
@@ -44,6 +46,8 @@ class Map: public Case {
         std::vector<std::vector<std::shared_ptr<Case>>> _map;
         std::stringstream _buffer;
         std::tuple<char, char> _start;
+
+        size_t _mobPassed;
 };
 
 #endif /* !MAP_HPP_ */
