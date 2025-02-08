@@ -8,9 +8,9 @@
 #include "MainMenu.hpp"
 
 Game::MainMenu::MainMenu():
-    _start("Start", "asset/menu/button_background.png", ((float)GetScreenWidth() / 2), ((float)GetScreenHeight() / 2) - 100, 30),
-    _settings("Settings", "asset/menu/button_background.png", ((float)GetScreenWidth() / 2), ((float)GetScreenHeight() / 2) - 50, 30),
-    _quit("Quit", "asset/menu/button_background.png", ((float)GetScreenWidth() / 2), ((float)GetScreenHeight() / 2), 30)
+    _start("Start", "asset/menu/button_background.png", ((float)GetScreenWidth() / 2), ((float)GetScreenHeight() / 2) - 100, 20),
+    _settings("Settings", "asset/menu/button_background.png", ((float)GetScreenWidth() / 2), ((float)GetScreenHeight() / 2) - 50, 20),
+    _quit("Quit", "asset/menu/button_background.png", ((float)GetScreenWidth() / 2), ((float)GetScreenHeight() / 2), 20)
 {
     Image backgroundImg = LoadImage("asset/menu/Menu_background.png");
     _background = LoadTextureFromImage(backgroundImg);
