@@ -7,14 +7,6 @@
 
 #include "AMob.hpp"
 
-AMob::AMob()
-{
-}
-
-AMob::~AMob()
-{
-}
-
 void AMob::setHp(int hp)
 {
     _hp = hp;

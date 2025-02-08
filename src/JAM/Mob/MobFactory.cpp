@@ -7,14 +7,6 @@
 
 #include "MobFactory.hh"
 
-Game::Mob::MobFactory::MobFactory()
-{
-}
-
-Game::Mob::MobFactory::~MobFactory()
-{
-}
-
 std::unique_ptr<Game::Mob::IMob> Game::Mob::MobFactory::createRedMob()
 {
     return std::unique_ptr<RedMob>(new RedMob);

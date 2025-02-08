@@ -12,8 +12,8 @@
 
 class RedMob : public AMob {
     public:
-        RedMob() {};
-        ~RedMob() {};
+        RedMob();
+        ~RedMob();
 
     protected:
     private:
