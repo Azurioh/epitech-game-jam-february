@@ -8,12 +8,12 @@
 #include "BasicTower.hh"
 
 Game::Tower::BasicTower::BasicTower(std::tuple<std::size_t, std::size_t> position):
-    ATower(position, 25, 60, 5, 2)
+    ATower(position, 100, 40, 5, 3)
 {
     Image towerImage = LoadImage("asset/towers/basic.png");
-    std::vector<std::tuple<unsigned int, unsigned int>> rangeSkillPricing = {{50, 5}, {100, 5}, {150, 5}};
-    std::vector<std::tuple<unsigned int, unsigned int>> damageSkillPricing = {{50, 5}, {150, 10}, {300, 20}};
-    std::vector<std::tuple<unsigned int, unsigned int>> attackSpeedSkillPricing = {{100, 2}, {200, 5}, {500, 10}};
+    std::vector<std::tuple<unsigned int, unsigned int>> rangeSkillPricing = {{100, 4}, {200, 5}, {300, 6}};
+    std::vector<std::tuple<unsigned int, unsigned int>> damageSkillPricing = {{100, 5}, {180, 5}, {300, 10}};
+    std::vector<std::tuple<unsigned int, unsigned int>> attackSpeedSkillPricing = {{100, 2}, {200, 5}, {400, 5}};
 
     _towerTexture = LoadTextureFromImage(towerImage);
     _displayHitbox = true;
