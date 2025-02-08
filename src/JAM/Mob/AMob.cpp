@@ -31,7 +31,7 @@ void Game::Mob::AMob::setSpeed(int speed)
     _speed = speed;
 }
 
-int Game::Mob::AMob::takeDamage(int hp)
+void Game::Mob::AMob::takeDamage(int hp)
 {
     _hp -= hp;
     if (_hp <= 0) {

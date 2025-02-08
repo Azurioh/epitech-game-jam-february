@@ -36,7 +36,7 @@ namespace Game {
                 virtual int getHp() = 0;
                 virtual int getSpeed() = 0;
                 virtual void setSpeed(int speed) = 0;
-                virtual int takeDamage(int hp) = 0;
+                virtual void takeDamage(int hp) = 0;
 
                 virtual void handleRotation(std::tuple<char, char> offset) = 0;
                 virtual void initMobMovement(Map &map) = 0;

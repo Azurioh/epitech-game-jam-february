@@ -25,6 +25,7 @@ MoabBlueMob::MoabBlueMob()
     _visible = true;
     _stopMoving = false;
 
+    _hp = 5000;
     _type = Game::Mob::MOAB_BLUE_MOB;
 }
 

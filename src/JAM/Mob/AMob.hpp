@@ -22,7 +22,7 @@ namespace Game {
                 int getHp();
                 int getSpeed();
                 void setSpeed(int speed);
-                int takeDamage(int hp);
+                void takeDamage(int hp);
 
                 Vector2 getPosition(void) const;
                 int getGold(void) const;

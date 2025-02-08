@@ -11,6 +11,7 @@
     #include <raylib.h>
     #include <vector>
     #include <string>
+
     #include "../IScene.hh"
     #include "JAM/JAM.hpp"
 

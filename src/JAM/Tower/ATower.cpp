@@ -27,7 +27,7 @@ void Game::Tower::ATower::draw(void) const
     std::size_t posY = std::get<1>(_position);
 
     if (_displayHitbox) {
-        DrawCircle(posX + (float)(_towerTexture.width / 2), posY + (float)(_towerTexture.height / 2), _range, {255, 255, 255, 50});
+        DrawCircle(posX, posY, _range, {255, 255, 255, 50});
     }
     if (_projectile && _projectile.get() != nullptr) {
         _projectile->draw();
@@ -35,7 +35,13 @@ void Game::Tower::ATower::draw(void) const
             _projectile->move();
         }
     }
-    DrawTexture(_towerTexture, posX, posY, WHITE);
+    DrawTexturePro(
+		_towerTexture,
+		(Rectangle) {0, 0, (float)_towerTexture.width, (float)_towerTexture.height},
+		(Rectangle) {(float)posX, (float)posY, (float)_towerTexture.width, (float)_towerTexture.height},
+		(Vector2) {((float)_towerTexture.width) / 2, ((float)_towerTexture.height) / 2},
+		0, WHITE
+	);
     return;
 }
 
@@ -75,7 +81,6 @@ std::shared_ptr<Game::Mob::IMob> Game::Tower::ATower::getMobToAttack(std::vector
     if (_projectile && _projectile->getAttackStatus() == Game::Projectile::IProjectile::TRACKING) {
         return _target;
     }
-    int i = 0;
     for (auto it = mobs.begin(); it != mobs.end(); it++) {
         if (!_mobIsInRange((*it).get()) || !(*it)->isVisible()) {
             continue;

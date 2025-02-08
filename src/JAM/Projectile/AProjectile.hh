@@ -22,7 +22,7 @@ namespace Game {
                 virtual ~AProjectile() = default;
 
                 void move();
-                void draw(void) const;
+                void draw(void);
 
                 std::shared_ptr<Game::Mob::IMob> getTarget(void) const;
                 std::tuple<unsigned int, unsigned int> getPosition(void) const;
@@ -44,6 +44,7 @@ namespace Game {
                 Texture2D _arrowTexture;
 
                 float _calculAngle() const;
+                double _time;
         };
     }
 }
