@@ -42,7 +42,7 @@ int Game::Mob::AMob::takeDamage(int hp)
     return _hp -= hp;
 }
 
-void Game::Mob::AMob::draw(void) const
+void Game::Mob::AMob::drawMob(void) const
 {
     float posX = std::get<0>(_position);
 	float posY = std::get<1>(_position);
@@ -51,6 +51,7 @@ void Game::Mob::AMob::draw(void) const
 		{posX, posY, 100, 100},
         {0, 0}, _speed, WHITE);
 }
+
 std::tuple<int, int> Game::Mob::AMob::getPosition(void) const
 {
     return std::make_tuple(_pos_x, _pos_y);

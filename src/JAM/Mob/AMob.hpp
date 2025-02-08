@@ -31,7 +31,7 @@ namespace Game {
                 void setPosition(std::tuple<int, int> pos);
                 void setGold(int gold);
 
-                void draw(void) const;
+                void drawMob(void) const;
 
             protected:
                 int _hp;
@@ -41,7 +41,6 @@ namespace Game {
                 int _gold;
                 std::tuple<unsigned int, unsigned int> _position;
                 Texture2D _mobTexture;
-                int _speed;
             private:
         };
     }

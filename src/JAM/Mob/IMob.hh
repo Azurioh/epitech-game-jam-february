@@ -19,7 +19,7 @@ namespace Game {
                 virtual std::tuple<int, int> getPosition() const = 0;
                 virtual int getGold() const = 0;
                 virtual int move_mob() = 0;
-                virtual void drawMob() = 0;
+                virtual void drawMob(void) const  = 0;
 
             protected:
             private:
