@@ -10,6 +10,7 @@
 #include "ITower.hh"
 #include "../Projectile/ProjectileFactory.hh"
 #include <vector>
+#include <cmath>
 
 namespace Game {
     namespace Tower {

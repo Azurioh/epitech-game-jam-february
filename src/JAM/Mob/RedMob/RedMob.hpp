@@ -10,6 +10,7 @@
 
 #include "../AMob.hpp"
 
+
 class RedMob : public Game::Mob::AMob {
     public:
         RedMob();
