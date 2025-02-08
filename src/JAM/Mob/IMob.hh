@@ -16,7 +16,7 @@ namespace Game {
                 IMob() {};
                 ~IMob() {};
 
-                virtual std::tuple<int, int> getPosition() const = 0;
+                virtual std::tuple<int, int> getPosition() = 0;
                 virtual int getGold() const = 0;
                 virtual int move_mob() = 0;
 

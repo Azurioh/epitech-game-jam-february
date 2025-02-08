@@ -42,7 +42,7 @@ int Game::Mob::AMob::takeDamage(int hp)
     return _hp -= hp;
 }
 
-std::tuple<int, int> Game::Mob::AMob::getPosition(void) const
+std::tuple<int, int> Game::Mob::AMob::getPosition(void)
 {
     return std::make_tuple(_pos_x, _pos_y);
 }

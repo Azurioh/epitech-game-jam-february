@@ -22,7 +22,7 @@ namespace Game {
                 void setPos(int pos_x, int pos_y);
                 int takeDamage(int hp);
 
-                std::tuple<int, int> getPosition(void) const;
+                std::tuple<int, int> getPosition(void);
                 int getGold(void) const;
 
                 void setPosition(std::tuple<int, int> pos);

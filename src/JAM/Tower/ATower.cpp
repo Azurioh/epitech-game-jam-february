@@ -60,6 +60,9 @@ std::shared_ptr<Game::Mob::IMob> Game::Tower::ATower::getMobToAttack(std::vector
 {
     std::shared_ptr<Game::Mob::IMob> mobToAttack = nullptr;
 
+    if (mobs.size() == 0) {
+        return mobToAttack;
+    }
     if (_attackType == FIRST) {
         return mobs[0];
     }
@@ -74,6 +77,11 @@ std::shared_ptr<Game::Mob::IMob> Game::Tower::ATower::getMobToAttack(std::vector
     }
     _target = mobToAttack;
     return mobToAttack;
+}
+
+std::shared_ptr<Game::Mob::IMob> Game::Tower::ATower::getTarget(void)
+{
+    return _target;
 }
 
 void Game::Tower::ATower::setPosition(std::tuple<std::size_t, std::size_t> pos)
@@ -97,6 +105,11 @@ Game::Projectile::IProjectile::AttackResultType Game::Tower::ATower::attack(void
 void Game::Tower::ATower::changeAttackType(void)
 {
     _attackType = _attackType == FIRST ? CLOSEST : FIRST;
+}
+
+std::shared_ptr<Game::Projectile::IProjectile> Game::Tower::ATower::getProjectile(void)
+{
+    return _projectile;
 }
 
 void Game::Tower::ATower::setRangeSkill(unsigned int value)
