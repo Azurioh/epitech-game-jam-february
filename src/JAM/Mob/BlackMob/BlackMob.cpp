@@ -14,7 +14,7 @@ BlackMob::BlackMob()
     _heightScale = 0.8;
     _rotation = 0;
 
-    _speed = 3.2 - (2);
+    _speed = 3.2 - (2.8);
     _mapValue = 2;
 
     _mapPos = {-1, -1};
