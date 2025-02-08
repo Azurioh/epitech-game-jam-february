@@ -31,7 +31,7 @@ void Game::Projectile::AProjectile::move()
 		_attackStatus = MISSED;
 		return;
 	}
-    if (distance <= _speed || distance == 0) {
+    if (distance <= _speed + 3 || distance == 0) {
 		_attackStatus = HIT;
 		return;
     }
@@ -45,8 +45,8 @@ void Game::Projectile::AProjectile::draw(void) const
 	float posY = std::get<1>(_position);
 	DrawTexturePro(_arrowTexture, {0, 0,
 		(float)_arrowTexture.width, (float)_arrowTexture.height},
-		{posX, posY, 100, 100},
-		{0, 0}, _angle, WHITE);
+		{posX, posY, 25, 25},
+		{25, 12.5}, _angle, WHITE);
 }
 
 std::shared_ptr<Game::Mob::IMob>Game::Projectile::AProjectile::getTarget(void) const
@@ -106,8 +106,6 @@ float Game::Projectile::AProjectile::_calculAngle(void) const
 
     double angleRad = std::atan2(deltaY, deltaX);
     double angleDeg = angleRad * (180.0 / PI);
-
-	std::cout << "NEW ANGLE: " << angleDeg << std::endl;
 
     return static_cast<float>(angleDeg);
 }

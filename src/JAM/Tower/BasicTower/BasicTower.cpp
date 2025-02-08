@@ -16,7 +16,7 @@ Game::Tower::BasicTower::BasicTower(std::tuple<std::size_t, std::size_t> positio
     std::vector<std::tuple<unsigned int, unsigned int>> attackSpeedSkillPricing = {{100, 2}, {200, 5}, {400, 5}};
 
     _towerTexture = LoadTextureFromImage(towerImage);
-    _displayHitbox = true;
+    _displayHitbox = false;
     setRangeSkillPricing(rangeSkillPricing);
     setDamageSkillPricing(damageSkillPricing);
     setAttackSpeedSkillPricing(attackSpeedSkillPricing);

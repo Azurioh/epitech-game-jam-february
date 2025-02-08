@@ -10,6 +10,7 @@
 
     #include "JAM/JAM.hpp"
     #include "../Buttons/Buttons.hh"
+    #include "../../Player/Player.hh"
 
 namespace Game {
     class GameScene : public Game::IScene {
@@ -17,10 +18,13 @@ namespace Game {
             GameScene();
             ~GameScene();
             void display();
-            void exec(std::size_t &currentScene);
+            void exec(std::size_t &currentScene, ...);
 
         protected:
         private:
+            int _hp;
+            int _gold;
+            std::unique_ptr<Player> _player;
             Texture2D _frame;
             Texture2D _heart;
             Texture2D _coin;

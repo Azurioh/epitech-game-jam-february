@@ -29,6 +29,12 @@ void Game::Tower::ATower::draw(void) const
     if (_displayHitbox) {
         DrawCircle(posX + (float)(_towerTexture.width / 2), posY + (float)(_towerTexture.height / 2), _range, {255, 255, 255, 50});
     }
+    if (_projectile && _projectile.get() != nullptr) {
+        _projectile->draw();
+        if (_projectile->getAttackStatus() == Game::Projectile::IProjectile::TRACKING) {
+            _projectile->move();
+        }
+    }
     DrawTexture(_towerTexture, posX, posY, WHITE);
     return;
 }
@@ -66,12 +72,18 @@ std::shared_ptr<Game::Mob::IMob> Game::Tower::ATower::getMobToAttack(std::vector
     if (mobs.size() == 0) {
         return mobToAttack;
     }
+    if (_projectile && _projectile->getAttackStatus() == Game::Projectile::IProjectile::TRACKING) {
+        return _target;
+    }
     for (auto it = mobs.begin(); it != mobs.end(); it++) {
-        if (!mobToAttack) {
+        if (!_mobIsInRange((*it).get()) || !(*it)->isVisible()) {
+            continue;
+        }
+        if (!mobToAttack && (*it)->isVisible()) {
             mobToAttack = *it;
             continue;
         }
-        if (_mobIsClosest((*it).get(), mobToAttack.get())) {
+        if (mobToAttack && _mobIsClosest((*it).get(), mobToAttack.get())) {
             mobToAttack = *it;
         }
     }
@@ -99,12 +111,26 @@ void Game::Tower::ATower::setCost(unsigned int cost)
     _cost = cost;
 }
 
-Game::Projectile::IProjectile::AttackResultType Game::Tower::ATower::attack(void)
+int Game::Tower::ATower::attack(void)
 {
-    if (!_projectile) {
-        _projectile = createProjectile(_position, _target, _attackSpeed);
+    Game::Projectile::IProjectile::AttackResultType attackType;
+
+    if (!_target) {
+        return 0;
     }
-    return _projectile->getAttackStatus();
+    if (!_projectile || _projectile.get() == nullptr) {
+        _projectile = std::move(createProjectile(_position, _target, _attackSpeed));
+        return 0;
+    }
+    attackType = _projectile->getAttackStatus();
+    if (attackType == Game::Projectile::IProjectile::TRACKING) {
+        return 0;
+    }
+    if (_target->takeDamage(_damage) < 0) {
+        return _target->getGold();
+    }
+    _projectile.reset();
+    return 0;
 }
 
 std::shared_ptr<Game::Projectile::IProjectile> Game::Tower::ATower::getProjectile(void)
@@ -205,4 +231,12 @@ bool Game::Tower::ATower::_mobIsClosest(Game::Mob::IMob *mob1, Game::Mob::IMob *
     } else {
         return false;
     }
+}
+
+bool Game::Tower::ATower::_mobIsInRange(Game::Mob::IMob *mob)
+{
+    Vector2 mobPos = mob->getPosition();
+    float distance = std::sqrt(std::pow(mobPos.x - std::get<0>(_position), 2) + std::pow(mobPos.y - std::get<1>(_position), 2));
+
+    return distance <= _range;
 }

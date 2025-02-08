@@ -10,6 +10,8 @@
 
 Game::Player::Player()
 {
+    _hp = 100;
+    _golds = 100;
 }
 
 Game::Player::~Player()
@@ -56,13 +58,7 @@ void Game::Player::attack(std::vector<std::shared_ptr<Game::Mob::IMob>> mobs)
     std::shared_ptr<Game::Mob::IMob> destroyedMob;
 
     for (auto it = _towers.begin(); it != _towers.end(); it++) {
-        if ((*it)->attack() == Game::Projectile::IProjectile::TRACKING) {
-            return;
-        }
-        if ((*it)->attack() == Game::Projectile::IProjectile::MISSED && !(destroyedMob && destroyedMob.get() == (*it)->getTarget().get())) {
-            _hp--;
-            destroyedMob = (*it)->getTarget();
-        }
+        (*it)->attack();
         (*it)->getMobToAttack(mobs);
     }
 }

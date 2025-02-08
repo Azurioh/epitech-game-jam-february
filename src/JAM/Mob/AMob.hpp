@@ -33,7 +33,9 @@ namespace Game {
                 void handleRotation(std::tuple<char, char> offset);
                 void initMobMovement(Map &map);
                 void moveMob(Map &map);
-                void drawMob(Vector2 position) const;
+                void drawMob() const;
+
+                bool isVisible(void) const;
 
 
             protected:

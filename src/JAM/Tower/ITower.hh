@@ -20,13 +20,12 @@ namespace Game {
                 ITower() {};
                 virtual ~ITower() = default;
 
-
                 virtual void draw() const = 0;
 
                 virtual std::tuple<std::size_t, std::size_t> getPosition(void) const = 0;
                 virtual unsigned int getCost(void) const = 0;
 
-                virtual Game::Projectile::IProjectile::AttackResultType attack(void) = 0;
+                virtual int attack(void) = 0;
                 virtual std::shared_ptr<Game::Projectile::IProjectile> getProjectile(void) = 0;
                 virtual std::shared_ptr<Game::Mob::IMob> getMobToAttack(std::vector<std::shared_ptr<Game::Mob::IMob>> mobs) = 0;
                 virtual std::shared_ptr<Game::Mob::IMob> getTarget(void) = 0;

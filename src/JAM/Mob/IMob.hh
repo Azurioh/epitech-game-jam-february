@@ -41,10 +41,13 @@ namespace Game {
                 virtual void handleRotation(std::tuple<char, char> offset) = 0;
                 virtual void initMobMovement(Map &map) = 0;
                 virtual void moveMob(Map &map) = 0;
-                virtual void drawMob(Vector2 position) const  = 0;
+                virtual void drawMob() const  = 0;
 
                 virtual Vector2 getPosition() const = 0;
                 virtual int getGold() const = 0;
+                virtual void setPosition(Vector2 pos) = 0;
+
+                virtual bool isVisible(void) const = 0;
 
             protected:
             private:
