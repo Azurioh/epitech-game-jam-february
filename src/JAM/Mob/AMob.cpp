@@ -84,7 +84,6 @@ void Game::Mob::AMob::handleRotation(std::tuple<char, char> offset)
     if (offsetY == 0 && offsetX == 1) {
         _rotation = 0;
     }
-    std::cout << _rotation << std::endl;
 }
 
 void Game::Mob::AMob::initMobMovement(Map &map)
