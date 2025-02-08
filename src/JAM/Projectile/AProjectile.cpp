@@ -1,9 +1,9 @@
 #include "AProjectile.hh"
 #include <iostream>
 
-Game::Projectile::AProjectile::AProjectile(std::tuple<unsigned int, unsigned int> position, std::tuple<unsigned int, unsigned int> targetPosition, float speed):
-	_position(position),
-	_targetPosition(targetPosition),
+Game::Projectile::AProjectile::AProjectile(std::tuple<std::size_t, std::size_t> towerPos, std::shared_ptr<Game::Mob::IMob> target, unsigned int speed):
+	_position(towerPos),
+	_target(target),
 	_speed(speed),
 	_attackStatus(TRACKING)
 {
@@ -14,11 +14,11 @@ void Game::Projectile::AProjectile::move()
 {
 	int x1 = std::get<0>(_position);
     int y1 = std::get<1>(_position);
-    int x2 = std::get<0>(_targetPosition);
-    int y2 = std::get<1>(_targetPosition);
+    int x2 = std::get<0>(_target->getPosition());
+    int y2 = std::get<1>(_target->getPosition());
     int dx = x2 - x1;
     int dy = y2 - y1;
-    float distance = std::sqrt(dx * dx + dy * dy);
+    float distance = std::sqrt(std::pow(dx, 2) + std::pow(dy, 2));
 	float ratio = _speed / distance;
 	int newX = x1 + dx * ratio;
     int newY = y1 + dy * ratio;
@@ -36,7 +36,6 @@ void Game::Projectile::AProjectile::move()
 		return;
     }
     _position = std::make_tuple(newX, newY);
-	_targetPosition = std::make_tuple(x2 + 3, y2);
 	_angle = _calculAngle();
 }
 
@@ -50,9 +49,9 @@ void Game::Projectile::AProjectile::draw(void) const
 		{0, 0}, _angle, WHITE);
 }
 
-std::tuple<unsigned int, unsigned int> Game::Projectile::AProjectile::getTargetPosition(void) const
+std::shared_ptr<Game::Mob::IMob>Game::Projectile::AProjectile::getTarget(void) const
 {
-	return _targetPosition;
+	return _target;
 }
 
 std::tuple<unsigned int, unsigned int> Game::Projectile::AProjectile::getPosition(void) const
@@ -75,9 +74,9 @@ Game::Projectile::IProjectile::AttackResultType Game::Projectile::AProjectile::g
 	return _attackStatus;
 }
 
-void Game::Projectile::AProjectile::setTargetPosition(std::tuple<unsigned int, unsigned int> position)
+void Game::Projectile::AProjectile::setTarget(std::shared_ptr<Game::Mob::IMob> target)
 {
-	_targetPosition = position;
+	_target = target;
 }
 
 void Game::Projectile::AProjectile::setPosition(std::tuple<unsigned int, unsigned int> position)
@@ -99,8 +98,8 @@ float Game::Projectile::AProjectile::_calculAngle(void) const
 {
 	int x1 = std::get<0>(_position);
     int y1 = std::get<1>(_position);
-    int x2 = std::get<0>(_targetPosition);
-    int y2 = std::get<1>(_targetPosition);
+    int x2 = std::get<0>(_target->getPosition());
+    int y2 = std::get<1>(_target->getPosition());
 
     double deltaX = static_cast<double>(x2 - x1);
     double deltaY = static_cast<double>(y2 - y1);

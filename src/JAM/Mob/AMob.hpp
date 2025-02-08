@@ -9,23 +9,33 @@
 #define AMOB_HH_
 #include "IMob.hh"
 
-class AMob : public Game::Mob::IMob {
-    public:
-        AMob() {};
-        virtual ~AMob() = default;
-        void setHp(int hp);
-        int getHp();
-        int getSpeed();
-        void setSpeed(int speed);
-        void setPos(int pos_x, int pos_y);
-        int takeDamage(int hp);
+namespace Game {
+    namespace Mob {
+        class AMob : public IMob {
+            public:
+                AMob(int hp = 1, int gold = 5);
+                virtual ~AMob() = default;
+                void setHp(int hp);
+                int getHp();
+                int getSpeed();
+                void setSpeed(int speed);
+                void setPos(int pos_x, int pos_y);
+                int takeDamage(int hp);
 
-    protected:
-        int _hp;
-        int _speed;
-        int _pos_x;
-        int _pos_y;
-    private:
-};
+                std::tuple<int, int> getPosition(void) const;
+                int getGold(void) const;
 
+                void setPosition(std::tuple<int, int> pos);
+                void setGold(int gold);
+
+            protected:
+                int _hp;
+                int _speed;
+                int _pos_x;
+                int _pos_y;
+                int _gold;
+            private:
+        };
+    }
+}
 #endif /* !AMOB_HH_ */

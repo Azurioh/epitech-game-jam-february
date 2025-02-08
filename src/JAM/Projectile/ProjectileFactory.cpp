@@ -16,7 +16,7 @@ Game::Projectile::ProjectileFactory::~ProjectileFactory()
 {
 }
 
-std::unique_ptr<Game::Projectile::IProjectile> Game::Projectile::ProjectileFactory::createArrow(std::tuple<unsigned int, unsigned int> position, std::tuple<unsigned int, unsigned int> targetPosition, float speed)
+std::unique_ptr<Game::Projectile::IProjectile> Game::Projectile::ProjectileFactory::createArrow(std::tuple<std::size_t, std::size_t> towerPos, std::shared_ptr<Game::Mob::IMob> target, unsigned int speed)
 {
-    return std::unique_ptr<Game::Projectile::Arrow>(new Game::Projectile::Arrow(position, targetPosition, speed));
+    return std::unique_ptr<Game::Projectile::Arrow>(new Game::Projectile::Arrow(towerPos, target, speed));
 }

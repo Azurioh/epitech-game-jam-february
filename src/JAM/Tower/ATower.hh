@@ -8,6 +8,7 @@
 #pragma once
 
 #include "ITower.hh"
+#include "../Projectile/ProjectileFactory.hh"
 #include <vector>
 
 namespace Game {
@@ -21,17 +22,22 @@ namespace Game {
                     unsigned int attackSpeed);
                 ~ATower();
 
+                void draw(void) const;
+
                 std::tuple<std::size_t, std::size_t> getPosition(void) const;
+                unsigned int getCost(void) const;
                 unsigned int getRangeSkill(void) const;
                 unsigned int getDamageSkill(void) const;
                 unsigned int getAttackSpeedSkill(void) const;
                 AttackType getAttackType(void) const;
+                std::shared_ptr<Game::Mob::IMob> getMobToAttack(std::vector<std::shared_ptr<Game::Mob::IMob>> mobs);
 
                 void setPosition(std::tuple<std::size_t, std::size_t> pos);
                 void setCost(unsigned int cost);
 
-                void attack(void);
+                Game::Projectile::IProjectile::AttackResultType attack(void);
                 void changeAttackType(void);
+                virtual std::unique_ptr<Game::Projectile::IProjectile> createProjectile(std::tuple<std::size_t, std::size_t> towerPos, std::shared_ptr<Game::Mob::IMob> target, unsigned int speed) = 0;
 
                 void setRangeSkill(unsigned int value);
                 void setDamageSkill(unsigned int value);
@@ -41,6 +47,14 @@ namespace Game {
                 void setRangeSkillPricing(std::vector<std::tuple<unsigned int, unsigned int>> &prices);
                 void setDamageSkillPricing(std::vector<std::tuple<unsigned int, unsigned int>> &prices);
                 void setAttackSpeedSkillPricing(std::vector<std::tuple<unsigned int, unsigned int>> &prices);
+
+                int getNextRangeSkillPricing(void) const;
+                int getNextDamageSkillPricing(void) const;
+                int getNextAttackSpeedSkillPricing(void) const;
+
+                void upgradeRangeSkill(void);
+                void upgradeDamageSkill(void);
+                void upgradeAttackSpeedSkill(void);
 
             protected:
                 std::tuple<std::size_t, std::size_t> _position;
@@ -58,6 +72,11 @@ namespace Game {
                 std::vector<std::tuple<unsigned int, unsigned int>> _attackSpeedSkillPricing;
 
                 AttackType _attackType;
+                std::shared_ptr<Game::Mob::IMob> _target;
+                std::unique_ptr<Game::Projectile::IProjectile> _projectile;
+
+                bool _mobIsClosest(Game::Mob::IMob *mob1, Game::Mob::IMob *mob2);
+
         };
     }
 }
