@@ -11,6 +11,7 @@
 #include <memory>
 #include "../Projectile/IProjectile.hh"
 #include "../Mob/IMob.hh"
+#include <vector>
 
 namespace Game {
     namespace Tower {
