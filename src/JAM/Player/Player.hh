@@ -8,6 +8,9 @@
 #pragma once
 
 #include <vector>
+#include <memory>
+#include <algorithm>
+
 #include "JAM/Tower/ITower.hh"
 
 namespace Game {

@@ -8,10 +8,12 @@
 #ifndef JAM_HPP_
 #define JAM_HPP_
 
+    #include <memory>
     #include <vector>
-    #include "Scenes/IScene.hh"
     #include <raylib.h>
     #include <memory>
+
+    #include "Scenes/IScene.hh"
 
     enum SceneType {
         MAIN_MENU,
