@@ -6,7 +6,7 @@
 */
 
 #include "SceneFactory.hh"
-#include "SettingsScene.hh"
+#include "SettingsScene/SettingsScene.hh"
 
 Game::SceneFactory::SceneFactory()
 {
