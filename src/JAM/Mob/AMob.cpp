@@ -7,7 +7,7 @@
 
 #include "AMob.hpp"
 
-Game::Mob::AMob::AMob(int hp, int gold): _hp(hp), _gold(gold)
+Game::Mob::AMob::AMob(int hp, int gold): _hp(hp), _gold(gold), _visible(true), _stopMoving(false)
 {
 }
 
@@ -33,18 +33,27 @@ void Game::Mob::AMob::setSpeed(int speed)
 
 int Game::Mob::AMob::takeDamage(int hp)
 {
-    return _hp -= hp;
+    _hp -= hp;
+    if (_hp <= 0) {
+        _stopMoving = true;
+        _visible = false;
+    }
 }
 
-void Game::Mob::AMob::drawMob(Vector2 position) const
+void Game::Mob::AMob::drawMob() const
 {
     DrawTexturePro(
 		_texture,
 		(Rectangle) {0, 0, (float)_texture.width, (float)_texture.height},
-		(Rectangle) {position.x, position.y, (float)_texture.width * _widthScale, (float)_texture.height * _heightScale},
+		(Rectangle) {_position.x, _position.y, (float)_texture.width * _widthScale, (float)_texture.height * _heightScale},
 		(Vector2) {((float)_texture.width * _widthScale) / 2, ((float)_texture.height * _heightScale) / 2},
 		_rotation, WHITE
 	);
+}
+
+bool Game::Mob::AMob::isVisible() const
+{
+    return _visible;
 }
 
 Vector2 Game::Mob::AMob::getPosition(void) const
@@ -130,7 +139,7 @@ void Game::Mob::AMob::moveMob(Map &map)
     if (_type == MOAB_RED_MOB || _type == MOAB_BLUE_MOB) {
         handleRotation(_offset);
     }
-    drawMob(_position);
+    drawMob();
 
     if (_time + 0.005 > GetTime() || _stopMoving) {
         return;
