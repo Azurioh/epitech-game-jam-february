@@ -20,10 +20,6 @@ namespace Game {
                 ITower() {};
                 virtual ~ITower() = default;
 
-                enum AttackType {
-                    FIRST,
-                    CLOSEST,
-                };
 
                 virtual void draw() const = 0;
 
@@ -32,7 +28,6 @@ namespace Game {
 
                 virtual Game::Projectile::IProjectile::AttackResultType attack(void) = 0;
                 virtual std::shared_ptr<Game::Projectile::IProjectile> getProjectile(void) = 0;
-                virtual void changeAttackType(void) = 0;
                 virtual std::shared_ptr<Game::Mob::IMob> getMobToAttack(std::vector<std::shared_ptr<Game::Mob::IMob>> mobs) = 0;
                 virtual std::shared_ptr<Game::Mob::IMob> getTarget(void) = 0;
                 virtual void toggleHitboxDisplay(void) = 0;

@@ -13,7 +13,7 @@ Game::Tower::ATower::ATower(std::tuple<std::size_t, std::size_t> position,
     unsigned int damage,
     unsigned int attackSpeed):
     _position(position), _cost(cost), _range(range), _damage(damage), _attackSpeed(attackSpeed),
-    _rangeSkill(0), _damageSkill(0), _attackSpeedSkill(0), _attackType(FIRST), _target(nullptr), _projectile(nullptr)
+    _rangeSkill(0), _damageSkill(0), _attackSpeedSkill(0), _target(nullptr), _projectile(nullptr)
 {
 }
 
@@ -25,13 +25,11 @@ void Game::Tower::ATower::draw(void) const
 {
     std::size_t posX = std::get<0>(_position);
     std::size_t posY = std::get<1>(_position);
-    unsigned int radius = _range;
 
-    DrawTexture(_towerTexture, posX, posY, WHITE);
     if (_displayHitbox) {
-        DrawCircle(posX + (float)(_towerTexture.width / 2), posY + (float)(_towerTexture.height / 2), radius, {255, 255, 255, 50});
+        DrawCircle(posX + (float)(_towerTexture.width / 2), posY + (float)(_towerTexture.height / 2), _range, {255, 255, 255, 50});
     }
-
+    DrawTexture(_towerTexture, posX, posY, WHITE);
     return;
 }
 
@@ -60,10 +58,6 @@ unsigned int Game::Tower::ATower::getAttackSpeedSkill(void) const
 	return _attackSpeedSkill;
 }
 
-Game::Tower::ITower::AttackType Game::Tower::ATower::getAttackType(void) const
-{
-	return _attackType;
-}
 
 std::shared_ptr<Game::Mob::IMob> Game::Tower::ATower::getMobToAttack(std::vector<std::shared_ptr<Game::Mob::IMob>> mobs)
 {
@@ -71,9 +65,6 @@ std::shared_ptr<Game::Mob::IMob> Game::Tower::ATower::getMobToAttack(std::vector
 
     if (mobs.size() == 0) {
         return mobToAttack;
-    }
-    if (_attackType == FIRST) {
-        return mobs[0];
     }
     for (auto it = mobs.begin(); it != mobs.end(); it++) {
         if (!mobToAttack) {
@@ -116,11 +107,6 @@ Game::Projectile::IProjectile::AttackResultType Game::Tower::ATower::attack(void
     return _projectile->getAttackStatus();
 }
 
-void Game::Tower::ATower::changeAttackType(void)
-{
-    _attackType = _attackType == FIRST ? CLOSEST : FIRST;
-}
-
 std::shared_ptr<Game::Projectile::IProjectile> Game::Tower::ATower::getProjectile(void)
 {
     return _projectile;
@@ -139,11 +125,6 @@ void Game::Tower::ATower::setDamageSkill(unsigned int value)
 void Game::Tower::ATower::setAttackSpeedSkill(unsigned int value)
 {
 	_attackSpeedSkill = value;
-}
-
-void Game::Tower::ATower::setAttackType(AttackType type)
-{
-	_attackType = type;
 }
 
 void Game::Tower::ATower::setRangeSkillPricing(std::vector<std::tuple<unsigned int, unsigned int>> &prices)
