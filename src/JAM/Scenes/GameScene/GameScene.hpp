@@ -17,7 +17,7 @@ namespace Game {
             GameScene();
             ~GameScene();
             void display();
-            void exec(std::size_t &currentScene);
+            void exec(std::size_t &currentScene, ...);
 
         protected:
         private:
