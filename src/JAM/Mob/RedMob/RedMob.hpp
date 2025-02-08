@@ -10,18 +10,15 @@
 
 #include "../AMob.hpp"
 
-namespace Game {
-    namespace Mob {
-        class RedMob : public Game::Mob::AMob {
-            public:
-                RedMob();
-                ~RedMob();
 
-            protected:
-            private:
-            int move_mob();
-        };
-    }
-}
+class RedMob : public Game::Mob::AMob {
+    public:
+        RedMob();
+        ~RedMob();
+
+    protected:
+    private:
+    int move_mob();
+};
 
 #endif /* !REDMOB_HPP_ */
