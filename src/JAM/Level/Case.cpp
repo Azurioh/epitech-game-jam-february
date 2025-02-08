@@ -55,7 +55,7 @@ void Case::drawCase(float scale, Vector2 pos)
 		_texture,
 		(Rectangle) {0, 0, (float)_texture.width, (float)_texture.height},
 		(Rectangle) {pos.x, pos.y, (float)_texture.width * scale, (float)_texture.height * scale},
-		(Vector2) {(float)_texture.width / 2, (float)_texture.height / 2},
+		(Vector2) {((float)_texture.width * scale) / 2, ((float)_texture.width * scale) / 2},
 		0, WHITE
 	);
 }

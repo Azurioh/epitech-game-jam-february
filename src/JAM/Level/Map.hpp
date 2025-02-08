@@ -22,12 +22,16 @@ class Map: public Case {
         Map(std::string filepath);
         ~Map();
 
+        std::vector<std::vector<std::shared_ptr<Case>>> getMap();
+        std::tuple<char, char> getStart();
+
         bool open(std::string filepath);
 
         std::tuple<char, char> findStart();
-        std::tuple<char, char> findPath(size_t y, size_t x);
-        bool isOffsetValid(std::tuple<char, char> &offset, char offsetY, char offsetX);
+        std::tuple<char, char> findPath(size_t y, size_t x, char value);
+        bool isOffsetValid(Vector2 &pos, char offsetY, char offsetX, unsigned char &value, bool change);
         void createPath();
+        std::tuple<char, char> getNextCase(Vector2 pos, char offsetY, char offsetX, unsigned char &value);
         void createMap();
 
         void drawMap();
@@ -37,8 +41,9 @@ class Map: public Case {
 
     protected:
     private:
-        std::vector<std::vector<std::unique_ptr<Case>>> _map;
+        std::vector<std::vector<std::shared_ptr<Case>>> _map;
         std::stringstream _buffer;
+        std::tuple<char, char> _start;
 };
 
 #endif /* !MAP_HPP_ */

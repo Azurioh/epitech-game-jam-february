@@ -12,6 +12,7 @@
 #include "../Projectile/ProjectileFactory.hh"
 #include <vector>
 #include <cmath>
+#include <tuple>
 
 namespace Game {
     namespace Tower {
