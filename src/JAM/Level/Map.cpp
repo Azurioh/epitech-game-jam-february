@@ -9,7 +9,7 @@
 
 Map::Map(std::string filepath)
 {
-    _map.resize(12);
+    _map.resize(13);
     for (auto it = _map.begin(); it != _map.end(); it++) {
         (*it).resize(27);
     }
@@ -165,5 +165,19 @@ void Map::displayMap()
             }
         }
         std::cout << std::endl;
+    }
+}
+
+void Map::drawMap()
+{
+    Vector2 pos = {200.0f, 200.0f};
+
+    for (auto lines_it = _map.begin(); lines_it != _map.end(); lines_it++) {
+        for (auto cols_it = (*lines_it).begin(); cols_it != (*lines_it).end(); cols_it++) {
+            (*cols_it)->drawCase(scale, pos);
+            pos.x += (*cols_it)->getTexture().width * scale;
+        }
+        pos.x = 200;
+        pos.y += (*(*lines_it).begin())->getTexture().height * scale;
     }
 }

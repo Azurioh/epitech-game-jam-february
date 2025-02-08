@@ -30,12 +30,15 @@ class Map: public Case {
         void createPath();
         void createMap();
 
+        void drawMap();
         void displayMap();
+
+        const float scale = 0.25f;
 
     protected:
     private:
-        std::stringstream _buffer;
         std::vector<std::vector<std::unique_ptr<Case>>> _map;
+        std::stringstream _buffer;
 };
 
 #endif /* !MAP_HPP_ */
