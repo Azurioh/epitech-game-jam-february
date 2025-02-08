@@ -18,6 +18,8 @@ class Buttons {
         void Display();
         void Event();
         bool isPressed();
+        void SetPosition(float x, float y, float spacing);
+        Rectangle GetSize();
 
     private:
         int _btnState;
