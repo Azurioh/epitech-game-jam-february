@@ -119,6 +119,7 @@ void Game::Mob::AMob::moveMob(Map &map)
         initMobMovement(map);
     }
     if (_nextPosition.x == -1 && _nextPosition.y == -1) {
+        map.addMobPassed();
         _visible = false;
         return;
     }
@@ -147,6 +148,7 @@ void Game::Mob::AMob::moveMob(Map &map)
 
     _offset = map.getNextCase(_mapPos, std::get<0>(_offset), std::get<1>(_offset), _mapValue);
     if (std::get<0>(_offset) == -1 && std::get<1>(_offset) == -1) {
+        map.addMobPassed();
         _visible = false;
         return;
     }
