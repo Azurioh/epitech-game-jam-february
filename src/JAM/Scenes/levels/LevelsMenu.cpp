@@ -7,20 +7,20 @@
 
 #include "LevelsMenu.hpp"
 
-LevelsPage::LevelsPage() : _selectedLevel(-1), _backgroundColor(LIME)
+Game::LevelsPage::LevelsPage() : _selectedLevel(-1), _backgroundColor(LIME)
 {
     LoadLevels();
     _backButtonArea = {10, 10, 100, 40};
 }
 
-LevelsPage::~LevelsPage()
+Game::LevelsPage::~LevelsPage()
 {
     for (auto& level : _levels) {
         UnloadTexture(level.image);
     }
 }
 
-void LevelsPage::LoadLevels()
+void Game::LevelsPage::LoadLevels()
 {
     for (size_t i = 0; i < _levelNames.size(); ++i) {
         _levels.push_back({
@@ -36,7 +36,7 @@ void LevelsPage::LoadLevels()
     }
 }
 
-void LevelsPage::Draw()
+void Game::LevelsPage::display()
 {
     ClearBackground(_backgroundColor);
 
@@ -52,13 +52,13 @@ void LevelsPage::Draw()
     }
 }
 
-void LevelsPage::Update()
+void Game::LevelsPage::exec(std::size_t &currentScene)
 {
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         Vector2 mousePos = GetMousePosition();
 
         if (CheckCollisionPointRec(mousePos, _backButtonArea)) {
-            // mettre le moyen de retour ici
+            currentScene = MAIN_MENU;
         }
 
         for (size_t i = 0; i < _levels.size(); ++i) {
@@ -69,23 +69,23 @@ void LevelsPage::Update()
     }
 }
 
-int LevelsPage::GetSelectedLevel() const
+int Game::LevelsPage::GetSelectedLevel() const
 {
     return _selectedLevel;
 }
 
-bool LevelsPage::BackButtonPressed() const
+bool Game::LevelsPage::BackButtonPressed() const
 {
     Vector2 mousePos = GetMousePosition();
     return CheckCollisionPointRec(mousePos, _backButtonArea) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON);
 }
 
-void Level::SetTextureScale(float x, float y)
+void Game::Level::SetTextureScale(float x, float y)
 {
     scale = {x, y};
 }
 
-void Level::Draw() const
+void Game::Level::Draw() const
 {
     DrawTextureEx(image, {area.x, area.y}, 0.0f, scale.x, WHITE);
     DrawText(name.c_str(), area.x + 10, area.y + area.height + 10, 20, BLACK);

@@ -8,48 +8,51 @@
 #ifndef LEVELS_HPP
     #define LEVELS_HPP
 
-#include <raylib.h>
-#include <vector>
-#include <string>
+    #include <raylib.h>
+    #include <vector>
+    #include <string>
+    #include "../IScene.hh"
+    #include "JAM/JAM.hpp"
 
-struct Level {
-    std::string name;
-    Texture2D image;
-    Rectangle area;
-    Vector2 scale;
+namespace Game {
+    struct Level {
+        std::string name;
+        Texture2D image;
+        Rectangle area;
+        Vector2 scale;
 
-    void SetTextureScale(float x, float y);
-    void Draw() const;
-};
+        void SetTextureScale(float x, float y);
+        void Draw() const;
+    };
 
-class LevelsPage {
-    public:
-        LevelsPage();
-        ~LevelsPage();
-        void LoadLevels();
-        void Draw();
-        void Update();
+    class LevelsPage : public Game::IScene {
+        public:
+            LevelsPage();
+            ~LevelsPage();
+            void LoadLevels();
+            void display();
+            void exec(std::size_t &currentScene);
 
-        int GetSelectedLevel() const;
+            int GetSelectedLevel() const;
 
-        bool BackButtonPressed() const;
+            bool BackButtonPressed() const;
 
-    private:
-        std::vector<Level> _levels;
-        int _selectedLevel;
-        Color _backgroundColor;
-        Rectangle _backButtonArea;
+        private:
+            std::vector<Level> _levels;
+            int _selectedLevel;
+            Color _backgroundColor;
+            Rectangle _backButtonArea;
 
-        std::vector<std::string> _levelNames = {
-            "Level 1", "Level 2", "Level 3", "Level 4", "Level 5",
-            "Level 6", "Level 7", "Level 8", "Level 9"
-        };
+            std::vector<std::string> _levelNames = {
+                "Level 1", "Level 2", "Level 3", "Level 4", "Level 5",
+                "Level 6", "Level 7", "Level 8", "Level 9"
+            };
 
-        std::vector<Rectangle> _levelAreas = {
-            {50, 70, 200, 100}, {50, 345, 200, 100}, {50, 620, 200, 100},
-            {540, 70, 200, 100}, {540, 345, 200, 100}, {540, 620, 200, 100},
-            {1030, 70, 200, 100}, {1030, 345, 200, 100}, {1030, 620, 200, 100}
-        };
-};
-
+            std::vector<Rectangle> _levelAreas = {
+                {50, 70, 200, 100}, {50, 345, 200, 100}, {50, 620, 200, 100},
+                {540, 70, 200, 100}, {540, 345, 200, 100}, {540, 620, 200, 100},
+                {1030, 70, 200, 100}, {1030, 345, 200, 100}, {1030, 620, 200, 100}
+            };
+    };
+}
 #endif // LEVELS_HPP

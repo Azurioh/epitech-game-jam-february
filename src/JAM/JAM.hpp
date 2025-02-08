@@ -17,6 +17,7 @@
 
     enum SceneType {
         MAIN_MENU,
+        LEVELS_SCENE,
         SETTINGS_SCENE,
     };
 

@@ -19,3 +19,8 @@ std::unique_ptr<Game::IScene> Game::SceneFactory::createMainMenu()
 {
     return std::unique_ptr<Game::MainMenu>(new Game::MainMenu);
 }
+
+std::unique_ptr<Game::IScene> Game::SceneFactory::createLevels()
+{
+    return std::unique_ptr<Game::LevelsPage>(new Game::LevelsPage);
+}
