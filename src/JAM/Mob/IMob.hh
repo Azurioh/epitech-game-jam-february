@@ -16,6 +16,7 @@ namespace Game {
                 IMob() {};
                 ~IMob() {};
                 virtual int move_mob() = 0;
+                virtual void drawMob() = 0;
 
             protected:
             private:

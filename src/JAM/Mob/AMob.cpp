@@ -37,3 +37,13 @@ int AMob::takeDamage(int hp)
 {
     return _hp -= hp;
 }
+
+void AMob::draw(void) const
+{
+    float posX = std::get<0>(_position);
+	float posY = std::get<1>(_position);
+	DrawTexturePro(_mobTexture, {0, 0,
+		(float)_mobTexture.width, (float)_mobTexture.height},
+		{posX, posY, 100, 100},
+        {0, 0}, _speed, WHITE);
+}
