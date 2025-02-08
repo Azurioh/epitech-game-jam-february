@@ -25,7 +25,7 @@ void LevelsPage::LoadLevels()
     for (size_t i = 0; i < _levelNames.size(); ++i) {
         _levels.push_back({
             _levelNames[i],
-            LoadTexture("src/asset/levels/default-featured-image.jpg"),
+            LoadTexture("asset/levels/default-featured-image.jpg"),
             _levelAreas[i],
             {1.0f, 1.0f}
         });
