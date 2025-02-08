@@ -36,3 +36,8 @@ std::unique_ptr<Game::Tower::ITower> Game::Tower::TowerFactory::createDamageTowe
 {
     return std::unique_ptr<DamageTower>(new Game::Tower::DamageTower(pos));
 }
+
+std::unique_ptr<Game::Tower::ITower> Game::Tower::TowerFactory::createFakeTower(std::tuple<std::size_t, std::size_t> pos)
+{
+    return std::unique_ptr<FakeTower>(new Game::Tower::FakeTower(pos));
+}
