@@ -12,7 +12,7 @@
 class AMob : public Game::Mob::IMob {
     public:
         AMob() {};
-        ~AMob() {};
+        virtual ~AMob() = default;
         void setHp(int hp);
         int getHp();
         int getSpeed();
