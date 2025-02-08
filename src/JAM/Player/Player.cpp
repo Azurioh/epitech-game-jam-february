@@ -10,6 +10,8 @@
 
 Game::Player::Player()
 {
+    _hp = 100;
+    _golds = 100;
 }
 
 Game::Player::~Player()

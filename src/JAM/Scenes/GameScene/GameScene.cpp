@@ -17,6 +17,10 @@ Game::GameScene::GameScene()
     _coin = LoadTextureFromImage(coinImg);
     Image baordImg = LoadImage("asset/gameUI/test.png");
     _board = LoadTextureFromImage(baordImg);
+
+    _player = std::unique_ptr<Player>(new Player());
+    _hp = _player->getHP();
+    _gold = _player->getGolds();
 }
 
 Game::GameScene::~GameScene()
