@@ -7,9 +7,10 @@
 
 #pragma once
 
-    #include "../Level/Map.hpp"
-    
+#include "../Level/Map.hpp"
+
 #include <tuple>
+#include <math.h>
 
 namespace Game {
     namespace Mob {
@@ -24,7 +25,8 @@ namespace Game {
                 virtual void setSpeed(int speed) = 0;
                 virtual int takeDamage(int hp) = 0;
 
-                virtual void move_mob(Map &map) = 0;
+                virtual void initMobMovement(Map &map) = 0;
+                virtual void moveMobb(Map &map) = 0;
                 virtual void drawMob(Vector2 position) const  = 0;
 
                 virtual Vector2 getPosition() const = 0;

@@ -17,7 +17,7 @@ class BlueMob : public Game::Mob::AMob {
 
     protected:
     private:
-    void move_mob(Map &map);
+    void moveMobb(Map &map);
 
 };
 

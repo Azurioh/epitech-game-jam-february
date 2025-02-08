@@ -18,7 +18,7 @@ class RedMob : public Game::Mob::AMob {
 
     protected:
     private:
-    void move_mob(Map &map);
+    void moveMobb(Map &map);
 };
 
 #endif /* !REDMOB_HPP_ */

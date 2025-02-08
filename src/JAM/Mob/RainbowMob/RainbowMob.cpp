@@ -15,7 +15,7 @@ RainbowMob::~RainbowMob()
 {
 }
 
-void RainbowMob::move_mob(Map &map)
+void RainbowMob::moveMobb(Map &map)
 {
     (void)map;
 }

@@ -30,6 +30,7 @@ namespace Game {
                 void setPosition(Vector2 pos);
                 void setGold(int gold);
 
+                void initMobMovement(Map &map) { (void)map; };
                 void moveMob(Map &map);
                 void drawMob(Vector2 position) const;
 
@@ -37,7 +38,7 @@ namespace Game {
 
             protected:
                 int _hp;
-                int _speed;
+                float _speed;
                 int _gold;
 
                 Vector2 _position;
@@ -45,9 +46,14 @@ namespace Game {
 
                 std::tuple<char, char> _offset;
                 Vector2 _mapPos;
+                Vector2 _nextPosition;
                 unsigned char _mapValue;
 
+                double _time;
+
                 bool _visible;
+                bool _stopMoving;
+
             private:
         };
     }

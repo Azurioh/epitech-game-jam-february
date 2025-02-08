@@ -15,7 +15,7 @@ BlackMob::~BlackMob()
 {
 }
 
-void BlackMob::move_mob(Map &map)
+void BlackMob::moveMobb(Map &map)
 {
     (void)map;
 }

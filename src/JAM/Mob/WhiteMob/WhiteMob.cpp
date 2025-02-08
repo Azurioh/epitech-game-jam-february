@@ -15,7 +15,7 @@ WhiteMob::~WhiteMob()
 {
 }
 
-void WhiteMob::move_mob(Map &map)
+void WhiteMob::moveMobb(Map &map)
 {
     (void)map;
 }
