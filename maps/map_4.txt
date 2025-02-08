@@ -1,0 +1,13 @@
+...........................
+...........................
+..xxxxxxxxxxxxxxxxxxxxxxx..
+..x.....................x..
+..x.xxxxxxxxxxxxxxxxxxx.x..
+..x.x.................x.x..
+..x.xxxxxxxxxxxxxxxxxxxxxxx
+..x...................x.x..
+..xxxxxxxxxxxxxxxxxxxxx.x..
+........................x..
+.............xxxxxxxxxxxx..
+.............x.............
+.............S.............

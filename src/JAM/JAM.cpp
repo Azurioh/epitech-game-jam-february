@@ -31,6 +31,7 @@ void JAM::gameLoop()
 {
     while (!WindowShouldClose()) {
         _scenes[_currentScene]->exec(_currentScene);
+        ClearBackground(BLACK);
         BeginDrawing();
         _scenes[_currentScene]->display();
         EndDrawing();

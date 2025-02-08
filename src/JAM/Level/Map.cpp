@@ -16,6 +16,7 @@ Map::Map(std::string filepath)
     if (!open(filepath)) {
         throw std::exception();
     }
+    _mobPassed = 0;
 }
 
 Map::~Map()
@@ -45,6 +46,16 @@ bool Map::open(std::string filepath)
     return true;
 }
 
+size_t Map::getMobPassed()
+{
+	return _mobPassed;
+}
+
+void Map::addMobPassed()
+{
+	_mobPassed += 1;
+}
+
 /* Map handling */
 
 std::tuple<char, char> Map::findStart()
@@ -67,10 +78,10 @@ std::tuple<char, char> Map::findPath(size_t y, size_t x, char value)
     if (x > 0 && (*_map[y][x - 1]).getValue() == value) { // Check left
         return std::make_tuple(0, -1);
     }
-    if (y < _map.size() && (*_map[y + 1][x]).getValue() == value) { // Check bottom
+    if (y + 1 < _map.size() && (*_map[y + 1][x]).getValue() == value) { // Check bottom
         return std::make_tuple(1, 0);
     }
-    if (x < _map[0].size() && (*_map[y][x + 1]).getValue() == value) { // Check right
+    if (x + 1 < _map[0].size() && (*_map[y][x + 1]).getValue() == value) { // Check right
         return std::make_tuple(0, 1);
     }
     return std::make_tuple(-1, -1);
