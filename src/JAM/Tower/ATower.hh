@@ -32,7 +32,6 @@ namespace Game {
                 unsigned int getRangeSkill(void) const;
                 unsigned int getDamageSkill(void) const;
                 unsigned int getAttackSpeedSkill(void) const;
-                AttackType getAttackType(void) const;
                 std::shared_ptr<Game::Mob::IMob> getMobToAttack(std::vector<std::shared_ptr<Game::Mob::IMob>> mobs);
                 std::shared_ptr<Game::Mob::IMob> getTarget(void);
                 void toggleHitboxDisplay(void);
@@ -41,14 +40,12 @@ namespace Game {
                 void setCost(unsigned int cost);
 
                 Game::Projectile::IProjectile::AttackResultType attack(void);
-                void changeAttackType(void);
                 std::shared_ptr<Game::Projectile::IProjectile> getProjectile(void);
                 virtual std::unique_ptr<Game::Projectile::IProjectile> createProjectile(std::tuple<std::size_t, std::size_t> towerPos, std::shared_ptr<Game::Mob::IMob> target, unsigned int speed) = 0;
 
                 void setRangeSkill(unsigned int value);
                 void setDamageSkill(unsigned int value);
                 void setAttackSpeedSkill(unsigned int value);
-                void setAttackType(AttackType type);
 
                 void setRangeSkillPricing(std::vector<std::tuple<unsigned int, unsigned int>> &prices);
                 void setDamageSkillPricing(std::vector<std::tuple<unsigned int, unsigned int>> &prices);
@@ -79,7 +76,6 @@ namespace Game {
                 std::vector<std::tuple<unsigned int, unsigned int>> _damageSkillPricing;
                 std::vector<std::tuple<unsigned int, unsigned int>> _attackSpeedSkillPricing;
 
-                AttackType _attackType;
                 std::shared_ptr<Game::Mob::IMob> _target;
                 std::shared_ptr<Game::Projectile::IProjectile> _projectile;
 

@@ -27,7 +27,8 @@
         LEVEL_SEVEN_SCENE,
         LEVEL_EIGHT_SCENE,
         LEVEL_NINE_SCENE,
-        SETTINGS_SCENE
+        SETTINGS_SCENE,
+        GAME_SCENE
     };
 
 class JAM {
