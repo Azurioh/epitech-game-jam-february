@@ -27,6 +27,12 @@ Build the game
   cmake --build .
 ```
 
+or
+
+```bash
+  ./build.sh
+```
+
 And after, you can run it with:
 ```bash
     ./BloonsIllusionTowerDefense7+PremiumDeluxeDefinitiveEditionCollectorReloaded
