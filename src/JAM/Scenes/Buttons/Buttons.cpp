@@ -6,6 +6,7 @@
 */
 
 #include "Buttons.hh"
+#include <iostream>
 
 Buttons::Buttons(std::string text, std::string assetPath, float x, float y, int textSize):
     _btnState(0), _btnAction(false), _text(text), _textSize(textSize)
@@ -16,6 +17,17 @@ Buttons::Buttons(std::string text, std::string assetPath, float x, float y, int 
     _btnBounds = {x, y, (float)_button.width, _frameHeight};
 }
 
+void Buttons::SetPosition(float x, float y, float spacing)
+{
+    _btnBounds.x = x - (_btnBounds.width / 2);
+    _btnBounds.y = y + spacing;
+}
+
+Rectangle Buttons::GetSize()
+{
+    return _btnBounds;
+}
+
 void Buttons::Display()
 {
     float textPosX = _btnBounds.x + (_btnBounds.width - MeasureText(_text.c_str(), _textSize)) / 2;
@@ -23,7 +35,7 @@ void Buttons::Display()
 
     _sourceRec.y = _btnState * _frameHeight;
     DrawTextureRec(_button, _sourceRec, {_btnBounds.x, _btnBounds.y}, RAYWHITE);
-    DrawText(_text.c_str(), textPosX, textPosY, 2, BLACK);
+    DrawText(_text.c_str(), textPosX, textPosY, _textSize, WHITE);
 }
 
 void Buttons::Event()

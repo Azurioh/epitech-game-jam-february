@@ -7,6 +7,7 @@
 
 #include "SceneFactory.hh"
 #include "LevelsScenes/LevelScene.hpp"
+#include "SettingsScene/SettingsScene.hh"
 
 Game::SceneFactory::SceneFactory()
 {
@@ -19,6 +20,11 @@ Game::SceneFactory::~SceneFactory()
 std::unique_ptr<Game::IScene> Game::SceneFactory::createMainMenu()
 {
     return std::unique_ptr<Game::MainMenu>(new Game::MainMenu);
+}
+
+std::unique_ptr<Game::IScene> Game::SceneFactory::SettingsScene()
+{
+    return std::unique_ptr<Game::SettingsScene>(new Game::SettingsScene);
 }
 
 std::unique_ptr<Game::IScene> Game::SceneFactory::createLevels()

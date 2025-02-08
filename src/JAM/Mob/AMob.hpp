@@ -8,6 +8,9 @@
 #ifndef AMOB_HH_
 #define AMOB_HH_
 #include "IMob.hh"
+#include <raylib.h>
+#include <tuple>
+
 
 namespace Game {
     namespace Mob {
@@ -28,12 +31,14 @@ namespace Game {
                 void setPosition(std::tuple<int, int> pos);
                 void setGold(int gold);
 
+                void drawMob(void) const;
+
             protected:
                 int _hp;
                 int _speed;
-                int _pos_x;
-                int _pos_y;
                 int _gold;
+                std::tuple<unsigned int, unsigned int> _position;
+                Texture2D _mobTexture;
             private:
         };
     }
