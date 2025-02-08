@@ -18,7 +18,16 @@
     enum SceneType {
         MAIN_MENU,
         LEVELS_SCENE,
-        SETTINGS_SCENE,
+        LEVEL_ONE_SCENE,
+        LEVEL_TWO_SCENE,
+        LEVEL_THREE_SCENE,
+        LEVEL_FOUR_SCENE,
+        LEVEL_FIVE_SCENE,
+        LEVEL_SIX_SCENE,
+        LEVEL_SEVEN_SCENE,
+        LEVEL_EIGHT_SCENE,
+        LEVEL_NINE_SCENE,
+        SETTINGS_SCENE
     };
 
 class JAM {

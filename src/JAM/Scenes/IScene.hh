@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <cstddef>
 namespace Game {
     class IScene {
         public:

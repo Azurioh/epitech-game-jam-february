@@ -9,7 +9,7 @@
 
     #include <memory>
     #include "MainMenu/MainMenu.hpp"
-    #include "levels/LevelsMenu.hpp"
+    #include "Levels/LevelsMenu.hpp"
 
 namespace Game {
     class SceneFactory {
@@ -18,5 +18,6 @@ namespace Game {
             ~SceneFactory();
             static std::unique_ptr<Game::IScene>createMainMenu();
             static std::unique_ptr<Game::IScene>createLevels();
+            static std::unique_ptr<Game::IScene> createLevelScene(int levelNumber);
     };
 }
