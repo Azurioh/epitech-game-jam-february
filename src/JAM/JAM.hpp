@@ -11,9 +11,13 @@
     #include <vector>
     #include "Scenes/IScene.hh"
     #include <raylib.h>
+    #include <memory>
+    #include "SettingsScene/SettingsScene.hh"
+
 
     enum SceneType {
-        MAIN_MENU
+        MAIN_MENU,
+        SETTINGS_SCENE,
     };
 
 class JAM {
