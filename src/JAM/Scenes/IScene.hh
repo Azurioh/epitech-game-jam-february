@@ -7,6 +7,8 @@
 
 #pragma once
 
+    #include <iostream>
+
 namespace Game {
     class IScene {
         public:

@@ -22,6 +22,7 @@ Game::SettingsScene::~SettingsScene()
 
 void Game::SettingsScene::exec(std::size_t &currentScene)
 {
+    (void)currentScene;
     _returnButton.Event();
     return;
 }
