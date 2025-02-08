@@ -22,7 +22,7 @@ void Buttons::Display()
     float textPosX = _btnBounds.x + (_btnBounds.width - MeasureText(_text.c_str(), _textSize)) / 2;
     float textPosY = _btnBounds.y + (_btnBounds.height - MeasureTextEx(GetFontDefault(), _text.c_str(), _textSize, 0).y) / 2;
 
-    _btnBounds = {(float)GetScreenWidth() / (float)2. - _btnBounds.width / 2, (float)GetScreenHeight() / (float)2. - _btnBounds.height / 2, float(_button.width), _frameHeight};
+    _btnBounds = {(float)GetScreenWidth() / (float)2. - _btnBounds.width / 2, _btnBounds.y, float(_button.width), _frameHeight};
     _sourceRec.y = _btnState * _frameHeight;
     DrawTextureRec(_button, _sourceRec, {_btnBounds.x, _btnBounds.y}, RAYWHITE);
     DrawText(_text.c_str(), textPosX, textPosY, _textSize, WHITE);
