@@ -119,7 +119,7 @@ int Game::Tower::ATower::attack(void)
         return 0;
     }
     if (!_projectile || _projectile.get() == nullptr) {
-        _projectile = std::move(createProjectile(_position, _target, _attackSpeed));
+        _projectile = createProjectile(_position, _target, _attackSpeed);
         return 0;
     }
     attackType = _projectile->getAttackStatus();
