@@ -6,6 +6,7 @@
 */
 
 #include "Player.hh"
+#include <algorithm>
 
 Game::Player::Player()
 {
