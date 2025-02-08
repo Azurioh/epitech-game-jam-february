@@ -5,10 +5,11 @@
 ** IMob
 */
 
-#ifndef IMOB_HH_
-#define IMOB_HH_
+#pragma once
 
     #include "../Level/Map.hpp"
+    
+#include <tuple>
 
 namespace Game {
     namespace Mob {
@@ -24,11 +25,13 @@ namespace Game {
                 virtual int takeDamage(int hp) = 0;
 
                 virtual void move_mob(Map &map) = 0;
+                virtual void drawMob(Vector2 position) const  = 0;
+
+                virtual Vector2 getPosition() const = 0;
+                virtual int getGold() const = 0;
 
             protected:
             private:
         };
     }
 }
-
-#endif /* !IMOB_HH_ */

@@ -7,43 +7,49 @@
 
 #ifndef AMOB_HH_
 #define AMOB_HH_
+#include "IMob.hh"
+#include <raylib.h>
+#include <tuple>
 
-    #include <raylib.h>
 
-    #include "IMob.hh"
-    #include "../Level/Map.hpp"
+namespace Game {
+    namespace Mob {
+        class AMob : public IMob {
+            public:
+                AMob(int hp = 1, int gold = 5);
+                virtual ~AMob() = default;
+                void setHp(int hp);
+                int getHp();
+                int getSpeed();
+                void setSpeed(int speed);
+                int takeDamage(int hp);
 
-class AMob : public Game::Mob::IMob {
-    public:
-        AMob() {};
-        ~AMob() {};
+                Vector2 getPosition(void) const;
+                int getGold(void) const;
 
-        void setHp(int hp);
-        int getHp();
-        int getSpeed();
-        void setSpeed(int speed);
-        int takeDamage(int hp);
+                void setPosition(Vector2 pos);
+                void setGold(int gold);
 
-        void moveMob(Map &map);
+                void moveMob(Map &map);
+                void drawMob(Vector2 position) const;
 
-        void drawMob(Vector2 position);
+                const float scale = 0.7f;
 
-        const float scale = 0.7;
+            protected:
+                int _hp;
+                int _speed;
+                int _gold;
 
-    protected:
-        int _hp;
-        int _speed;
+                Vector2 _position;
+                Texture2D _texture;
 
-        Texture2D _texture;
-        Vector2 _position;
+                std::tuple<char, char> _offset;
+                Vector2 _mapPos;
+                unsigned char _mapValue;
 
-        std::tuple<char, char> _offset;
-        Vector2 _mapPos;
-        unsigned char _mapValue;
-
-        bool _visible;
-
-    private:
-};
-
+                bool _visible;
+            private:
+        };
+    }
+}
 #endif /* !AMOB_HH_ */

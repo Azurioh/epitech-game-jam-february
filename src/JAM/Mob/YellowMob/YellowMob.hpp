@@ -12,7 +12,7 @@
 
 #include "../AMob.hpp"
 
-class YellowMob : public AMob{
+class YellowMob : public Game::Mob::AMob {
     public:
         YellowMob();
         ~YellowMob();

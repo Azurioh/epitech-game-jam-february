@@ -9,6 +9,7 @@
 
 #include <memory>
 #include "IProjectile.hh"
+#include "../Mob/IMob.hh"
 
 namespace Game {
     namespace Projectile {
@@ -17,7 +18,7 @@ namespace Game {
                 ProjectileFactory();
                 ~ProjectileFactory();
 
-                static std::unique_ptr<Game::Projectile::IProjectile> createArrow(std::tuple<unsigned int, unsigned int> position, std::tuple<unsigned int, unsigned int> targetPosition, float speed);
+                static std::unique_ptr<Game::Projectile::IProjectile> createArrow(std::tuple<std::size_t, std::size_t> towerPos, std::shared_ptr<Game::Mob::IMob> target, unsigned int speed);
         };
     }
 }

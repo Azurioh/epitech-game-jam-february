@@ -6,7 +6,7 @@
 */
 
 #include "JAM.hpp"
-#include "JAM/Scenes/SceneFactory.hh"
+#include "Scenes/SceneFactory.hh"
 
 JAM::JAM(): _currentScene(MAIN_MENU)
 {
@@ -14,6 +14,7 @@ JAM::JAM(): _currentScene(MAIN_MENU)
     SetWindowState(FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_MAXIMIZED);
     SetTargetFPS(60);
     _scenes.push_back(Game::SceneFactory::createMainMenu());
+    _scenes.push_back(Game::SceneFactory::createLevels());
     gameLoop();
 }
 
@@ -25,7 +26,7 @@ JAM::~JAM()
 void JAM::gameLoop()
 {
     while (!WindowShouldClose()) {
-        _scenes[_currentScene]->exec();
+        _scenes[_currentScene]->exec(_currentScene);
         BeginDrawing();
         _scenes[_currentScene]->display();
         EndDrawing();

@@ -1,28 +1,57 @@
 #include "AProjectile.hh"
+#include <iostream>
 
-Game::Projectile::AProjectile::AProjectile(std::tuple<unsigned int, unsigned int> position, std::tuple<unsigned int, unsigned int> targetPosition, float speed):
-	_position(position),
-	_targetPosition(targetPosition),
+Game::Projectile::AProjectile::AProjectile(std::tuple<std::size_t, std::size_t> towerPos, std::shared_ptr<Game::Mob::IMob> target, unsigned int speed):
+	_position(towerPos),
+	_target(target),
 	_speed(speed),
-	_targetDestroyed(false)
+	_attackStatus(TRACKING)
 {
 	_angle = _calculAngle();
 }
 
-void Game::Projectile::AProjectile::move(std::tuple<unsigned int, unsigned int> const direction)
+void Game::Projectile::AProjectile::move()
 {
-	(void) direction;
-	return;
+	int x1 = std::get<0>(_position);
+    int y1 = std::get<1>(_position);
+    int x2 = _target->getPosition().x;
+    int y2 = _target->getPosition().y;
+    int dx = x2 - x1;
+    int dy = y2 - y1;
+    float distance = std::sqrt(std::pow(dx, 2) + std::pow(dy, 2));
+	float ratio = _speed / distance;
+	int newX = x1 + dx * ratio;
+    int newY = y1 + dy * ratio;
+
+	if (y1 + dy * ratio > 0 && y1 + dy * ratio < 1) {
+		newY = 1;
+	}
+
+	if (x2 < 0 || y2 < 0 || x2 > GetScreenWidth() || y2 > GetScreenHeight()) {
+		_attackStatus = MISSED;
+		return;
+	}
+    if (distance <= _speed || distance == 0) {
+		_attackStatus = HIT;
+		return;
+    }
+    _position = std::make_tuple(newX, newY);
+	_angle = _calculAngle();
 }
 
 void Game::Projectile::AProjectile::draw(void) const
 {
-	return;
+	float posX = std::get<0>(_position);
+	float posY = std::get<1>(_position);
+	DrawTexturePro(_arrowTexture, {0, 0,
+		(float)_arrowTexture.width, (float)_arrowTexture.height},
+		{posX, posY, 100, 100},
+		{0, 0}, _angle, WHITE);
 }
 
-std::tuple<unsigned int, unsigned int> Game::Projectile::AProjectile::getTargetPosition(void) const
+std::shared_ptr<Game::Mob::IMob>Game::Projectile::AProjectile::getTarget(void) const
 {
-	return _targetPosition;
+	return _target;
 }
 
 std::tuple<unsigned int, unsigned int> Game::Projectile::AProjectile::getPosition(void) const
@@ -40,14 +69,14 @@ float Game::Projectile::AProjectile::getSpeed(void) const
 	return _speed;
 }
 
-bool Game::Projectile::AProjectile::isTargetDestroyed(void) const
+Game::Projectile::IProjectile::AttackResultType Game::Projectile::AProjectile::getAttackStatus(void) const
 {
-	return _targetDestroyed;
+	return _attackStatus;
 }
 
-void Game::Projectile::AProjectile::setTargetPosition(std::tuple<unsigned int, unsigned int> position)
+void Game::Projectile::AProjectile::setTarget(std::shared_ptr<Game::Mob::IMob> target)
 {
-	_targetPosition = position;
+	_target = target;
 }
 
 void Game::Projectile::AProjectile::setPosition(std::tuple<unsigned int, unsigned int> position)
@@ -65,20 +94,20 @@ void Game::Projectile::AProjectile::setSpeed(float speed)
 	_speed = speed;
 }
 
-void Game::Projectile::AProjectile::setTargetDestroyed(bool destroyed)
-{
-	_targetDestroyed = destroyed;
-}
-
 float Game::Projectile::AProjectile::_calculAngle(void) const
 {
 	int x1 = std::get<0>(_position);
     int y1 = std::get<1>(_position);
-    int x2 = std::get<0>(_targetPosition);
-    int y2 = std::get<1>(_targetPosition);
+    int x2 = _target->getPosition().x;
+    int y2 = _target->getPosition().y;
 
-    double deltaX = static_cast<float>(x2) - static_cast<float>(x1);
-    double deltaY = static_cast<float>(y2) - static_cast<float>(y1);
+    double deltaX = static_cast<double>(x2 - x1);
+    double deltaY = static_cast<double>(y2 - y1);
 
-    return std::atan2(deltaY, deltaX);
+    double angleRad = std::atan2(deltaY, deltaX);
+    double angleDeg = angleRad * (180.0 / PI);
+
+	std::cout << "NEW ANGLE: " << angleDeg << std::endl;
+
+    return static_cast<float>(angleDeg);
 }

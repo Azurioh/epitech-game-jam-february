@@ -13,8 +13,17 @@ namespace Game {
     namespace Projectile {
         class IProjectile {
             public:
-                virtual void move(std::tuple<unsigned int, unsigned int> const direction) = 0;
+                enum AttackResultType {
+                    TRACKING,
+                    HIT,
+                    MISSED
+                };
+
+                IProjectile() = default;
+                virtual ~IProjectile() = default;
+                virtual void move() = 0;
                 virtual void draw(void) const = 0;
+                virtual AttackResultType getAttackStatus(void) const = 0;
         };
     }
 }

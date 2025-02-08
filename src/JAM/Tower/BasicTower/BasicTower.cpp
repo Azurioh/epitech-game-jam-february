@@ -22,3 +22,8 @@ Game::Tower::BasicTower::BasicTower(std::tuple<std::size_t, std::size_t> positio
 Game::Tower::BasicTower::~BasicTower()
 {
 }
+
+std::unique_ptr<Game::Projectile::IProjectile> Game::Tower::BasicTower::createProjectile(std::tuple<std::size_t, std::size_t> towerPos, std::shared_ptr<Game::Mob::IMob> target, unsigned int speed)
+{
+    return Game::Projectile::ProjectileFactory::createArrow(towerPos, target, speed);
+}

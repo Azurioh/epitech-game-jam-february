@@ -13,7 +13,7 @@ namespace Game {
             IScene() = default;
             virtual ~IScene() = default;
 
-            virtual void exec(void) = 0;
+            virtual void exec(std::size_t &currentScene) = 0;
             virtual void display(void) = 0;
     };
 }

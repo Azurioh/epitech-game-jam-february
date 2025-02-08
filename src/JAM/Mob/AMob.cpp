@@ -7,32 +7,36 @@
 
 #include "AMob.hpp"
 
-void AMob::setHp(int hp)
+Game::Mob::AMob::AMob(int hp, int gold): _hp(hp), _gold(gold)
+{
+}
+
+void Game::Mob::AMob::setHp(int hp)
 {
     _hp = hp;
 }
 
-int AMob::getHp()
+int Game::Mob::AMob::getHp()
 {
     return _hp;
 }
 
-int AMob::getSpeed()
+int Game::Mob::AMob::getSpeed()
 {
     return _speed;
 }
 
-void AMob::setSpeed(int speed)
+void Game::Mob::AMob::setSpeed(int speed)
 {
     _speed = speed;
 }
 
-int AMob::takeDamage(int hp)
+int Game::Mob::AMob::takeDamage(int hp)
 {
     return _hp -= hp;
 }
 
-void AMob::moveMob(Map &map)
+void Game::Mob::AMob::moveMob(Map &map)
 {
     std::vector<std::vector<std::shared_ptr<Case>>> mapVector = map.getMap();
     std::tuple<char, char> start = map.getStart();
@@ -48,7 +52,7 @@ void AMob::moveMob(Map &map)
 	);
 }
 
-void AMob::drawMob(Vector2 position)
+void Game::Mob::AMob::drawMob(Vector2 position) const
 {
     DrawTexturePro(
 		_texture,
@@ -57,4 +61,24 @@ void AMob::drawMob(Vector2 position)
 		(Vector2) {((float)_texture.width * scale) / 2, ((float)_texture.height * scale) / 2},
 		0, WHITE
 	);
+}
+
+Vector2 Game::Mob::AMob::getPosition(void) const
+{
+    return _position;
+}
+
+int Game::Mob::AMob::getGold(void) const
+{
+    return _gold;
+}
+
+void Game::Mob::AMob::setPosition(Vector2 pos)
+{
+    _position = pos;
+}
+
+void Game::Mob::AMob::setGold(int gold)
+{
+    _gold = gold;
 }
