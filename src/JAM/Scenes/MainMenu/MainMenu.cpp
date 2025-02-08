@@ -43,7 +43,6 @@ void Game::MainMenu::exec(std::size_t &currentScene)
     }
 }
 
-
 void Game::MainMenu::display()
 {
     DrawTexturePro(_background,
