@@ -5,17 +5,12 @@
 ** SceneFactory
 */
 
-#include "SceneFactory.hpp"
+#include "SceneFactory.hh"
 
-SceneFactory::SceneFactory()
+Game::SceneFactory::SceneFactory()
 {
 }
 
-SceneFactory::~SceneFactory()
+Game::SceneFactory::~SceneFactory()
 {
-}
-
-std::unique_ptr<void> Game::SceneFactory::testFunction()
-{
-    return;
 }

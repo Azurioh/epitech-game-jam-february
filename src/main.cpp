@@ -5,7 +5,10 @@
 ** main
 */
 
+#include "JAM/JAM.hpp"
+
 int main(void)
 {
+    JAM start;
     return 0;
 }
