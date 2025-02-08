@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <raylib.h>
 #include "ITower.hh"
 #include "../Projectile/ProjectileFactory.hh"
 #include <vector>
@@ -33,6 +34,7 @@ namespace Game {
                 AttackType getAttackType(void) const;
                 std::shared_ptr<Game::Mob::IMob> getMobToAttack(std::vector<std::shared_ptr<Game::Mob::IMob>> mobs);
                 std::shared_ptr<Game::Mob::IMob> getTarget(void);
+                void toggleHitboxDisplay(void);
 
                 void setPosition(std::tuple<std::size_t, std::size_t> pos);
                 void setCost(unsigned int cost);
@@ -62,6 +64,8 @@ namespace Game {
             protected:
                 std::tuple<std::size_t, std::size_t> _position;
                 unsigned int _cost;
+                bool _displayHitbox;
+                Texture2D _towerTexture;
 
                 unsigned int _range;
                 unsigned int _damage;
