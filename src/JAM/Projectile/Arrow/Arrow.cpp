@@ -7,8 +7,8 @@
 
 #include "Arrow.hh"
 
-Game::Projectile::Arrow::Arrow(std::tuple<unsigned int, unsigned int> position, std::tuple<unsigned int, unsigned int> targetPosition, float speed):
-    Game::Projectile::AProjectile(position, targetPosition, speed)
+Game::Projectile::Arrow::Arrow(std::tuple<std::size_t, std::size_t> towerPos, std::shared_ptr<Game::Mob::IMob> target, unsigned int speed):
+    Game::Projectile::AProjectile(towerPos, target, speed)
 {
     Image arrowImg = LoadImage("asset/projectiles/arrow.png");
 	_arrowTexture = LoadTextureFromImage(arrowImg);

@@ -10,7 +10,7 @@
 
 #include "../AMob.hpp"
 
-class WhiteMob : public AMob{
+class WhiteMob : public Game::Mob::AMob {
     public:
         WhiteMob();
         ~WhiteMob();

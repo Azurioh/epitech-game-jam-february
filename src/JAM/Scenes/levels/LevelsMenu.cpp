@@ -5,7 +5,7 @@
 ** SceneFactory
 */
 
-#include "levels.hpp"
+#include "LevelsMenu.hpp"
 
 LevelsPage::LevelsPage() : _selectedLevel(-1), _backgroundColor(LIME)
 {

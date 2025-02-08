@@ -5,9 +5,9 @@
 ** IMob
 */
 
-#ifndef IMOB_HH_
-#define IMOB_HH_
+#pragma once
 
+#include <tuple>
 
 namespace Game {
     namespace Mob {
@@ -15,6 +15,9 @@ namespace Game {
             public:
                 IMob() {};
                 ~IMob() {};
+
+                virtual std::tuple<int, int> getPosition() const = 0;
+                virtual int getGold() const = 0;
                 virtual int move_mob() = 0;
                 virtual void drawMob() = 0;
 
@@ -23,5 +26,3 @@ namespace Game {
         };
     }
 }
-
-#endif /* !IMOB_HH_ */
