@@ -21,7 +21,10 @@ At first clone the repo
 
 Build the game
 ```bash
-  make
+  mkdir build
+  cd build
+  cmake ..
+  cmake --build .
 ```
 
 And after, you can run it with:
