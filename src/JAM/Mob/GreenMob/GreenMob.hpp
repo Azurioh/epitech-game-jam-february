@@ -17,7 +17,7 @@ class GreenMob : public AMob{
 
     protected:
     private:
-    int move_mob();
+    void move_mob(Map &map);
 
 };
 

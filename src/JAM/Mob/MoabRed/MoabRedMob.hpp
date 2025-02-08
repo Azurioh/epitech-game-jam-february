@@ -17,7 +17,7 @@ class MoabRedMob : public AMob{
 
     protected:
     private:
-    int move_mob();
+    void move_mob(Map &map);
 };
 
 #endif /* !MOABREDMOB_HPP_ */

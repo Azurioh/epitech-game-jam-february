@@ -17,7 +17,7 @@ class PinkMob : public AMob{
 
     protected:
     private:
-    int move_mob();
+    void move_mob(Map &map);
 };
 
 #endif /* !PINKMOB_HPP_ */

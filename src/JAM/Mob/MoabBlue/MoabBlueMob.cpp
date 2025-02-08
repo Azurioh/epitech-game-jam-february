@@ -15,7 +15,7 @@ MoabBlueMob::~MoabBlueMob()
 {
 }
 
-int MoabBlueMob::move_mob()
+void MoabBlueMob::move_mob(Map &map)
 {
-    return 0;
+    (void)map;
 }

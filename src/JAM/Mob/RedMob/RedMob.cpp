@@ -15,7 +15,7 @@ RedMob::~RedMob()
 {
 }
 
-int RedMob::move_mob()
+void RedMob::move_mob(Map &map)
 {
-    return 0;
+    (void)map;
 }

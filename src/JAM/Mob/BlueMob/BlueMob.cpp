@@ -15,7 +15,7 @@ BlueMob::~BlueMob()
 {
 }
 
-int BlueMob::move_mob()
+void BlueMob::move_mob(Map &map)
 {
-    return 0;
+    (void)map;
 }

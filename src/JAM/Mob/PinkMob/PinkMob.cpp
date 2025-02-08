@@ -15,7 +15,7 @@ PinkMob::~PinkMob()
 {
 }
 
-int PinkMob::move_mob()
+void PinkMob::move_mob(Map &map)
 {
-    return 0;
+    (void)map;
 }

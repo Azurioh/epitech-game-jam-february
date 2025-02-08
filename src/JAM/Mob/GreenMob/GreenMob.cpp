@@ -15,7 +15,7 @@ GreenMob::~GreenMob()
 {
 }
 
-int GreenMob::move_mob()
+void GreenMob::move_mob(Map &map)
 {
-    return 0;
+    (void)map;
 }
