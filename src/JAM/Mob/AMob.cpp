@@ -36,29 +36,13 @@ int Game::Mob::AMob::takeDamage(int hp)
     return _hp -= hp;
 }
 
-void Game::Mob::AMob::moveMob(Map &map)
-{
-    std::vector<std::vector<std::shared_ptr<Case>>> mapVector = map.getMap();
-    std::tuple<char, char> start = map.getStart();
-
-    Vector2 position = mapVector[std::get<0>(start)][std::get<1>(start)]->getPosition();
-
-	DrawTexturePro(
-		_texture,
-		(Rectangle) {0, 0, (float)_texture.width, (float)_texture.height},
-		(Rectangle) {position.x, position.y, (float)_texture.width, (float)_texture.height},
-		(Vector2) {(float)_texture.width / 2, (float)_texture.height / 2},
-		0, WHITE
-	);
-}
-
 void Game::Mob::AMob::drawMob(Vector2 position) const
 {
     DrawTexturePro(
 		_texture,
 		(Rectangle) {0, 0, (float)_texture.width, (float)_texture.height},
-		(Rectangle) {position.x, position.y, (float)_texture.width * scale, (float)_texture.height * scale},
-		(Vector2) {((float)_texture.width * scale) / 2, ((float)_texture.height * scale) / 2},
+		(Rectangle) {position.x, position.y, (float)_texture.width * _widthScale, (float)_texture.height * _heightScale},
+		(Vector2) {((float)_texture.width * _widthScale) / 2, ((float)_texture.height * _heightScale) / 2},
 		0, WHITE
 	);
 }
@@ -81,4 +65,78 @@ void Game::Mob::AMob::setPosition(Vector2 pos)
 void Game::Mob::AMob::setGold(int gold)
 {
     _gold = gold;
+}
+
+void handleRotation(std::tuple<char, char> offset)
+{
+    
+}
+
+void Game::Mob::AMob::initMobMovement(Map &map)
+{
+    std::vector<std::vector<std::shared_ptr<Case>>> mapVector = map.getMap();
+    std::tuple<char, char> start = map.getStart();
+
+    _mapPos = {
+        (float)std::get<0>(start),
+        (float)std::get<1>(start),
+    };
+    _offset = map.findPath(_mapPos.x, _mapPos.y, 2);
+    _position = mapVector[_mapPos.x][_mapPos.y]->getPosition();
+
+    _offset = map.getNextCase(_mapPos, std::get<0>(_offset), std::get<1>(_offset), _mapValue);
+    if (std::get<0>(_offset) == -1 && std::get<1>(_offset) == -1) {
+        _visible = false;
+        return;
+    }
+    _mapValue += 1;
+    _nextPosition = mapVector[_mapPos.x + std::get<0>(_offset)][_mapPos.y + std::get<1>(_offset)]->getPosition();
+}
+
+void Game::Mob::AMob::moveMob(Map &map)
+{
+    if (!_visible) {
+        return;
+    }
+
+    std::vector<std::vector<std::shared_ptr<Case>>> mapVector = map.getMap();
+
+    if (_mapPos.x == -1 && _mapPos.y == -1) {
+        initMobMovement(map);
+    }
+    if (_nextPosition.x == -1 && _nextPosition.y == -1) {
+        _visible = false;
+        return;
+    }
+
+    Vector2 direction = { _nextPosition.x - _position.x, _nextPosition.y - _position.y };
+
+    float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
+
+    drawMob(_position);
+
+    if (_time + 0.005 > GetTime() || _stopMoving) {
+        return;
+    }
+    _time = GetTime();
+    if (distance > 2) {
+        direction.x /= distance;
+        direction.y /= distance;
+
+        _position.x += direction.x * _speed;
+        _position.y += direction.y * _speed;
+        return;
+    }
+
+    _offset = map.getNextCase(_mapPos, std::get<0>(_offset), std::get<1>(_offset), _mapValue);
+    if (std::get<0>(_offset) == -1 && std::get<1>(_offset) == -1) {
+        _visible = false;
+        return;
+    }
+    _nextPosition = mapVector[_mapPos.x + std::get<0>(_offset)][_mapPos.y + std::get<1>(_offset)]->getPosition();
+    _mapValue += 1;
+    _mapPos = {
+        _mapPos.x + std::get<0>(_offset),
+        _mapPos.y + std::get<1>(_offset)
+    };
 }

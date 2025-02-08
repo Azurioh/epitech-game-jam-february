@@ -17,7 +17,6 @@ class PinkMob : public Game::Mob::AMob {
 
     protected:
     private:
-    void moveMobb(Map &map);
 };
 
 #endif /* !PINKMOB_HPP_ */

@@ -17,9 +17,6 @@ class YellowMob : public Game::Mob::AMob {
         YellowMob();
         ~YellowMob();
 
-        void initMobMovement(Map &map);
-        void moveMobb(Map &map);
-
     protected:
     private:
 };

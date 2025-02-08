@@ -17,7 +17,6 @@ class GreenMob : public Game::Mob::AMob {
 
     protected:
     private:
-    void moveMobb(Map &map);
 
 };
 

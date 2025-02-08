@@ -17,7 +17,6 @@ class BlackMob : public Game::Mob::AMob {
 
     protected:
     private:
-    void moveMobb(Map &map);
 };
 
 #endif /* !BLACKMOB_HPP_ */

@@ -30,11 +30,11 @@ namespace Game {
                 void setPosition(Vector2 pos);
                 void setGold(int gold);
 
-                void initMobMovement(Map &map) { (void)map; };
+                void handleRotation(std::tuple<char, char> offset);
+                void initMobMovement(Map &map);
                 void moveMob(Map &map);
                 void drawMob(Vector2 position) const;
 
-                const float scale = 0.7f;
 
             protected:
                 int _hp;
@@ -43,6 +43,10 @@ namespace Game {
 
                 Vector2 _position;
                 Texture2D _texture;
+
+                float _widthScale;
+                float _heightScale;
+                float _rotation;
 
                 std::tuple<char, char> _offset;
                 Vector2 _mapPos;
@@ -54,6 +58,7 @@ namespace Game {
                 bool _visible;
                 bool _stopMoving;
 
+                MobType _type;
             private:
         };
     }
