@@ -36,8 +36,6 @@ namespace Game {
             protected:
                 int _hp;
                 int _speed;
-                int _pos_x;
-                int _pos_y;
                 int _gold;
                 std::tuple<unsigned int, unsigned int> _position;
                 Texture2D _mobTexture;
