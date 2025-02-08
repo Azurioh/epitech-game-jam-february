@@ -15,6 +15,9 @@ JAM::JAM(): _currentScene(MAIN_MENU)
     SetTargetFPS(60);
     _scenes.push_back(Game::SceneFactory::createMainMenu());
     _scenes.push_back(Game::SceneFactory::createLevels());
+    for (int i = 1; i <= 9; i++) {
+        _scenes.push_back(Game::SceneFactory::createLevelScene(i));
+    }
     _scenes.push_back(Game::SceneFactory::SettingsScene());
     gameLoop();
 }

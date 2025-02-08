@@ -23,16 +23,20 @@ Game::LevelsPage::~LevelsPage()
 void Game::LevelsPage::LoadLevels()
 {
     for (size_t i = 0; i < _levelNames.size(); ++i) {
+        Texture2D img = LoadTexture("asset/levels/default-featured-image.jpg");
+        float scale = 0.7f;
+
         _levels.push_back({
             _levelNames[i],
-            LoadTexture("asset/levels/default-featured-image.jpg"),
-            _levelAreas[i],
-            {1.0f, 1.0f}
+            img,
+            {
+                _levelAreas[i].x,
+                _levelAreas[i].y,
+                img.width * scale,
+                img.height * scale
+            },
+            {scale, scale}
         });
-    }
-
-    for (auto& level : _levels) {
-        level.SetTextureScale(0.7f, 0.7f);
     }
 }
 
@@ -45,10 +49,6 @@ void Game::LevelsPage::display()
 
     for (Level &level : _levels) {
         level.Draw();
-
-        if (&level == &_levels[_selectedLevel]) {
-            DrawRectangleLines(level.area.x, level.area.y, level.area.width, level.area.height, RED);
-        }
     }
 }
 
@@ -64,6 +64,7 @@ void Game::LevelsPage::exec(std::size_t &currentScene)
         for (size_t i = 0; i < _levels.size(); ++i) {
             if (CheckCollisionPointRec(mousePos, _levels[i].area)) {
                 _selectedLevel = i;
+                currentScene = LEVEL_ONE_SCENE + i;
             }
         }
     }
