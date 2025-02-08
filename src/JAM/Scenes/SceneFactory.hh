@@ -18,5 +18,6 @@ namespace Game {
             ~SceneFactory();
             static std::unique_ptr<Game::IScene>createMainMenu();
             static std::unique_ptr<Game::IScene>createLevels();
+            static std::unique_ptr<Game::IScene>SettingsScene();
     };
 }

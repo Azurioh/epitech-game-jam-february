@@ -39,6 +39,7 @@ void Game::MainMenu::exec(std::size_t &currentScene)
     }
     if (_quit.isPressed()) {
         CloseWindow();
+        exit(0);
     }
 }
 
