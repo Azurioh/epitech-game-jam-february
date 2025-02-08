@@ -7,14 +7,14 @@
 
 #pragma once
 
-#include <memory>
+    #include <memory>
+    #include "MainMenu/MainMenu.hpp"
 
 namespace Game {
     class SceneFactory {
         public:
             SceneFactory();
             ~SceneFactory();
-
-            static std::unique_ptr<void> testFunction();
+            static std::unique_ptr<Game::IScene>createMainMenu();
     };
 }

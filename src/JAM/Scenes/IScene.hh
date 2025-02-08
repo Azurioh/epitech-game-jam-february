@@ -15,6 +15,5 @@ namespace Game {
 
             virtual void exec(void) = 0;
             virtual void display(void) = 0;
-            virtual void loadModel(void) = 0;
     };
 }
