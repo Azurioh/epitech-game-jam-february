@@ -21,8 +21,11 @@ namespace Game {
 
         protected:
         private:
+            const float REF_WIDTH;
+            const float REF_HEIGHT;
             Font _font;
             Texture2D _background;
+            Texture2D _logo;
             Buttons _start;
             Buttons _settings;
             Buttons _quit;

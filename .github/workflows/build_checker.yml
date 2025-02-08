@@ -1,0 +1,52 @@
+name: Build checker CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+    BINARY: BloonsIllusionTowerDefense7+PremiumDeluxeDefinitiveEditionCollectorReloaded
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
+
+        - name: Install dependencies
+          run: |
+            apt-get update -y
+            apt install -y \
+              build-essential \
+              git \
+              cmake \
+              gcc \
+              make \
+              libasound2-dev \
+              libx11-dev \
+              libxrandr-dev \
+              libxi-dev \
+              libgl1-mesa-dev \
+              libglu1-mesa-dev \
+              libxcursor-dev \
+              libxinerama-dev \
+              libwayland-dev \
+              libxkbcommon-dev \
+              libconfig++-dev
+
+        - name: Build CMake
+          run: |
+            mkdir build
+            cd build
+            cmake ..
+            cmake --build .
+            cp -r ../asset .
+
+        - name: Is executable ?
+          run: if [ ! -x build/${{ env.BINARY }} ]; then exit 1; fi

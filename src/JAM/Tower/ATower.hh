@@ -33,12 +33,14 @@ namespace Game {
                 unsigned int getAttackSpeedSkill(void) const;
                 AttackType getAttackType(void) const;
                 std::shared_ptr<Game::Mob::IMob> getMobToAttack(std::vector<std::shared_ptr<Game::Mob::IMob>> mobs);
+                std::shared_ptr<Game::Mob::IMob> getTarget(void);
 
                 void setPosition(std::tuple<std::size_t, std::size_t> pos);
                 void setCost(unsigned int cost);
 
                 Game::Projectile::IProjectile::AttackResultType attack(void);
                 void changeAttackType(void);
+                std::shared_ptr<Game::Projectile::IProjectile> getProjectile(void);
                 virtual std::unique_ptr<Game::Projectile::IProjectile> createProjectile(std::tuple<std::size_t, std::size_t> towerPos, std::shared_ptr<Game::Mob::IMob> target, unsigned int speed) = 0;
 
                 void setRangeSkill(unsigned int value);
@@ -75,7 +77,7 @@ namespace Game {
 
                 AttackType _attackType;
                 std::shared_ptr<Game::Mob::IMob> _target;
-                std::unique_ptr<Game::Projectile::IProjectile> _projectile;
+                std::shared_ptr<Game::Projectile::IProjectile> _projectile;
 
                 bool _mobIsClosest(Game::Mob::IMob *mob1, Game::Mob::IMob *mob2);
 
