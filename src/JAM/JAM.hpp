@@ -28,7 +28,8 @@
         LEVEL_EIGHT_SCENE,
         LEVEL_NINE_SCENE,
         SETTINGS_SCENE,
-        GAME_SCENE
+        GAME_SCENE,
+        MUSIC_SELECTION,
     };
 
 class JAM {
@@ -39,6 +40,7 @@ class JAM {
         void setVolumeDown();
         void setVolumeUp();
         void setVolume();
+        void setMusic();
         void UpdateWindowSize();
 
     private:
@@ -47,6 +49,9 @@ class JAM {
         Music _menuMusic;
         Music _inGameMusic;
         float _MusicValue;
+        std::vector<Music> _musics;
+        int _playingMusic;
+        int _playingMusicSave;
 };
 
 #endif /* !JAM_HPP_ */
