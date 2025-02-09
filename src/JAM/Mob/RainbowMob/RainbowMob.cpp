@@ -35,5 +35,6 @@ void RainbowMob::load()
     _visible = true;
     _stopMoving = false;
 
+    _hp = 47;
     _type = Game::Mob::RAINBOW_MOB;
 }

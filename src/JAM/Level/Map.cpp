@@ -209,7 +209,7 @@ void Map::displayMap()
     }
 }
 
-void Map::drawMap()
+void Map::drawMap(std::vector<std::shared_ptr<Game::Mob::IMob>> mobs)
 {
     Vector2 pos = {0.0f, 0.0f};
     std::shared_ptr<Game::Tower::ITower> tower;
@@ -236,6 +236,7 @@ void Map::drawMap()
             tower = (*cols_it)->getTower();
             if ((*cols_it)->getType() == Case::TOWER_ZONE && tower != nullptr) {
                 (*tower).draw();
+                tower->getMobToAttack(mobs);
                 tower->attack();
             }
         }

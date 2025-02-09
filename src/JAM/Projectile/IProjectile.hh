@@ -16,7 +16,8 @@ namespace Game {
                 enum AttackResultType {
                     TRACKING,
                     HIT,
-                    MISSED
+                    MISSED,
+                    ALREADY_KILL
                 };
 
                 IProjectile() = default;

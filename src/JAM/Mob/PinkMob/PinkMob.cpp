@@ -35,5 +35,6 @@ void PinkMob::load()
     _visible = true;
     _stopMoving = false;
 
+    _hp = 5;
     _type = Game::Mob::PINK_MOB;
 }

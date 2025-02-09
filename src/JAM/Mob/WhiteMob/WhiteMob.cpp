@@ -35,5 +35,6 @@ void WhiteMob::load()
     _visible = true;
     _stopMoving = false;
 
+    _hp = 11;
     _type = Game::Mob::WHITE_MOB;
 }

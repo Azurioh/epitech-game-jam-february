@@ -35,5 +35,6 @@ void RedMob::load()
     _visible = true;
     _stopMoving = false;
 
+    _hp = 1;
     _type = Game::Mob::RED_MOB;
 }

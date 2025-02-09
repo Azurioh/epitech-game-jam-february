@@ -35,5 +35,6 @@ void BlackMob::load()
     _visible = true;
     _stopMoving = false;
 
+    _hp = 11;
     _type = Game::Mob::BLACK_MOB;
 }

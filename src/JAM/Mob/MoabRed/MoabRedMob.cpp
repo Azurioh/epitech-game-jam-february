@@ -35,5 +35,6 @@ void MoabRedMob::load()
     _visible = true;
     _stopMoving = false;
 
+    _hp = 3164;
     _type = Game::Mob::MOAB_RED_MOB;
 }

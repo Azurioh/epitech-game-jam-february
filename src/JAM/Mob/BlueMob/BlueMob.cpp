@@ -35,5 +35,6 @@ void BlueMob::load()
     _visible = true;
     _stopMoving = false;
 
+    _hp = 2;
     _type = Game::Mob::BLUE_MOB;
 }

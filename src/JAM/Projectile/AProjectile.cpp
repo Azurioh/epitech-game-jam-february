@@ -37,6 +37,10 @@ void Game::Projectile::AProjectile::move()
 		_attackStatus = MISSED;
 		return;
 	}
+	if (_target->getHp() <= 0) {
+		_attackStatus = ALREADY_KILL;
+		return;
+	}
     if (distance <= _speed + 3 || distance == 0) {
 		_attackStatus = HIT;
 		return;

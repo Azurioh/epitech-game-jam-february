@@ -100,7 +100,9 @@ void Game::GameScene::exec(std::size_t &currentScene, ...)
 
                 if (_isCaseClicked(tmp)) {
                     if (!tmp->getTower()) {
-                        (_map->getMap()[i][j])->setTower(_createTower());
+                        std::shared_ptr<Game::Tower::ITower> newTower = _createTower();
+                        newTower->toggleHitboxDisplay();
+                        (_map->getMap()[i][j])->setTower(newTower);
                     }
                     _haveSelectedTower = false;
                     return;
@@ -156,9 +158,26 @@ void Game::GameScene::display()
     _T4.Display();
     _T5.Display();
 
-    if (_levelNumber > 0) {
-        _map->drawMap();
-        runWave();
+    std::string goldText = std::to_string(_gold);
+    DrawText(goldText.c_str(), 290 - (MeasureText(goldText.c_str(), 20) / 2), 65, 20, WHITE);
+    DrawText("Range", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Range", 20) / 2), ((float)GetScreenHeight() * 0.23f), 20, WHITE);
+    DrawText("Attack\nspeed", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Attack\nspeed", 20) / 2), ((float)GetScreenHeight() * 0.42f), 20, WHITE);
+    DrawText("Damage", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Damage", 20) / 2), ((float)GetScreenHeight() * 0.63f), 20, WHITE);
+    _T1.Display();
+    _T2.Display();
+    _T3.Display();
+    _T4.Display();
+    _T5.Display();
+    if (!_popUp->isHidden()) {
+        _popUp->draw();
+    } else {
+        if (_levelNumber > 0) {
+            _map->drawMap(_mobs);
+            runWave();
+        }
+    }
+    if (_haveSelectedTower) {
+        DrawTexture(_selectedTower, GetMousePosition().x, GetMousePosition().y, WHITE);
     }
     DrawTexturePro(_frame,
         {0, 0, (float)_frame.width, (float)_frame.height},
@@ -177,22 +196,6 @@ void Game::GameScene::display()
         {0, 0, (float)_coin.width, (float)_coin.height},
         {220, 50, 50, 50},
         {0, 0}, 0.0f, WHITE);
-    std::string goldText = std::to_string(_gold);
-    DrawText(goldText.c_str(), 290 - (MeasureText(goldText.c_str(), 20) / 2), 65, 20, WHITE);
-    DrawText("Range", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Range", 20) / 2), ((float)GetScreenHeight() * 0.23f), 20, WHITE);
-    DrawText("Attack\nspeed", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Attack\nspeed", 20) / 2), ((float)GetScreenHeight() * 0.42f), 20, WHITE);
-    DrawText("Damage", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Damage", 20) / 2), ((float)GetScreenHeight() * 0.63f), 20, WHITE);
-    _T1.Display();
-    _T2.Display();
-    _T3.Display();
-    _T4.Display();
-    _T5.Display();
-    if (!_popUp->isHidden()) {
-        _popUp->draw();
-    }
-    if (_haveSelectedTower) {
-        DrawTexture(_selectedTower, GetMousePosition().x, GetMousePosition().y, WHITE);
-    }
     _P1.Display();
     _P2.Display();
     _P3.Display();
