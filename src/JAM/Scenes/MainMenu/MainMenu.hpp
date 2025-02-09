@@ -17,7 +17,7 @@ namespace Game {
             MainMenu();
             ~MainMenu();
             void display();
-            void exec(std::size_t &currentScene, ...);
+            void exec(std::size_t &currentScene, int &playingMusic, ...);
 
         protected:
         private:
@@ -28,6 +28,7 @@ namespace Game {
             Texture2D _logo;
             Buttons _start;
             Buttons _settings;
+            Buttons _musicSelection;
             Buttons _quit;
     };
 }

@@ -23,7 +23,7 @@ Game::SettingsScene::~SettingsScene()
     UnloadTexture(_background);
 }
 
-void Game::SettingsScene::exec(std::size_t &currentScene, ...)
+void Game::SettingsScene::exec(std::size_t &currentScene, int &playingMusic,  ...)
 {
     va_list args;
     va_start(args, currentScene);

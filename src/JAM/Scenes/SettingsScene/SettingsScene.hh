@@ -17,7 +17,7 @@ namespace Game{
         public:
             SettingsScene();
             ~SettingsScene();
-            void exec(std::size_t &currentScene, ...);
+            void exec(std::size_t &currentScene, int &playingMusic, ...);
             void display();
 
         protected:

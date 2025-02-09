@@ -20,8 +20,11 @@ JAM::JAM(): _currentScene(MAIN_MENU)
         _scenes.push_back(Game::SceneFactory::createGameScene(i));
     }
     _scenes.push_back(Game::SceneFactory::SettingsScene());
-    _menuMusic = LoadMusicStream("asset/musics/menuMusic.mp3");
-    _inGameMusic = LoadMusicStream("asset/musics/inGameMusic.mp3");
+    _scenes.push_back(Game::SceneFactory::MusicSelection());
+    _musics.push_back(LoadMusicStream("asset/musics/menuMusic.mp3"));
+    _musics.push_back(LoadMusicStream("asset/musics/inGameMusic.mp3"));
+    _playingMusic = 0;
+    _playingMusicSave = 0;
     _MusicValue = 1.0;
     gameLoop();
 }
@@ -56,15 +59,38 @@ void JAM::setVolume()
     SetMusicVolume(this->_inGameMusic, this->_MusicValue);
 }
 
+void JAM::setMusic()
+{
+    if (this->_playingMusic == -100){
+        if (IsMusicStreamPlaying(_musics[_playingMusicSave])){
+            PauseMusicStream(_musics[_playingMusicSave]);
+            _playingMusic = _playingMusicSave;
+            return;
+        }
+        ResumeMusicStream(_musics[_playingMusicSave]);
+        _playingMusic = _playingMusicSave;
+        return;
+    }
+    if (this->_playingMusic == this->_playingMusicSave)
+        return;
+    StopMusicStream(_musics[_playingMusicSave]);
+    if (this->_playingMusic < 0)
+        this->_playingMusic = (int)_musics.size() - 1;
+    if (this->_playingMusic > (int)_musics.size() - 1)
+        _playingMusic = 0;
+    PlayMusicStream(_musics[_playingMusic]);
+    _playingMusicSave = _playingMusic;
+    return;
+}
+
 void JAM::gameLoop()
 {
-    PlayMusicStream(_inGameMusic);
-    SetMusicVolume(_menuMusic, 1.0);
-    SetMusicVolume(_inGameMusic, 1.0);
+    PlayMusicStream(_musics[_playingMusic]);
+    SetMusicVolume(_musics[_playingMusic], 1.0);
     while (!WindowShouldClose()) {
-        UpdateMusicStream(_menuMusic);
-        UpdateMusicStream(_inGameMusic);
-        _scenes[_currentScene]->exec(_currentScene, &this->_MusicValue);
+        UpdateMusicStream(_musics[_playingMusic]);
+        _scenes[_currentScene]->exec(_currentScene, this->_playingMusic , &this->_MusicValue);
+        setMusic();
         setVolume();
         ClearBackground(BLACK);
         BeginDrawing();
