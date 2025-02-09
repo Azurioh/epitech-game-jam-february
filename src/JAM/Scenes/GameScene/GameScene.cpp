@@ -7,7 +7,13 @@
 
 #include "GameScene.hpp"
 
-Game::GameScene::GameScene()
+Game::GameScene::GameScene():
+    REF_WIDTH(1920.0f), REF_HEIGHT(1080.0f),
+    _T1("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.1f), ((float)GetScreenHeight() * 0.8f), 5),
+    _T2("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.3f), ((float)GetScreenHeight() * 0.8f), 5),
+    _T3("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.5f), ((float)GetScreenHeight() * 0.8f), 5),
+    _T4("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.7f), ((float)GetScreenHeight() * 0.8f), 5),
+    _T5("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.9f), ((float)GetScreenHeight() * 0.8f), 5)
 {
     Image frameImg = LoadImage("asset/gameUI/cadre.png");
     _frame = LoadTextureFromImage(frameImg);
@@ -17,6 +23,15 @@ Game::GameScene::GameScene()
     _coin = LoadTextureFromImage(coinImg);
     Image baordImg = LoadImage("asset/gameUI/test.png");
     _board = LoadTextureFromImage(baordImg);
+
+    _T1.SetPosition(((float)GetScreenWidth() * 0.1f), ((float)GetScreenHeight() * 0.8f), 0);
+    _T2.SetPosition(((float)GetScreenWidth() * 0.3f), ((float)GetScreenHeight() * 0.8f), 0);
+    _T3.SetPosition(((float)GetScreenWidth() * 0.5f), ((float)GetScreenHeight() * 0.8f), 0);
+    _T4.SetPosition(((float)GetScreenWidth() * 0.7f), ((float)GetScreenHeight() * 0.8f), 0);
+    _T5.SetPosition(((float)GetScreenWidth() * 0.9f), ((float)GetScreenHeight() * 0.8f), 0);
+    _player = std::unique_ptr<Player>(new Player());
+    _hp = _player->getHP();
+    _gold = _player->getGolds();
 }
 
 Game::GameScene::~GameScene()
@@ -29,12 +44,24 @@ Game::GameScene::~GameScene()
 
 void Game::GameScene::exec(std::size_t &currentScene, ...)
 {
-    return;
+    _T1.Event();
+    _T2.Event();
+    _T3.Event();
+    _T4.Event();
+    _T5.Event();
+    if (IsWindowResized()) {
+        _T1.SetPosition(((float)GetScreenWidth() * 0.1f), ((float)GetScreenHeight() * 0.8f), 0);
+        _T2.SetPosition(((float)GetScreenWidth() * 0.3f), ((float)GetScreenHeight() * 0.8f), 0);
+        _T3.SetPosition(((float)GetScreenWidth() * 0.5f), ((float)GetScreenHeight() * 0.8f), 0);
+        _T4.SetPosition(((float)GetScreenWidth() * 0.7f), ((float)GetScreenHeight() * 0.8f), 0);
+        _T5.SetPosition(((float)GetScreenWidth() * 0.9f), ((float)GetScreenHeight() * 0.8f), 0);
+    }
 }
 
 void Game::GameScene::display()
 {
     Rectangle sourceRec = {0, 0, (float)_board.width, (float)_board.height};
+
 
     DrawTexturePro(_board, sourceRec, {(float)GetScreenWidth() - 200, 0, 200, (float)GetScreenHeight()}, {0, 0}, 0.0f, WHITE);
     DrawTexturePro(_board, sourceRec, {-15, (float)GetScreenHeight() - 200, (float)GetScreenWidth(), 200}, {0, 0}, 0.0f, WHITE);
@@ -46,7 +73,8 @@ void Game::GameScene::display()
         {0, 0, (float)_heart.width, (float)_heart.height},
         {70, 55, 50, 50},
         {0, 0}, 0.0f, WHITE);
-    DrawText("test", 140 - ((MeasureText("test", 20) / 2)), 65, 20, WHITE);
+    std::string hpText = std::to_string(_hp);
+    DrawText(hpText.c_str(), 140 - (MeasureText(hpText.c_str(), 20) / 2), 65, 20, WHITE);
     DrawTexturePro(_frame,
         {0, 0, (float)_frame.width, (float)_frame.height},
         {200, 0, 150, 150},
@@ -55,5 +83,11 @@ void Game::GameScene::display()
         {0, 0, (float)_coin.width, (float)_coin.height},
         {220, 50, 50, 50},
         {0, 0}, 0.0f, WHITE);
-    DrawText("test", 290 - ((MeasureText("test", 20) / 2)), 65, 20, WHITE);
+    std::string goldText = std::to_string(_gold);
+    DrawText(goldText.c_str(), 290 - (MeasureText(goldText.c_str(), 20) / 2), 65, 20, WHITE);
+    _T1.Display();
+    _T2.Display();
+    _T3.Display();
+    _T4.Display();
+    _T5.Display();
 }

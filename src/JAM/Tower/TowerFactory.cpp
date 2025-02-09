@@ -36,3 +36,8 @@ std::shared_ptr<Game::Tower::ITower> Game::Tower::TowerFactory::createDamageTowe
 {
     return std::shared_ptr<DamageTower>(new Game::Tower::DamageTower(pos));
 }
+
+std::shared_ptr<Game::Tower::ITower> Game::Tower::TowerFactory::createFakeTower(std::tuple<std::size_t, std::size_t> pos)
+{
+    return std::shared_ptr<FakeTower>(new Game::Tower::FakeTower(pos));
+}

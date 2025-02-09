@@ -39,7 +39,7 @@ namespace Game {
                 void setPosition(std::tuple<std::size_t, std::size_t> pos);
                 void setCost(unsigned int cost);
 
-                void attack(void);
+                int attack(void);
                 std::shared_ptr<Game::Projectile::IProjectile> getProjectile(void);
                 virtual std::unique_ptr<Game::Projectile::IProjectile> createProjectile(std::tuple<std::size_t, std::size_t> towerPos, std::shared_ptr<Game::Mob::IMob> target, unsigned int speed) = 0;
 
