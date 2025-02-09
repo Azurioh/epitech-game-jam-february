@@ -8,12 +8,12 @@
 #include "LongRangeTower.hh"
 
 Game::Tower::LongRangeTower::LongRangeTower(std::tuple<std::size_t, std::size_t> position):
-    ATower(position, 130, 180, 7, 2)
+    ATower(position, 130, 180, 7, 15)
 {
     Image towerImage = LoadImage("asset/towers/long.png");
     std::vector<std::tuple<unsigned int, unsigned int>> rangeSkillPricing = {{100, 30}, {200, 30}, {500, 30}};
     std::vector<std::tuple<unsigned int, unsigned int>> damageSkillPricing = {{150, 4}, {300, 10}, {500, 15}};
-    std::vector<std::tuple<unsigned int, unsigned int>> attackSpeedSkillPricing = {{180, 2}, {300, 4}, {450, 5}};
+    std::vector<std::tuple<unsigned int, unsigned int>> attackSpeedSkillPricing = {{180, 10}, {300, 10}, {450, 10}};
 
     _towerTexture = LoadTextureFromImage(towerImage);
     _displayHitbox = false;

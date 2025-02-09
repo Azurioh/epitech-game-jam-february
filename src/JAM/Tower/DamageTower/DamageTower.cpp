@@ -8,12 +8,12 @@
 #include "DamageTower.hh"
 
 Game::Tower::DamageTower::DamageTower(std::tuple<std::size_t, std::size_t> position):
-    ATower(position, 150, 110, 8, 2)
+    ATower(position, 150, 110, 8, 15)
 {
     Image towerImage = LoadImage("asset/towers/damage.png");
     std::vector<std::tuple<unsigned int, unsigned int>> rangeSkillPricing = {{120, 20}, {240, 20}, {350, 25}};
     std::vector<std::tuple<unsigned int, unsigned int>> damageSkillPricing = {{140, 10}, {250, 10}, {500, 20}};
-    std::vector<std::tuple<unsigned int, unsigned int>> attackSpeedSkillPricing = {{150, 3}, {300, 5}, {450, 5}};
+    std::vector<std::tuple<unsigned int, unsigned int>> attackSpeedSkillPricing = {{150, 5}, {300, 5}, {450, 5}};
 
     _towerTexture = LoadTextureFromImage(towerImage);
     _displayHitbox = false;
