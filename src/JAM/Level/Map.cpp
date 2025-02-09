@@ -209,10 +209,11 @@ void Map::displayMap()
     }
 }
 
-void Map::drawMap(std::vector<std::shared_ptr<Game::Mob::IMob>> mobs)
+int Map::drawMap(std::vector<std::shared_ptr<Game::Mob::IMob>> mobs)
 {
     Vector2 pos = {0.0f, 0.0f};
     std::shared_ptr<Game::Tower::ITower> tower;
+    int gold = 0;
 
     scaleHeight = ((float)GetScreenHeight() / 1080) * 0.23;
     scaleWidth = ((float)GetScreenWidth() / 1920) * 0.23;
@@ -237,8 +238,9 @@ void Map::drawMap(std::vector<std::shared_ptr<Game::Mob::IMob>> mobs)
             if ((*cols_it)->getType() == Case::TOWER_ZONE && tower != nullptr) {
                 (*tower).draw();
                 tower->getMobToAttack(mobs);
-                tower->attack();
+                gold += tower->attack();
             }
         }
     }
+    return gold;
 }

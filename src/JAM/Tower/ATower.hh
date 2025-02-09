@@ -35,6 +35,7 @@ namespace Game {
                 std::shared_ptr<Game::Mob::IMob> getMobToAttack(std::vector<std::shared_ptr<Game::Mob::IMob>> mobs);
                 std::shared_ptr<Game::Mob::IMob> getTarget(void);
                 void toggleHitboxDisplay(void);
+                bool isDisplayingHitbox(void);
 
                 void setPosition(std::tuple<std::size_t, std::size_t> pos);
                 void setCost(unsigned int cost);

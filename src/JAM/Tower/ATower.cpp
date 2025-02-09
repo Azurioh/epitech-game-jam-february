@@ -107,6 +107,11 @@ void Game::Tower::ATower::toggleHitboxDisplay(void)
     _displayHitbox = !_displayHitbox;
 }
 
+bool Game::Tower::ATower::isDisplayingHitbox(void)
+{
+    return _displayHitbox;
+}
+
 void Game::Tower::ATower::setPosition(std::tuple<std::size_t, std::size_t> pos)
 {
 	_position = pos;

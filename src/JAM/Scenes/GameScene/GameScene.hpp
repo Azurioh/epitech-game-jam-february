@@ -71,6 +71,7 @@ namespace Game {
             std::shared_ptr<Game::PopUp::IPopUp> _popUp;
             bool _isCaseClicked(Case *caseElement);
             std::shared_ptr<Game::Tower::ITower> _createTower();
+            void _hideAllHitbox();
     };
 }
 #endif /* !GAMESCENE_HPP_ */

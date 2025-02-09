@@ -13,7 +13,7 @@ JAM::JAM(): _currentScene(MAIN_MENU)
     InitAudioDevice();
     InitWindow(1920, 1080, "Bloons Illusion Tower Defense 7+ Premium Deluxe Definitive Edition Collector Reloaded");
     SetWindowState(FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_MAXIMIZED);
-    SetTargetFPS(60);
+    SetTargetFPS(240);
     _scenes.push_back(Game::SceneFactory::createMainMenu());
     _scenes.push_back(Game::SceneFactory::createLevels());
     for (int i = 1; i <= 9; i++) {
