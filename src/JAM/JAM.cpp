@@ -56,7 +56,7 @@ void JAM::setVolumeUp()
 
 void JAM::setVolume()
 {
-    SetMusicVolume(this->_inGameMusic, this->_MusicValue);
+    SetMusicVolume(this->_musics[_playingMusic], this->_MusicValue);
 }
 
 void JAM::setMusic()
