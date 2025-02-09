@@ -10,15 +10,13 @@
 #include <cstddef>
 #include <iostream>
 
-#include "../Tower/ITower.hh"
-
 namespace Game {
     class IScene {
         public:
             IScene() = default;
             virtual ~IScene() = default;
 
-            virtual void exec(std::size_t &currentScene, ...) = 0;
+            virtual void exec(std::size_t &currentScene, int &playingMusic, ...) = 0;
             virtual void display(void) = 0;
     };
 }

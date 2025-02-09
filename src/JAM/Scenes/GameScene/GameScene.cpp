@@ -65,7 +65,7 @@ Game::GameScene::~GameScene()
     UnloadTexture(_coin);
 }
 
-void Game::GameScene::exec(std::size_t &currentScene, ...)
+void Game::GameScene::exec(std::size_t &currentScene, int &playingMusic, ...)
 {
     if (IsWindowResized()) {
         _T1.SetPosition(((float)GetScreenWidth() * 0.1f), ((float)GetScreenHeight() * 0.8f), 0);

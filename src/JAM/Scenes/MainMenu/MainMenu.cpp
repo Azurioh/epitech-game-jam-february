@@ -26,7 +26,7 @@ Game::MainMenu::~MainMenu()
     UnloadFont(_font);
 }
 
-void Game::MainMenu::exec(std::size_t &currentScene, ...)
+void Game::MainMenu::exec(std::size_t &currentScene, int &playingMusic, ...)
 {
     _start.Event();
     _settings.Event();

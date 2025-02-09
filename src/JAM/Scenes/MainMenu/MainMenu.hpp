@@ -17,7 +17,7 @@ namespace Game {
             MainMenu();
             ~MainMenu();
             void display();
-            void exec(std::size_t &currentScene, ...);
+            void exec(std::size_t &currentScene, int &playingMusic, ...);
 
         protected:
         private:

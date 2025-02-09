@@ -52,7 +52,7 @@ void Game::LevelsPage::display()
     }
 }
 
-void Game::LevelsPage::exec(std::size_t &currentScene, ...)
+void Game::LevelsPage::exec(std::size_t &currentScene, int &playingMusic, ...)
 {
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         Vector2 mousePos = GetMousePosition();
