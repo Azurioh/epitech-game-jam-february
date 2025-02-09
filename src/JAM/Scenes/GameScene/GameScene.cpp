@@ -56,6 +56,21 @@ void Game::GameScene::exec(std::size_t &currentScene, ...)
         _T4.SetPosition(((float)GetScreenWidth() * 0.7f), ((float)GetScreenHeight() * 0.8f), 0);
         _T5.SetPosition(((float)GetScreenWidth() * 0.9f), ((float)GetScreenHeight() * 0.8f), 0);
     }
+    if (_T1.isPressed()) {
+        //action pour tour 1
+    }
+    if (_T2.isPressed()) {
+        //action pour tour 2
+    }
+    if (_T3.isPressed()) {
+        //action pour tour 3
+    }
+    if (_T4.isPressed()) {
+        //action pour tour 4
+    }
+    if (_T5.isPressed()) {
+        //action pour tour 5
+    }
 }
 
 void Game::GameScene::display()
