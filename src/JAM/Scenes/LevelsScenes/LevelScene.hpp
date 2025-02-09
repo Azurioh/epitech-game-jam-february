@@ -10,7 +10,14 @@
 
 #include "../IScene.hh"
 #include "raylib.h"
+#include "unistd.h"
 #include "../../Level/Map.hpp"
+
+namespace Game {
+    namespace Mob {
+        class IMob;
+    }
+}
 
 namespace Game {
     class LevelScene : public IScene {
@@ -21,11 +28,23 @@ namespace Game {
             void display() override;
             void exec(std::size_t &currentScene, ...) override;
 
+            void createMobs();
+            void runWave();
+            bool isWaveOver();
+            void reloadWave();
+
         private:
             int _levelNumber;
             Color _backgroundColor;
             Rectangle _backButtonArea;
-            std::unique_ptr<Map> _map;
+
+            std::shared_ptr<Map> _map;
+            std::vector<std::shared_ptr<Game::Mob::IMob>> _mobs;
+
+            double _time;
+            size_t _maxDisplay;
+            size_t _numberOfMobs;
+            size_t _wave;
     };
 }
 

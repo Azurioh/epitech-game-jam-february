@@ -15,6 +15,8 @@ class RainbowMob : public Game::Mob::AMob {
         RainbowMob();
         ~RainbowMob();
 
+        void load();
+
     protected:
     private:
 

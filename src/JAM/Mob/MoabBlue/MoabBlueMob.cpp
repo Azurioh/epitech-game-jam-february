@@ -10,6 +10,16 @@
 MoabBlueMob::MoabBlueMob()
 {
     _texture = LoadTexture("asset/bloons/MOAB_blue.png");
+    load();
+}
+
+MoabBlueMob::~MoabBlueMob()
+{
+    UnloadTexture(_texture);
+}
+
+void MoabBlueMob::load()
+{
     _widthScale = 0.8;
     _heightScale = 0.8;
     _rotation = 0;
@@ -27,9 +37,4 @@ MoabBlueMob::MoabBlueMob()
 
     _hp = 5000;
     _type = Game::Mob::MOAB_BLUE_MOB;
-}
-
-MoabBlueMob::~MoabBlueMob()
-{
-    UnloadTexture(_texture);
 }

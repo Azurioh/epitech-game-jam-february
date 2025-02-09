@@ -15,6 +15,8 @@ class MoabBlueMob : public Game::Mob::AMob {
         MoabBlueMob();
         ~MoabBlueMob();
 
+        void load();
+
     protected:
     private:
 

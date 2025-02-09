@@ -48,6 +48,7 @@ class Map: public Case {
         std::tuple<char, char> _start;
 
         size_t _mobPassed;
+
 };
 
 #endif /* !MAP_HPP_ */

@@ -10,6 +10,16 @@
 YellowMob::YellowMob()
 {
     _texture = LoadTexture("asset/bloons/yellow.png");
+    load();
+}
+
+YellowMob::~YellowMob()
+{
+    UnloadTexture(_texture);
+}
+
+void YellowMob::load()
+{
     _widthScale = 0.7;
     _heightScale = 0.7;
     _rotation = 0;
@@ -26,9 +36,4 @@ YellowMob::YellowMob()
     _stopMoving = false;
 
     _type = Game::Mob::YELLOW_MOB;
-}
-
-YellowMob::~YellowMob()
-{
-    UnloadTexture(_texture);
 }

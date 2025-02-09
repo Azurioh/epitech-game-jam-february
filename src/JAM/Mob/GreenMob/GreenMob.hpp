@@ -15,6 +15,8 @@ class GreenMob : public Game::Mob::AMob {
         GreenMob();
         ~GreenMob();
 
+        void load();
+
     protected:
     private:
 

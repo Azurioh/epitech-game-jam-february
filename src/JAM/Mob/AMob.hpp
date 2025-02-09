@@ -37,6 +37,7 @@ namespace Game {
 
                 bool isVisible(void) const;
 
+                virtual void load() = 0;
 
             protected:
                 int _hp;

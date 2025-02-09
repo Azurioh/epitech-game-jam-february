@@ -49,6 +49,8 @@ namespace Game {
 
                 virtual bool isVisible(void) const = 0;
 
+                virtual void load() = 0;
+
             protected:
             private:
         };
