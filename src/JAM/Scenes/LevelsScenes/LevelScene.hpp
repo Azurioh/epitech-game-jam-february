@@ -18,7 +18,7 @@ namespace Game {
             ~LevelScene() = default;
 
             void display() override;
-            void exec(std::size_t &currentScene, ...) override;
+            void exec(std::size_t &currentScene, int &playingMusic, ...) override;
 
         private:
             int _levelNumber;

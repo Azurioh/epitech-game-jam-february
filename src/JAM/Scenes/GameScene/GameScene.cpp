@@ -31,7 +31,7 @@ Game::GameScene::~GameScene()
     UnloadTexture(_coin);
 }
 
-void Game::GameScene::exec(std::size_t &currentScene, ...)
+void Game::GameScene::exec(std::size_t &currentScene, int &playingMuysic, ...)
 {
     return;
 }

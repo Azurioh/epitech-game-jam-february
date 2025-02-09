@@ -23,8 +23,9 @@ void Game::LevelScene::display()
     DrawText(("Level " + std::to_string(_levelNumber)).c_str(), 500, 300, 40, BLACK);
 }
 
-void Game::LevelScene::exec(std::size_t &currentScene, ...)
+void Game::LevelScene::exec(std::size_t &currentScene, int &playingMusic, ...)
 {
+    (void)playingMusic;
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         Vector2 mousePos = GetMousePosition();
 
