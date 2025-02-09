@@ -44,4 +44,4 @@ clean:
 fclean:     clean
 	rm -f $(NAME)
 
-re:         fclean .WAIT all
+re:         fclean all

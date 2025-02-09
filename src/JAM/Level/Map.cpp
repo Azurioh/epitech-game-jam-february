@@ -217,8 +217,6 @@ void Map::drawMap()
     scaleHeight = ((float)GetScreenHeight() / 1080) * 0.23;
     scaleWidth = ((float)GetScreenWidth() / 1920) * 0.23;
 
-    std::cout << scaleHeight << std::endl;
-    std::cout << scaleWidth << std::endl << std::endl;
     for (auto lines_it = _map.begin(); lines_it != _map.end(); lines_it++) {
         for (auto cols_it = (*lines_it).begin(); cols_it != (*lines_it).end(); cols_it++) {
             (*cols_it)->drawCase({scaleWidth, scaleHeight}, pos);
