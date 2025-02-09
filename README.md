@@ -1,8 +1,6 @@
-# JAM: A Tower Defense Game Engine
+# Bloons Illusion Tower Defense 7 + Premium Deluxe Definitive Edition Collector Reloaded
 
-JAM is a comprehensive tower defense game engine implemented in C++. It provides a robust framework for creating and managing various elements of a tower defense game, including maps, mobs, towers, projectiles, and game scenes.
-
-This project offers a flexible and extensible architecture for developing tower defense games. It includes a variety of mob types, different tower types with unique abilities, and a scene management system for handling different game states. The engine is designed to support multiple levels, each with its own map layout and difficulty.
+This project is a game created during a weekend, for the Epitech Game Jam.
 
 ## Authors
 
