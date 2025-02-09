@@ -29,6 +29,7 @@ Game::MainMenu::~MainMenu()
 
 void Game::MainMenu::exec(std::size_t &currentScene, int &playingMusic, ...)
 {
+    (void)playingMusic;
     _start.Event();
     _settings.Event();
     _musicSelection.Event();

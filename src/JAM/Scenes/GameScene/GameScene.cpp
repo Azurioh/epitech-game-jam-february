@@ -17,7 +17,6 @@ Game::GameScene::GameScene(int levelNumber):
     _T3("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.5f), ((float)GetScreenHeight() * 0.8f), 5),
     _T4("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.7f), ((float)GetScreenHeight() * 0.8f), 5),
     _T5("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.9f), ((float)GetScreenHeight() * 0.8f), 5),
-    _levelNumber(levelNumber),
     _P1("", "asset/gameUI/plus.png", ((float)GetScreenWidth() * 0.97f), ((float)GetScreenHeight() * 0.2f), 5),
     _P2("", "asset/gameUI/plus.png", ((float)GetScreenWidth() * 0.97f), ((float)GetScreenHeight() * 0.4f), 5),
     _P3("", "asset/gameUI/plus.png", ((float)GetScreenWidth() * 0.97f), ((float)GetScreenHeight() * 0.6f), 5),
@@ -46,6 +45,7 @@ Game::GameScene::GameScene(int levelNumber):
     _player = std::unique_ptr<Player>(new Player());
     _hp = _player->getHP();
     _gold = _player->getGolds();
+    _levelNumber = levelNumber;
 
     if (levelNumber > 0) {
         _map = std::shared_ptr<Map>(new Map("maps/map_" + std::to_string(levelNumber) + ".txt"));
@@ -106,8 +106,8 @@ void Game::GameScene::exec(std::size_t &currentScene, int &playingMusic, ...)
     _P3.Event();
     if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
         _hideAllHitbox();
-        for (int i = 0; i < _map->getMap().size(); i++) {
-            for (int j = 0; j < _map->getMap()[i].size(); j++) {
+        for (size_t i = 0; i < _map->getMap().size(); i++) {
+            for (size_t j = 0; j < _map->getMap()[i].size(); j++) {
                 Case *tmp = (_map->getMap()[i][j]).get();
 
                 if (_haveSelectedTower) {
@@ -360,8 +360,8 @@ std::shared_ptr<Game::Tower::ITower> Game::GameScene::_createTower()
 
 void Game::GameScene::_hideAllHitbox()
 {
-    for (int i = 0; i < _map->getMap().size(); i++) {
-        for (int j = 0; j < _map->getMap()[i].size(); j++) {
+    for (size_t i = 0; i < _map->getMap().size(); i++) {
+        for (size_t j = 0; j < _map->getMap()[i].size(); j++) {
             std::shared_ptr<Game::Tower::ITower> tower = (_map->getMap()[i][j])->getTower();
             if (tower && tower->isDisplayingHitbox()) {
                 tower->toggleHitboxDisplay();

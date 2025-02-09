@@ -25,6 +25,7 @@ Game::SettingsScene::~SettingsScene()
 
 void Game::SettingsScene::exec(std::size_t &currentScene, int &playingMusic,  ...)
 {
+    (void)playingMusic;
     va_list args;
     va_start(args, currentScene);
 
