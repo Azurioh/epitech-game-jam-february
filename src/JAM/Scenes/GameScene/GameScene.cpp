@@ -103,6 +103,9 @@ void Game::GameScene::exec(std::size_t &currentScene, ...)
     if (_T5.isPressed()) {
         //action pour tour 5
     }
+    if (_player->getHP() <= 0) {
+        currentScene = LEVELS_SCENE;
+    }
 }
 
 void Game::GameScene::display()
@@ -205,6 +208,14 @@ void Game::GameScene::runWave()
     for (size_t i = 0; i < _numberOfMobs && i < _maxDisplay; i++) {
         _mobs[i]->moveMob(*_map);
     }
+
+    int newHp = 100 - (_map->getMobPassed() * 5);
+
+    if (newHp < 0) {
+        newHp = 0;
+    }
+    _hp = newHp;
+    _player->setHP(newHp);
     if (_time + 0.4 < GetTime()) {
         _maxDisplay++;
         _time = GetTime();
