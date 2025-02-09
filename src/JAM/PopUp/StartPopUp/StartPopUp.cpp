@@ -11,7 +11,7 @@ Game::PopUp::StartPopUp::StartPopUp():
     _title("Title"),
     _text("Text"),
     _hidden(false),
-    _closeButton("", "asset/gameUI/close.png", 100, 100, 5)
+    _closeButton("", "asset/gameUI/close.png", 700, 540, 5)
 {
 }
 
@@ -32,9 +32,9 @@ Game::PopUp::IPopUp::PopUpAction Game::PopUp::StartPopUp::exec(void)
 
 void Game::PopUp::StartPopUp::draw(void)
 {
-    DrawRectangle(0, 0, 250, 250, WHITE);
-    DrawText(_title.c_str(), 0, 0, 20, BLACK);
-    DrawText(_text.c_str(), 0, 0, 20, BLACK);
+    DrawRectangle(550, 250, 350, 350, WHITE);
+    DrawText(_title.c_str(), 600, 350, 20, BLACK);
+    DrawText(_text.c_str(), 600, 390, 20, BLACK);
     _closeButton.Display();
 }
 
