@@ -40,7 +40,7 @@ void Game::MainMenu::exec(std::size_t &currentScene, ...)
         _quit.SetPosition((float)GetScreenWidth() / 2, (float)GetScreenHeight() / 2 - 100 * scaleY + 2 * spacing, 0);
     }
     if (_start.isPressed()) {
-        currentScene = GAME_SCENE;
+        currentScene = LEVELS_SCENE;
         return;
     }
     if (_settings.isPressed()) {
