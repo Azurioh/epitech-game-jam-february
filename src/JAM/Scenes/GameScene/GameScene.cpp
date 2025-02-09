@@ -8,6 +8,7 @@
 #include "GameScene.hpp"
 #include "../../Mob/MobFactory.hh"
 #include "JAM/PopUp/PopUpFactory.hh"
+#include "JAM/Tower/TowerFactory.hh"
 
 Game::GameScene::GameScene(int levelNumber):
     REF_WIDTH(1920.0f), REF_HEIGHT(1080.0f),
@@ -20,6 +21,7 @@ Game::GameScene::GameScene(int levelNumber):
     _P1("", "asset/gameUI/plus.png", ((float)GetScreenWidth() * 0.97f), ((float)GetScreenHeight() * 0.2f), 5),
     _P2("", "asset/gameUI/plus.png", ((float)GetScreenWidth() * 0.97f), ((float)GetScreenHeight() * 0.4f), 5),
     _P3("", "asset/gameUI/plus.png", ((float)GetScreenWidth() * 0.97f), ((float)GetScreenHeight() * 0.6f), 5),
+    _haveSelectedTower(false),
     _popUp(Game::PopUp::PopUpFactory::createStartPopUp())
 
 {
@@ -88,20 +90,55 @@ void Game::GameScene::exec(std::size_t &currentScene, ...)
     _T3.Event();
     _T4.Event();
     _T5.Event();
+    _P1.Event();
+    _P2.Event();
+    _P3.Event();
+    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && _haveSelectedTower) {
+        for (int i = 0; i < _map->getMap().size(); i++) {
+            for (int j = 0; j < _map->getMap()[i].size(); j++) {
+                Case *tmp = (_map->getMap()[i][j]).get();
+
+                if (_isCaseClicked(tmp)) {
+                    if (!tmp->getTower()) {
+                        (_map->getMap()[i][j])->setTower(_createTower());
+                    }
+                    _haveSelectedTower = false;
+                    return;
+                }
+            }
+        }
+        _haveSelectedTower = false;
+    }
     if (_T1.isPressed()) {
-        //action pour tour 1
+        _haveSelectedTower = true;
+        _selectedTower = _T1.getTexture();
+        _selectedType = BASIC_TOWER;
     }
     if (_T2.isPressed()) {
-        //action pour tour 2
+        _haveSelectedTower = true;
+        _selectedTower = _T2.getTexture();
+        _selectedType = BIG_TOWER;
     }
     if (_T3.isPressed()) {
-        //action pour tour 3
+        _haveSelectedTower = true;
+        _selectedTower = _T3.getTexture();
+        _selectedType = BASIC_TOWER;
     }
     if (_T4.isPressed()) {
-        //action pour tour 4
+        _haveSelectedTower = true;
+        _selectedTower = _T4.getTexture();
+        _selectedType = BASIC_TOWER;
     }
     if (_T5.isPressed()) {
-        //action pour tour 5
+        _haveSelectedTower = true;
+        _selectedTower = _T5.getTexture();
+        _selectedType = BASIC_TOWER;
+    }
+    if (_P1.isPressed()) {
+    }
+    if (_P2.isPressed()) {
+    }
+    if (_P3.isPressed()) {
     }
     if (_player->getHP() <= 0) {
         currentScene = LEVELS_SCENE;
@@ -155,6 +192,9 @@ void Game::GameScene::display()
     _T5.Display();
     if (!_popUp->isHidden()) {
         _popUp->draw();
+    }
+    if (_haveSelectedTower) {
+        DrawTexture(_selectedTower, GetMousePosition().x, GetMousePosition().y, WHITE);
     }
     _P1.Display();
     _P2.Display();
@@ -245,4 +285,33 @@ void Game::GameScene::reloadWave()
         _numberOfMobs += 8;
     }
     _wave += 1;
+}
+
+
+bool Game::GameScene::_isCaseClicked(Case *caseElement) {
+    float scaleHeight = ((float)GetScreenHeight() / 1080) * 0.23;
+    float scaleWidth = ((float)GetScreenWidth() / 1920) * 0.23;
+    Texture2D caseTexture = caseElement->getTexture();
+    Vector2 casePosition = caseElement->getPosition();
+    Vector2 mousePosition = GetMousePosition();
+
+    if ((mousePosition.x < casePosition.x || mousePosition.x > casePosition.x + caseTexture.width * scaleWidth)
+        || (mousePosition.y < casePosition.y || mousePosition.y > casePosition.y + caseTexture.height * scaleHeight)) {
+        return false;
+    }
+    return true;
+}
+
+std::shared_ptr<Game::Tower::ITower> Game::GameScene::_createTower()
+{
+    std::tuple<std::size_t, std::size_t> pos(static_cast<std::size_t>(GetMousePosition().x), static_cast<std::size_t>(GetMousePosition().y));
+
+    switch (_selectedType) {
+        case BASIC_TOWER:
+            return Game::Tower::TowerFactory::createBasicTower(pos);
+        case BIG_TOWER:
+            return Game::Tower::TowerFactory::createFakeTower(pos);
+        default:
+            return nullptr;
+    }
 }

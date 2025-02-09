@@ -60,3 +60,8 @@ bool Buttons::isPressed()
     }
     return false;
 }
+
+Texture2D Buttons::getTexture(void) const
+{
+    return _button;
+}
