@@ -64,7 +64,8 @@ void Game::LevelsPage::exec(std::size_t &currentScene, ...)
         for (size_t i = 0; i < _levels.size(); ++i) {
             if (CheckCollisionPointRec(mousePos, _levels[i].area)) {
                 _selectedLevel = i;
-                currentScene = LEVEL_ONE_SCENE + i;
+                currentScene = GAME_SCENE_ONE + i;
+                std::cout << "game scene : " << currentScene << std::endl;
             }
         }
     }

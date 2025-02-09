@@ -37,7 +37,7 @@ class Case {
         void setTower(std::shared_ptr<Game::Tower::ITower> tower);
         CaseType getType();
 
-        void drawCase(float scale, Vector2 pos);
+        void drawCase(Vector2 scale, Vector2 pos);
 
     protected:
     private:

@@ -39,7 +39,8 @@ class Map: public Case {
         void drawMap();
         void displayMap();
 
-        const float scale = 0.25f;
+        float scaleWidth;
+        float scaleHeight;
 
     protected:
     private:

@@ -31,13 +31,14 @@ void Game::Mob::AMob::setSpeed(int speed)
     _speed = speed;
 }
 
-void Game::Mob::AMob::takeDamage(int hp)
+int Game::Mob::AMob::takeDamage(int hp)
 {
     _hp -= hp;
     if (_hp <= 0) {
         _stopMoving = true;
         _visible = false;
     }
+    return _hp;
 }
 
 void Game::Mob::AMob::drawMob() const

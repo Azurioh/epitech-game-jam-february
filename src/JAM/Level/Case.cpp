@@ -66,15 +66,14 @@ Case::CaseType Case::getType()
 	return _type;
 }
 
-
-void Case::drawCase(float scale, Vector2 pos)
+void Case::drawCase(Vector2 scale, Vector2 pos)
 {
 	_position = pos;
 	DrawTexturePro(
 		_texture,
 		(Rectangle) {0, 0, (float)_texture.width, (float)_texture.height},
-		(Rectangle) {pos.x, pos.y, (float)_texture.width * scale, (float)_texture.height * scale},
-		(Vector2) {((float)_texture.width * scale) / 2, ((float)_texture.width * scale) / 2},
+		(Rectangle) {pos.x, pos.y, (float)_texture.width * scale.x, (float)_texture.height * scale.y},
+		(Vector2) {((float)_texture.width * scale.x) / 2, ((float)_texture.width * scale.y) / 2},
 		0, WHITE
 	);
 }

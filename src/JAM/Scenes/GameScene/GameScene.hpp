@@ -11,14 +11,20 @@
     #include "JAM/JAM.hpp"
     #include "../Buttons/Buttons.hh"
     #include "../../Player/Player.hh"
+    #include "../../Level/Map.hpp"
 
 namespace Game {
     class GameScene : public Game::IScene {
         public:
-            GameScene();
+            GameScene(int levelNumber);
             ~GameScene();
             void display();
             void exec(std::size_t &currentScene, ...);
+
+            void createMobs();
+            void runWave();
+            bool isWaveOver();
+            void reloadWave();
 
         protected:
         private:
@@ -38,6 +44,16 @@ namespace Game {
             Texture2D _board;
             float _T1PercentX;
             float _T1PercentY;
+
+            std::shared_ptr<Map> _map;
+            std::vector<std::shared_ptr<Game::Mob::IMob>> _mobs;
+
+            double _time;
+            size_t _maxDisplay;
+            size_t _numberOfMobs;
+            size_t _wave;
+
+            int _levelNumber;
     };
 }
 #endif /* !GAMESCENE_HPP_ */

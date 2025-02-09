@@ -20,6 +20,8 @@ Map::Map(std::string filepath)
     }
     _mobPassed = 0;
     createMap();
+    scaleHeight = 0.25;
+    scaleWidth = 0.25;
 }
 
 Map::~Map()
@@ -209,23 +211,27 @@ void Map::displayMap()
 
 void Map::drawMap()
 {
-    Vector2 pos = {100.0f, 100.0f};
+    Vector2 pos = {0.0f, 0.0f};
     std::shared_ptr<Game::Tower::ITower> tower;
 
+    scaleHeight = ((float)GetScreenHeight() / 1080) * 0.23;
+    scaleWidth = ((float)GetScreenWidth() / 1920) * 0.23;
+
+    std::cout << scaleHeight << std::endl;
+    std::cout << scaleWidth << std::endl << std::endl;
     for (auto lines_it = _map.begin(); lines_it != _map.end(); lines_it++) {
         for (auto cols_it = (*lines_it).begin(); cols_it != (*lines_it).end(); cols_it++) {
-            (*cols_it)->drawCase(scale, pos);
+            (*cols_it)->drawCase({scaleWidth, scaleHeight}, pos);
 
             tower = (*cols_it)->getTower();
             if ((*cols_it)->getType() == Case::TOWER_ZONE && tower != nullptr) {
                 (*(*cols_it)->getTower()).setPosition(std::make_tuple(pos.x, pos.y));
             }
-            pos.x += (*cols_it)->getTexture().width * scale;
+            pos.x += (*cols_it)->getTexture().width * scaleWidth;
         }
-        pos.x = 100;
-        pos.y += (*(*lines_it).begin())->getTexture().height * scale;
+        pos.x = 0;
+        pos.y += (*(*lines_it).begin())->getTexture().height * scaleHeight;
     }
-
 
     for (auto lines_it = _map.begin(); lines_it != _map.end(); lines_it++) {
         for (auto cols_it = (*lines_it).begin(); cols_it != (*lines_it).end(); cols_it++) {
