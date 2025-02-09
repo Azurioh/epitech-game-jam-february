@@ -37,7 +37,7 @@ std::unique_ptr<Game::IScene> Game::SceneFactory::createLevelScene(int levelNumb
     return std::make_unique<Game::LevelScene>(levelNumber);
 }
 
-std::unique_ptr<Game::IScene> Game::SceneFactory::createGameScene()
+std::unique_ptr<Game::IScene> Game::SceneFactory::createGameScene(int levelNumber)
 {
-    return std::unique_ptr<Game::GameScene>(new Game::GameScene);
+    return std::unique_ptr<Game::GameScene>(new Game::GameScene(levelNumber));
 }

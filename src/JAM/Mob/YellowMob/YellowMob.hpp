@@ -17,6 +17,8 @@ class YellowMob : public Game::Mob::AMob {
         YellowMob();
         ~YellowMob();
 
+        void load();
+
     protected:
     private:
 };

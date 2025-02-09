@@ -6,6 +6,8 @@
 */
 
 #include "Map.hpp"
+#include "../Tower/ITower.hh"
+#include "../Tower/TowerFactory.hh"
 
 Map::Map(std::string filepath)
 {
@@ -17,6 +19,9 @@ Map::Map(std::string filepath)
         throw std::exception();
     }
     _mobPassed = 0;
+    createMap();
+    scaleHeight = 0.25;
+    scaleWidth = 0.25;
 }
 
 Map::~Map()
@@ -183,6 +188,8 @@ void Map::createMap()
         index++;
     }
     _start = findStart();
+    (*_map[5][23]).setTower(Game::Tower::TowerFactory::createBasicTower(std::make_tuple(0, 0)));
+    (*_map[5][23]).getTower()->toggleHitboxDisplay();
     createPath();
 }
 
@@ -204,14 +211,35 @@ void Map::displayMap()
 
 void Map::drawMap()
 {
-    Vector2 pos = {100.0f, 100.0f};
+    Vector2 pos = {0.0f, 0.0f};
+    std::shared_ptr<Game::Tower::ITower> tower;
+
+    scaleHeight = ((float)GetScreenHeight() / 1080) * 0.23;
+    scaleWidth = ((float)GetScreenWidth() / 1920) * 0.23;
+
+    std::cout << scaleHeight << std::endl;
+    std::cout << scaleWidth << std::endl << std::endl;
+    for (auto lines_it = _map.begin(); lines_it != _map.end(); lines_it++) {
+        for (auto cols_it = (*lines_it).begin(); cols_it != (*lines_it).end(); cols_it++) {
+            (*cols_it)->drawCase({scaleWidth, scaleHeight}, pos);
+
+            tower = (*cols_it)->getTower();
+            if ((*cols_it)->getType() == Case::TOWER_ZONE && tower != nullptr) {
+                (*(*cols_it)->getTower()).setPosition(std::make_tuple(pos.x, pos.y));
+            }
+            pos.x += (*cols_it)->getTexture().width * scaleWidth;
+        }
+        pos.x = 0;
+        pos.y += (*(*lines_it).begin())->getTexture().height * scaleHeight;
+    }
 
     for (auto lines_it = _map.begin(); lines_it != _map.end(); lines_it++) {
         for (auto cols_it = (*lines_it).begin(); cols_it != (*lines_it).end(); cols_it++) {
-            (*cols_it)->drawCase(scale, pos);
-            pos.x += (*cols_it)->getTexture().width * scale;
+            tower = (*cols_it)->getTower();
+            if ((*cols_it)->getType() == Case::TOWER_ZONE && tower != nullptr) {
+                (*tower).draw();
+                tower->attack();
+            }
         }
-        pos.x = 100;
-        pos.y += (*(*lines_it).begin())->getTexture().height * scale;
     }
 }

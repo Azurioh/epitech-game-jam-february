@@ -8,6 +8,7 @@
 #include "JAM/Level/Map.hpp"
 #include "JAM/Mob/MobFactory.hh"
 #include <unistd.h>
+#include "./JAM/Tower/ITower.hh"
 
 // int main(void)
 // {
@@ -23,77 +24,42 @@
 
 //     InitWindow(GetScreenWidth(), GetScreenHeight(), "TEST PATH");
 
-//     std::unique_ptr<Game::Mob::IMob> mob1 = Game::Mob::MobFactory::createYellowMob();
-//     std::unique_ptr<Game::Mob::IMob> mob2 = Game::Mob::MobFactory::createWhiteMob();
-//     std::unique_ptr<Game::Mob::IMob> mob3 = Game::Mob::MobFactory::createRedMob();
-//     std::unique_ptr<Game::Mob::IMob> mob4 = Game::Mob::MobFactory::createRainbowMob();
-//     std::unique_ptr<Game::Mob::IMob> mob5 = Game::Mob::MobFactory::createPinkMob();
-//     std::unique_ptr<Game::Mob::IMob> mob6 = Game::Mob::MobFactory::createMoabRedMob();
-//     std::unique_ptr<Game::Mob::IMob> mob7 = Game::Mob::MobFactory::createMoabBlueMob();
-//     std::unique_ptr<Game::Mob::IMob> mob8 = Game::Mob::MobFactory::createGreenMob();
-//     std::unique_ptr<Game::Mob::IMob> mob9 = Game::Mob::MobFactory::createBlueMob();
-//     std::unique_ptr<Game::Mob::IMob> mob10 = Game::Mob::MobFactory::createBlackMob();
+//     std::vector<std::shared_ptr<Game::Mob::IMob>> mobs;
 
-//     int init = 0;
+//     mobs.resize(10);
+//     mobs[0] = c;
+//     mobs[1] = Game::Mob::MobFactory::createWhiteMob();
+    // mobs[2] = Game::Mob::MobFactory::createRedMob();
+//     mobs[3] = Game::Mob::MobFactory::createRainbowMob();
+//     mobs[4] = Game::Mob::MobFactory::createPinkMob();
+//     mobs[5] = Game::Mob::MobFactory::createMoabRedMob();
+//     mobs[6] = Game::Mob::MobFactory::createMoabBlueMob();
+//     mobs[7] = Game::Mob::MobFactory::createGreenMob();
+//     mobs[8] = Game::Mob::MobFactory::createBlueMob();
+//     mobs[9] = Game::Mob::MobFactory::createBlackMob();
 
-
-//     double time = GetTime();
-
-//     std::cout << time << std::endl;
 //     map1.createMap();
-//     map2.createMap();
-//     map3.createMap();
-//     map4.createMap();
-//     map5.createMap();
-//     map6.createMap();
-//     map7.createMap();
-//     map8.createMap();
-//     map9.createMap();
+//     // map2.createMap();
+//     // map3.createMap();
+//     // map4.createMap();
+//     // map5.createMap();
+//     // map6.createMap();
+//     // map7.createMap();
+//     // map8.createMap();
+//     // map9.createMap();
+//     std::shared_ptr<Game::Tower::ITower> tower;
+
 //     while (!WindowShouldClose()) {
 //         ClearBackground(BLACK);
 //         BeginDrawing();
-//         map9.drawMap();
+//         tower = map1.getMap()[5][23]->getTower();
+//         tower->getMobToAttack(mobs);
+//         map1.drawMap();
 
-//         if (GetTime() >= 1 || init >= 1) {
-//             mob1->moveMob(map9);
-//             init = 1;
+//         for (int i = 0; i < 10; i++) {
+//             mobs[i]->moveMob(map1);
 //         }
-//         if (GetTime() >= 3 || init >= 2) {
-//             mob2->moveMob(map9);
-//             init = 2;
-//         }
-//         if (GetTime() >= 5 || init >= 3) {
-//             mob3->moveMob(map9);
-//             init = 3;
-//         }
-//         if (GetTime() >= 7 || init >= 4) {
-//             mob4->moveMob(map9);
-//             init = 4;
-//         }
-//         if (GetTime() >= 9 || init >= 5) {
-//             mob5->moveMob(map9);
-//             init = 5;
-//         }
-//         if (GetTime() >= 11 || init >= 6) {
-//             mob6->moveMob(map9);
-//             init = 6;
-//         }
-//         if (GetTime() >= 13 || init >= 7) {
-//             mob7->moveMob(map9);
-//             init = 7;
-//         }
-//         if (GetTime() >= 15 || init >= 8) {
-//             mob8->moveMob(map9);
-//             init = 8;
-//         }
-//         if (GetTime() >= 17 || init >= 9) {
-//             mob9->moveMob(map9);
-//             init = 9;
-//         }
-//         if (GetTime() >= 19 || init >= 10) {
-//             mob10->moveMob(map9);
-//             init = 10;
-//         }
+
 //         EndDrawing();
 //     }
 //     CloseWindow();

@@ -17,10 +17,9 @@ JAM::JAM(): _currentScene(MAIN_MENU)
     _scenes.push_back(Game::SceneFactory::createMainMenu());
     _scenes.push_back(Game::SceneFactory::createLevels());
     for (int i = 1; i <= 9; i++) {
-        _scenes.push_back(Game::SceneFactory::createLevelScene(i));
+        _scenes.push_back(Game::SceneFactory::createGameScene(i));
     }
     _scenes.push_back(Game::SceneFactory::SettingsScene());
-    _scenes.push_back(Game::SceneFactory::createGameScene());
     _menuMusic = LoadMusicStream("asset/musics/menuMusic.mp3");
     _inGameMusic = LoadMusicStream("asset/musics/inGameMusic.mp3");
     _MusicValue = 1.0;
@@ -65,6 +64,7 @@ void JAM::gameLoop()
     while (!WindowShouldClose()) {
         UpdateMusicStream(_menuMusic);
         UpdateMusicStream(_inGameMusic);
+        std::cout << _currentScene << std::endl;
         _scenes[_currentScene]->exec(_currentScene, &this->_MusicValue);
         setVolume();
         ClearBackground(BLACK);

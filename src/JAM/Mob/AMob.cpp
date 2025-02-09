@@ -38,6 +38,7 @@ int Game::Mob::AMob::takeDamage(int hp)
         _stopMoving = true;
         _visible = false;
     }
+    return _hp;
 }
 
 void Game::Mob::AMob::drawMob() const

@@ -10,6 +10,14 @@
 
 #include "../IScene.hh"
 #include "raylib.h"
+#include "unistd.h"
+#include "../../Level/Map.hpp"
+
+namespace Game {
+    namespace Mob {
+        class IMob;
+    }
+}
 
 namespace Game {
     class LevelScene : public IScene {
@@ -24,6 +32,7 @@ namespace Game {
             int _levelNumber;
             Color _backgroundColor;
             Rectangle _backButtonArea;
+
     };
 }
 

@@ -15,6 +15,8 @@ class BlackMob : public Game::Mob::AMob {
         BlackMob();
         ~BlackMob();
 
+        void load();
+
     protected:
     private:
 };
