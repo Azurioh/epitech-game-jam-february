@@ -10,7 +10,7 @@
 Game::Tower::FakeTower::FakeTower(std::tuple<std::size_t, std::size_t> position):
     ATower(position, 800, 5, 1, 1)
 {
-    Image towerImage = LoadImage("asset/towers/basic.png");
+    Image towerImage = LoadImage("asset/towers/fake.png");
     std::vector<std::tuple<unsigned int, unsigned int>> rangeSkillPricing = {{100, 1}, {300, 1}, {600, 1}};
     std::vector<std::tuple<unsigned int, unsigned int>> damageSkillPricing = {{200, 2}, {500, 3}, {1000, 3}};
     std::vector<std::tuple<unsigned int, unsigned int>> attackSpeedSkillPricing = {{250, 1}, {550, 1}, {1100, 1}};

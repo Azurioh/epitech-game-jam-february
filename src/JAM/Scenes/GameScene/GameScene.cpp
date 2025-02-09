@@ -12,11 +12,11 @@
 
 Game::GameScene::GameScene(int levelNumber):
     REF_WIDTH(1920.0f), REF_HEIGHT(1080.0f),
-    _T1("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.1f), ((float)GetScreenHeight() * 0.8f), 5),
-    _T2("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.3f), ((float)GetScreenHeight() * 0.8f), 5),
-    _T3("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.5f), ((float)GetScreenHeight() * 0.8f), 5),
-    _T4("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.7f), ((float)GetScreenHeight() * 0.8f), 5),
-    _T5("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.9f), ((float)GetScreenHeight() * 0.8f), 5),
+    _T1("", "asset/towers/basic.png", ((float)GetScreenWidth() * 0.1f), ((float)GetScreenHeight() * 0.8f), 5),
+    _T2("", "asset/towers/close.png", ((float)GetScreenWidth() * 0.3f), ((float)GetScreenHeight() * 0.8f), 5),
+    _T3("", "asset/towers/damage.png", ((float)GetScreenWidth() * 0.5f), ((float)GetScreenHeight() * 0.8f), 5),
+    _T4("", "asset/towers/long.png", ((float)GetScreenWidth() * 0.7f), ((float)GetScreenHeight() * 0.8f), 5),
+    _T5("", "asset/towers/fake.png", ((float)GetScreenWidth() * 0.9f), ((float)GetScreenHeight() * 0.8f), 5),
     _levelNumber(levelNumber),
     _P1("", "asset/gameUI/plus.png", ((float)GetScreenWidth() * 0.97f), ((float)GetScreenHeight() * 0.2f), 5),
     _P2("", "asset/gameUI/plus.png", ((float)GetScreenWidth() * 0.97f), ((float)GetScreenHeight() * 0.4f), 5),
@@ -85,14 +85,32 @@ void Game::GameScene::exec(std::size_t &currentScene, ...)
         }
         return;
     }
-    _T1.Event();
-    _T2.Event();
-    _T3.Event();
-    _T4.Event();
-    _T5.Event();
-    _P1.Event();
-    _P2.Event();
-    _P3.Event();
+    if (_gold >= 100) {
+        _T1.Event();
+    }
+    if (_gold >= 130) {
+        _T2.Event();
+    }
+    if (_gold >= 140) {
+        _T3.Event();
+    }
+    if (_gold >= 150) {
+        _T4.Event();
+    }
+    if (_gold >= 800) {
+        _T5.Event();
+    }
+    if (_towerSelected && _towerSelected.get()) {
+        if (_towerSelected->getNextRangeSkillPricing() <= _gold && _towerSelected->getNextRangeSkillPricing() != -1) {
+            _P1.Event();
+        }
+        if (_towerSelected->getNextDamageSkillPricing() <= _gold && _towerSelected->getNextDamageSkillPricing() != -1) {
+            _P2.Event();
+        }
+        if (_towerSelected->getNextAttackSpeedSkillPricing() <= _gold && _towerSelected->getNextAttackSpeedSkillPricing() != -1) {
+            _P3.Event();
+        }
+    }
     if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
         _hideAllHitbox();
         for (int i = 0; i < _map->getMap().size(); i++) {
@@ -125,28 +143,34 @@ void Game::GameScene::exec(std::size_t &currentScene, ...)
     if (_T2.isPressed()) {
         _haveSelectedTower = true;
         _selectedTower = _T2.getTexture();
-        _selectedType = BIG_TOWER;
+        _selectedType = CLOSE_RANGE;
     }
     if (_T3.isPressed()) {
         _haveSelectedTower = true;
         _selectedTower = _T3.getTexture();
-        _selectedType = BASIC_TOWER;
+        _selectedType = DAMAGE_TOWER;
     }
     if (_T4.isPressed()) {
         _haveSelectedTower = true;
         _selectedTower = _T4.getTexture();
-        _selectedType = BASIC_TOWER;
+        _selectedType = LONG_RANGE_TOWER;
     }
     if (_T5.isPressed()) {
         _haveSelectedTower = true;
         _selectedTower = _T5.getTexture();
-        _selectedType = BASIC_TOWER;
+        _selectedType = FAKE_TOWER;
     }
-    if (_P1.isPressed()) {
+    if (_P1.isPressed() && _towerSelected && _towerSelected.get()) {
+        _gold -= _towerSelected->getNextRangeSkillPricing();
+        _towerSelected->upgradeRangeSkill();
     }
-    if (_P2.isPressed()) {
+    if (_P2.isPressed() && _towerSelected && _towerSelected.get()) {
+        _gold -= _towerSelected->getNextDamageSkillPricing();
+        _towerSelected->upgradeDamageSkill();
     }
-    if (_P3.isPressed()) {
+    if (_P3.isPressed() && _towerSelected && _towerSelected.get()) {
+        _gold -= _towerSelected->getNextAttackSpeedSkillPricing();
+        _towerSelected->upgradeAttackSpeedSkill();
     }
 }
 
@@ -307,7 +331,13 @@ std::shared_ptr<Game::Tower::ITower> Game::GameScene::_createTower()
     switch (_selectedType) {
         case BASIC_TOWER:
             return Game::Tower::TowerFactory::createBasicTower(pos);
-        case BIG_TOWER:
+        case CLOSE_RANGE:
+            return Game::Tower::TowerFactory::createCloseRangeTower(pos);
+        case DAMAGE_TOWER:
+            return Game::Tower::TowerFactory::createDamageTower(pos);
+        case LONG_RANGE_TOWER:
+            return Game::Tower::TowerFactory::createLongRangeTower(pos);
+        case FAKE_TOWER:
             return Game::Tower::TowerFactory::createFakeTower(pos);
         default:
             return nullptr;

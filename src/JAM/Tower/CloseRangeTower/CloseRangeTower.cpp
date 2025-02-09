@@ -10,10 +10,13 @@
 Game::Tower::CloseRangeTower::CloseRangeTower(std::tuple<std::size_t, std::size_t> position):
     ATower(position, 140, 100, 4, 5)
 {
+    Image towerImage = LoadImage("asset/towers/close.png");
     std::vector<std::tuple<unsigned int, unsigned int>> rangeSkillPricing = {{100, 20}, {250, 20}, {350, 20}};
     std::vector<std::tuple<unsigned int, unsigned int>> damageSkillPricing = {{120, 3}, {275, 5}, {400, 10}};
     std::vector<std::tuple<unsigned int, unsigned int>> attackSpeedSkillPricing = {{150, 3}, {250, 5}, {450, 10}};
 
+    _towerTexture = LoadTextureFromImage(towerImage);
+    _displayHitbox = false;
     setRangeSkillPricing(rangeSkillPricing);
     setDamageSkillPricing(damageSkillPricing);
     setAttackSpeedSkillPricing(attackSpeedSkillPricing);

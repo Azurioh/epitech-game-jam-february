@@ -23,7 +23,10 @@ namespace Game {
 
             enum TowerType {
                 BASIC_TOWER,
-                BIG_TOWER,
+                CLOSE_RANGE,
+                DAMAGE_TOWER,
+                LONG_RANGE_TOWER,
+                FAKE_TOWER,
             };
 
             void display();
@@ -58,6 +61,7 @@ namespace Game {
             bool _haveSelectedTower;
             Texture2D _selectedTower;
             TowerType _selectedType;
+            std::shared_ptr<Game::Tower::ITower> _towerSelected;
 
             std::shared_ptr<Map> _map;
             std::vector<std::shared_ptr<Game::Mob::IMob>> _mobs;
