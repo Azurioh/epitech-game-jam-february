@@ -138,7 +138,6 @@ int Game::Tower::ATower::attack(void)
     if (attackType == Game::Projectile::IProjectile::TRACKING) {
         return 0;
     }
-    std::cout << "ATTACK TYPE: " << attackType << std::endl;
     if (attackType == Game::Projectile::IProjectile::HIT) {
         if (_target->takeDamage(_damage) < 0) {
             gold = _target->getGold();

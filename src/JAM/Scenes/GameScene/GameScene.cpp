@@ -255,7 +255,6 @@ void Game::GameScene::display()
     if (_player->getHP() <= 0 && !_defeatPopUp->isHidden()) {
         _defeatPopUp->draw();
     }
-    std::cout << "wave: " << _wave << std::endl;
     if ((_wave >= 20 && isWaveOver()) && !_victoryPopUp->isHidden()) {
         _victoryPopUp->draw();
     }
