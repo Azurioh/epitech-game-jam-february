@@ -34,6 +34,9 @@ namespace Game {
             Buttons _T3;
             Buttons _T4;
             Buttons _T5;
+            Buttons _P1;
+            Buttons _P2;
+            Buttons _P3;
             Texture2D _heart;
             Texture2D _coin;
             Texture2D _board;
