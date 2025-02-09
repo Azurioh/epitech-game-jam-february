@@ -7,7 +7,7 @@
 
 #include "AMob.hpp"
 
-Game::Mob::AMob::AMob(int hp, int gold): _hp(hp), _gold(gold), _visible(true), _stopMoving(false)
+Game::Mob::AMob::AMob(int hp, int gold): _hp(hp), _gold(gold), _visible(true), _stopMoving(false), _isIllusion(false)
 {
 }
 
@@ -77,6 +77,11 @@ void Game::Mob::AMob::setGold(int gold)
     _gold = gold;
 }
 
+void Game::Mob::AMob::setIsIllusion(bool illusion)
+{
+    _isIllusion = illusion;
+}
+
 void Game::Mob::AMob::handleRotation(std::tuple<char, char> offset)
 {
     char offsetY = std::get<0>(offset);
@@ -129,7 +134,9 @@ void Game::Mob::AMob::moveMob(Map &map)
         initMobMovement(map);
     }
     if (_nextPosition.x == -1 && _nextPosition.y == -1) {
-        map.addMobPassed();
+        if (!_isIllusion) {
+            map.addMobPassed();
+        }
         _visible = false;
         return;
     }
@@ -158,7 +165,9 @@ void Game::Mob::AMob::moveMob(Map &map)
 
     _offset = map.getNextCase(_mapPos, std::get<0>(_offset), std::get<1>(_offset), _mapValue);
     if (std::get<0>(_offset) == -1 && std::get<1>(_offset) == -1) {
-        map.addMobPassed();
+        if (!_isIllusion) {
+            map.addMobPassed();
+        }
         _visible = false;
         return;
     }
