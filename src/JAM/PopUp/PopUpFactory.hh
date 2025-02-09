@@ -18,6 +18,7 @@ namespace Game {
                 ~PopUpFactory();
 
                 static std::shared_ptr<IPopUp> createStartPopUp();
+                static std::shared_ptr<IPopUp> createTextPopUp(std::string title, std::string text);
         };
     }
 }

@@ -22,8 +22,9 @@ Game::GameScene::GameScene(int levelNumber):
     _P2("", "asset/gameUI/plus.png", ((float)GetScreenWidth() * 0.97f), ((float)GetScreenHeight() * 0.4f), 5),
     _P3("", "asset/gameUI/plus.png", ((float)GetScreenWidth() * 0.97f), ((float)GetScreenHeight() * 0.6f), 5),
     _haveSelectedTower(false),
-    _popUp(Game::PopUp::PopUpFactory::createStartPopUp())
-
+    _popUp(Game::PopUp::PopUpFactory::createStartPopUp()),
+    _defeatPopUp(Game::PopUp::PopUpFactory::createTextPopUp("Défaite", "Vous avez perdu")),
+    _victoryPopUp(Game::PopUp::PopUpFactory::createTextPopUp("Victoire", "Vous avez gagné"))
 {
     Image frameImg = LoadImage("asset/gameUI/Cadre.png");
     _frame = LoadTextureFromImage(frameImg);
@@ -49,6 +50,7 @@ Game::GameScene::GameScene(int levelNumber):
     if (levelNumber > 0) {
         _map = std::shared_ptr<Map>(new Map("maps/map_" + std::to_string(levelNumber) + ".txt"));
         createMobs();
+        createIllusionMobs();
 
         _time = GetTime();
         _maxDisplay = 1;
@@ -82,6 +84,14 @@ void Game::GameScene::exec(std::size_t &currentScene, ...)
 
         if (output == Game::PopUp::IPopUp::CLOSE) {
             _popUp->toggleHidden();
+        }
+        return;
+    }
+    if (!_defeatPopUp->isHidden()) {
+        Game::PopUp::IPopUp::PopUpAction output = _defeatPopUp->exec();
+
+        if (output == Game::PopUp::IPopUp::CLOSE) {
+            _defeatPopUp->toggleHidden();
         }
         return;
     }
@@ -199,6 +209,9 @@ void Game::GameScene::display()
     _P1.Display();
     _P2.Display();
     _P3.Display();
+    if (_player->getHP() <= 0 && !_defeatPopUp->isHidden()) {
+        _defeatPopUp->draw();
+    }
 }
 
 
@@ -239,14 +252,31 @@ void Game::GameScene::createMobs()
     }
 }
 
+void Game::GameScene::createIllusionMobs()
+{
+    _illusionMobs.resize(10);
+    _illusionMobs[0] = Game::Mob::MobFactory::createRedMob();
+    _illusionMobs[1] = Game::Mob::MobFactory::createBlueMob();
+    _illusionMobs[2] = Game::Mob::MobFactory::createGreenMob();
+    _illusionMobs[3] = Game::Mob::MobFactory::createYellowMob();
+    _illusionMobs[4] = Game::Mob::MobFactory::createPinkMob();
+    _illusionMobs[5] = Game::Mob::MobFactory::createWhiteMob();
+    _illusionMobs[6] = Game::Mob::MobFactory::createBlackMob();
+    _illusionMobs[7] = Game::Mob::MobFactory::createRainbowMob();
+    _illusionMobs[8] = Game::Mob::MobFactory::createMoabBlueMob();
+    _illusionMobs[9] = Game::Mob::MobFactory::createMoabRedMob();
+    for (size_t i = 0; i < 10; i++) {
+        _illusionMobs[i]->setIsIllusion(true);
+    }
+}
+
 void Game::GameScene::runWave()
 {
-    std::shared_ptr<Game::Tower::ITower> tower;
-
-    tower = _map->getMap()[5][23]->getTower();
-    tower->getMobToAttack(_mobs);
     for (size_t i = 0; i < _numberOfMobs && i < _maxDisplay; i++) {
         _mobs[i]->moveMob(*_map);
+    }
+    if (_wave > 2) {
+        _illusionMobs[_random]->moveMob(*_map);
     }
 
     int newHp = 100 - (_map->getMobPassed() * 5);
@@ -285,6 +315,7 @@ void Game::GameScene::reloadWave()
         _numberOfMobs += 8;
     }
     _wave += 1;
+    _random = rand() % 10;
 }
 
 

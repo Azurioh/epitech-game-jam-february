@@ -188,8 +188,6 @@ void Map::createMap()
         index++;
     }
     _start = findStart();
-    (*_map[5][23]).setTower(Game::Tower::TowerFactory::createBasicTower(std::make_tuple(0, 0)));
-    (*_map[5][23]).getTower()->toggleHitboxDisplay();
     createPath();
 }
 
