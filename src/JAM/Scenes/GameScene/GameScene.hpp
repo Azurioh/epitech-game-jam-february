@@ -10,8 +10,9 @@
 
     #include "JAM/JAM.hpp"
     #include "../Buttons/Buttons.hh"
-    #include "../../Player/Player.hh"
     #include "../../Level/Map.hpp"
+    #include "JAM/Player/Player.hh"
+    #include "JAM/PopUp/IPopUp.hh"
 
 namespace Game {
     class GameScene : public Game::IScene {
@@ -39,6 +40,9 @@ namespace Game {
             Buttons _T3;
             Buttons _T4;
             Buttons _T5;
+            Buttons _P1;
+            Buttons _P2;
+            Buttons _P3;
             Texture2D _heart;
             Texture2D _coin;
             Texture2D _board;
@@ -54,6 +58,7 @@ namespace Game {
             size_t _wave;
 
             int _levelNumber;
+            std::shared_ptr<Game::PopUp::IPopUp> _popUp;
     };
 }
 #endif /* !GAMESCENE_HPP_ */
