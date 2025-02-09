@@ -20,6 +20,7 @@ JAM::JAM(): _currentScene(MAIN_MENU)
         _scenes.push_back(Game::SceneFactory::createGameScene(i));
     }
     _scenes.push_back(Game::SceneFactory::SettingsScene());
+    _scenes.push_back(Game::SceneFactory::createGameScene());
     _scenes.push_back(Game::SceneFactory::MusicSelection());
     _musics.push_back(LoadMusicStream("asset/musics/menuMusic.mp3"));
     _musics.push_back(LoadMusicStream("asset/musics/inGameMusic.mp3"));
