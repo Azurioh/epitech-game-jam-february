@@ -13,12 +13,19 @@
     #include "../../Level/Map.hpp"
     #include "JAM/Player/Player.hh"
     #include "JAM/PopUp/IPopUp.hh"
+    #include <cmath>
 
 namespace Game {
     class GameScene : public Game::IScene {
         public:
             GameScene(int levelNumber);
             ~GameScene();
+
+            enum TowerType {
+                BASIC_TOWER,
+                BIG_TOWER,
+            };
+
             void display();
             void exec(std::size_t &currentScene, ...);
 
@@ -48,6 +55,9 @@ namespace Game {
             Texture2D _board;
             float _T1PercentX;
             float _T1PercentY;
+            bool _haveSelectedTower;
+            Texture2D _selectedTower;
+            TowerType _selectedType;
 
             std::shared_ptr<Map> _map;
             std::vector<std::shared_ptr<Game::Mob::IMob>> _mobs;
@@ -59,6 +69,8 @@ namespace Game {
 
             int _levelNumber;
             std::shared_ptr<Game::PopUp::IPopUp> _popUp;
+            bool _isCaseClicked(Case *caseElement);
+            std::shared_ptr<Game::Tower::ITower> _createTower();
     };
 }
 #endif /* !GAMESCENE_HPP_ */
