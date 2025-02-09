@@ -8,7 +8,7 @@
 #ifndef POPUPMANAGER_HPP
     #define POPUPMANAGER_HPP
 
-#include "StartPopUp.hh"
+#include "../StartPopUp/StartPopUp.hh"
 
 namespace Game {
     class PopupManager {
