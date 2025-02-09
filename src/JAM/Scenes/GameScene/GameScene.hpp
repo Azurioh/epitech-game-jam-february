@@ -27,7 +27,7 @@ namespace Game {
             };
 
             void display();
-            void exec(std::size_t &currentScene, ...);
+            void exec(std::size_t &currentScene, int &playingMusic, ...);
 
 
             void createMobs();
