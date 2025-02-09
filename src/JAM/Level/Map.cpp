@@ -188,8 +188,6 @@ void Map::createMap()
         index++;
     }
     _start = findStart();
-    (*_map[5][23]).setTower(Game::Tower::TowerFactory::createBasicTower(std::make_tuple(0, 0)));
-    (*_map[5][23]).getTower()->toggleHitboxDisplay();
     createPath();
 }
 
@@ -209,10 +207,11 @@ void Map::displayMap()
     }
 }
 
-void Map::drawMap()
+int Map::drawMap(std::vector<std::shared_ptr<Game::Mob::IMob>> mobs)
 {
     Vector2 pos = {0.0f, 0.0f};
     std::shared_ptr<Game::Tower::ITower> tower;
+    int gold = 0;
 
     scaleHeight = ((float)GetScreenHeight() / 1080) * 0.23;
     scaleWidth = ((float)GetScreenWidth() / 1920) * 0.23;
@@ -236,8 +235,10 @@ void Map::drawMap()
             tower = (*cols_it)->getTower();
             if ((*cols_it)->getType() == Case::TOWER_ZONE && tower != nullptr) {
                 (*tower).draw();
-                tower->attack();
+                tower->getMobToAttack(mobs);
+                gold += tower->attack();
             }
         }
     }
+    return gold;
 }

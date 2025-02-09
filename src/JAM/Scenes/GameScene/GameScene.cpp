@@ -12,18 +12,19 @@
 
 Game::GameScene::GameScene(int levelNumber):
     REF_WIDTH(1920.0f), REF_HEIGHT(1080.0f),
-    _T1("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.1f), ((float)GetScreenHeight() * 0.8f), 5),
-    _T2("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.3f), ((float)GetScreenHeight() * 0.8f), 5),
-    _T3("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.5f), ((float)GetScreenHeight() * 0.8f), 5),
-    _T4("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.7f), ((float)GetScreenHeight() * 0.8f), 5),
-    _T5("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.9f), ((float)GetScreenHeight() * 0.8f), 5),
+    _T1("", "asset/towers/basic.png", ((float)GetScreenWidth() * 0.1f), ((float)GetScreenHeight() * 0.9f), 5, false),
+    _T2("", "asset/towers/close.png", ((float)GetScreenWidth() * 0.3f), ((float)GetScreenHeight() * 0.9f), 5, false),
+    _T3("", "asset/towers/damage.png", ((float)GetScreenWidth() * 0.5f), ((float)GetScreenHeight() * 0.9f), 5, false),
+    _T4("", "asset/towers/long.png", ((float)GetScreenWidth() * 0.7f), ((float)GetScreenHeight() * 0.9f), 5, false),
+    _T5("", "asset/towers/fake.png", ((float)GetScreenWidth() * 0.9f), ((float)GetScreenHeight() * 0.9f), 5, false),
     _levelNumber(levelNumber),
     _P1("", "asset/gameUI/plus.png", ((float)GetScreenWidth() * 0.97f), ((float)GetScreenHeight() * 0.2f), 5),
     _P2("", "asset/gameUI/plus.png", ((float)GetScreenWidth() * 0.97f), ((float)GetScreenHeight() * 0.4f), 5),
     _P3("", "asset/gameUI/plus.png", ((float)GetScreenWidth() * 0.97f), ((float)GetScreenHeight() * 0.6f), 5),
     _haveSelectedTower(false),
-    _popUp(Game::PopUp::PopUpFactory::createStartPopUp())
-
+    _popUp(Game::PopUp::PopUpFactory::createTextPopUp("Bienvenue", "Amusez-vous bien !")),
+    _defeatPopUp(Game::PopUp::PopUpFactory::createTextPopUp("Défaite", "Vous avez perdu")),
+    _victoryPopUp(Game::PopUp::PopUpFactory::createTextPopUp("Victoire", "Vous avez gagné"))
 {
     Image frameImg = LoadImage("asset/gameUI/Cadre.png");
     _frame = LoadTextureFromImage(frameImg);
@@ -34,21 +35,23 @@ Game::GameScene::GameScene(int levelNumber):
     Image baordImg = LoadImage("asset/gameUI/test.png");
     _board = LoadTextureFromImage(baordImg);
 
-    _T1.SetPosition(((float)GetScreenWidth() * 0.1f), ((float)GetScreenHeight() * 0.8f), 0);
-    _T2.SetPosition(((float)GetScreenWidth() * 0.3f), ((float)GetScreenHeight() * 0.8f), 0);
-    _T3.SetPosition(((float)GetScreenWidth() * 0.5f), ((float)GetScreenHeight() * 0.8f), 0);
-    _T4.SetPosition(((float)GetScreenWidth() * 0.7f), ((float)GetScreenHeight() * 0.8f), 0);
-    _T5.SetPosition(((float)GetScreenWidth() * 0.9f), ((float)GetScreenHeight() * 0.8f), 0);
+    _T1.SetPosition(((float)GetScreenWidth() * 0.1f), ((float)GetScreenHeight() * 0.85f), 0);
+    _T2.SetPosition(((float)GetScreenWidth() * 0.3f), ((float)GetScreenHeight() * 0.85f), 0);
+    _T3.SetPosition(((float)GetScreenWidth() * 0.5f), ((float)GetScreenHeight() * 0.85f), 0);
+    _T4.SetPosition(((float)GetScreenWidth() * 0.7f), ((float)GetScreenHeight() * 0.85f), 0);
+    _T5.SetPosition(((float)GetScreenWidth() * 0.9f), ((float)GetScreenHeight() * 0.85f), 0);
     _P1.SetPosition(((float)GetScreenWidth() * 0.97f), ((float)GetScreenHeight() * 0.2f), 0);
     _P2.SetPosition(((float)GetScreenWidth() * 0.97f), ((float)GetScreenHeight() * 0.4f), 0);
     _P3.SetPosition(((float)GetScreenWidth() * 0.97f), ((float)GetScreenHeight() * 0.6f), 0);
     _player = std::unique_ptr<Player>(new Player());
     _hp = _player->getHP();
     _gold = _player->getGolds();
+    _levelNumber = levelNumber;
 
     if (levelNumber > 0) {
         _map = std::shared_ptr<Map>(new Map("maps/map_" + std::to_string(levelNumber) + ".txt"));
         createMobs();
+        createIllusionMobs();
 
         _time = GetTime();
         _maxDisplay = 1;
@@ -65,14 +68,15 @@ Game::GameScene::~GameScene()
     UnloadTexture(_coin);
 }
 
-void Game::GameScene::exec(std::size_t &currentScene, ...)
+void Game::GameScene::exec(std::size_t &currentScene, int &playingMusic, ...)
 {
+    (void)playingMusic;
     if (IsWindowResized()) {
-        _T1.SetPosition(((float)GetScreenWidth() * 0.1f), ((float)GetScreenHeight() * 0.8f), 0);
-        _T2.SetPosition(((float)GetScreenWidth() * 0.3f), ((float)GetScreenHeight() * 0.8f), 0);
-        _T3.SetPosition(((float)GetScreenWidth() * 0.5f), ((float)GetScreenHeight() * 0.8f), 0);
-        _T4.SetPosition(((float)GetScreenWidth() * 0.7f), ((float)GetScreenHeight() * 0.8f), 0);
-        _T5.SetPosition(((float)GetScreenWidth() * 0.9f), ((float)GetScreenHeight() * 0.8f), 0);
+        _T1.SetPosition(((float)GetScreenWidth() * 0.1f), ((float)GetScreenHeight() * 0.85f), 0);
+        _T2.SetPosition(((float)GetScreenWidth() * 0.3f), ((float)GetScreenHeight() * 0.85f), 0);
+        _T3.SetPosition(((float)GetScreenWidth() * 0.5f), ((float)GetScreenHeight() * 0.85f), 0);
+        _T4.SetPosition(((float)GetScreenWidth() * 0.7f), ((float)GetScreenHeight() * 0.85f), 0);
+        _T5.SetPosition(((float)GetScreenWidth() * 0.9f), ((float)GetScreenHeight() * 0.85f), 0);
         _P1.SetPosition(((float)GetScreenWidth() * 0.97f), ((float)GetScreenHeight() * 0.2f), 0);
         _P2.SetPosition(((float)GetScreenWidth() * 0.97f), ((float)GetScreenHeight() * 0.4f), 0);
         _P3.SetPosition(((float)GetScreenWidth() * 0.97f), ((float)GetScreenHeight() * 0.6f), 0);
@@ -85,25 +89,77 @@ void Game::GameScene::exec(std::size_t &currentScene, ...)
         }
         return;
     }
-    _T1.Event();
-    _T2.Event();
-    _T3.Event();
-    _T4.Event();
-    _T5.Event();
-    _P1.Event();
-    _P2.Event();
-    _P3.Event();
-    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && _haveSelectedTower) {
-        for (int i = 0; i < _map->getMap().size(); i++) {
-            for (int j = 0; j < _map->getMap()[i].size(); j++) {
+    if (_player->getHP() <= 0) {
+        currentScene = LEVELS_SCENE;
+    }
+    if (_gold >= 100) {
+        _T1.Event();
+    }
+    if (_gold >= 130) {
+        _T2.Event();
+    }
+    if (_gold >= 140) {
+        _T3.Event();
+    }
+    if (_gold >= 150) {
+        _T4.Event();
+    }
+    if (_gold >= 800) {
+        _T5.Event();
+    }
+    if (_towerSelected && _towerSelected.get()) {
+        if (_towerSelected->getNextRangeSkillPricing() <= _gold && _towerSelected->getNextRangeSkillPricing() != -1) {
+            _P1.Event();
+        }
+        if (_towerSelected->getNextDamageSkillPricing() <= _gold && _towerSelected->getNextDamageSkillPricing() != -1) {
+            _P2.Event();
+        }
+        if (_towerSelected->getNextAttackSpeedSkillPricing() <= _gold && _towerSelected->getNextAttackSpeedSkillPricing() != -1) {
+            _P3.Event();
+        }
+    }
+    if (_P1.isPressed() && _towerSelected && _towerSelected.get()) {
+        _gold -= _towerSelected->getNextRangeSkillPricing();
+        _towerSelected->upgradeRangeSkill();
+        return;
+    }
+    if (_P2.isPressed() && _towerSelected && _towerSelected.get()) {
+        _gold -= _towerSelected->getNextDamageSkillPricing();
+        _towerSelected->upgradeDamageSkill();
+        return;
+    }
+    if (_P3.isPressed() && _towerSelected && _towerSelected.get()) {
+        _gold -= _towerSelected->getNextAttackSpeedSkillPricing();
+        _towerSelected->upgradeAttackSpeedSkill();
+        return;
+    }
+    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+        // _hideAllHitbox();
+        for (size_t i = 0; i < _map->getMap().size(); i++) {
+            for (size_t j = 0; j < _map->getMap()[i].size(); j++) {
                 Case *tmp = (_map->getMap()[i][j]).get();
+                std::shared_ptr<Game::Tower::ITower> tmpTower = tmp->getTower();
+                if (tmpTower && tmpTower->isDisplayingHitbox()) {
+                    tmpTower->toggleHitboxDisplay();
+                }
 
-                if (_isCaseClicked(tmp)) {
-                    if (!tmp->getTower()) {
-                        (_map->getMap()[i][j])->setTower(_createTower());
+                if (_haveSelectedTower) {
+                    if (_isCaseClicked(tmp)) {
+                        if (!tmp->getTower()) {
+                            std::shared_ptr<Game::Tower::ITower> newTower = _createTower();
+                            (_map->getMap()[i][j])->setTower(newTower);
+                            _gold -= newTower->getCost();
+                        }
+                        _towerSelected = nullptr;
+                        _haveSelectedTower = false;
+                        return;
                     }
-                    _haveSelectedTower = false;
-                    return;
+                } else {
+                    std::shared_ptr<Game::Tower::ITower> tower = (_map->getMap()[i][j])->getTower();
+                    if (tower && _isCaseClicked(tmp)) {
+                        tower->toggleHitboxDisplay();
+                        _towerSelected = tower;
+                    }
                 }
             }
         }
@@ -117,28 +173,22 @@ void Game::GameScene::exec(std::size_t &currentScene, ...)
     if (_T2.isPressed()) {
         _haveSelectedTower = true;
         _selectedTower = _T2.getTexture();
-        _selectedType = BIG_TOWER;
+        _selectedType = CLOSE_RANGE;
     }
     if (_T3.isPressed()) {
         _haveSelectedTower = true;
         _selectedTower = _T3.getTexture();
-        _selectedType = BASIC_TOWER;
+        _selectedType = DAMAGE_TOWER;
     }
     if (_T4.isPressed()) {
         _haveSelectedTower = true;
         _selectedTower = _T4.getTexture();
-        _selectedType = BASIC_TOWER;
+        _selectedType = LONG_RANGE_TOWER;
     }
     if (_T5.isPressed()) {
         _haveSelectedTower = true;
         _selectedTower = _T5.getTexture();
-        _selectedType = BASIC_TOWER;
-    }
-    if (_P1.isPressed()) {
-    }
-    if (_P2.isPressed()) {
-    }
-    if (_P3.isPressed()) {
+        _selectedType = FAKE_TOWER;
     }
 }
 
@@ -155,10 +205,22 @@ void Game::GameScene::display()
     _T3.Display();
     _T4.Display();
     _T5.Display();
+    DrawText("100", ((float)GetScreenWidth() * 0.09f), ((float)GetScreenHeight() * 0.82f), 25, WHITE);
+    DrawText("130", ((float)GetScreenWidth() * 0.29f), ((float)GetScreenHeight() * 0.82f), 25, WHITE);
+    DrawText("140", ((float)GetScreenWidth() * 0.49f), ((float)GetScreenHeight() * 0.82f), 25, WHITE);
+    DrawText("150", ((float)GetScreenWidth() * 0.69f), ((float)GetScreenHeight() * 0.82f), 25, WHITE);
+    DrawText("800", ((float)GetScreenWidth() * 0.89f), ((float)GetScreenHeight() * 0.82f), 25, WHITE);
 
-    if (_levelNumber > 0) {
-        _map->drawMap();
-        runWave();
+    if (!_popUp->isHidden()) {
+        _popUp->draw();
+    } else {
+        if (_levelNumber > 0) {
+            _gold += _map->drawMap(_mobs);
+            runWave();
+        }
+    }
+    if (_haveSelectedTower) {
+        DrawTexture(_selectedTower, GetMousePosition().x, GetMousePosition().y, WHITE);
     }
     DrawTexturePro(_frame,
         {0, 0, (float)_frame.width, (float)_frame.height},
@@ -177,25 +239,22 @@ void Game::GameScene::display()
         {0, 0, (float)_coin.width, (float)_coin.height},
         {220, 50, 50, 50},
         {0, 0}, 0.0f, WHITE);
-    std::string goldText = std::to_string(_gold);
-    DrawText(goldText.c_str(), 290 - (MeasureText(goldText.c_str(), 20) / 2), 65, 20, WHITE);
-    DrawText("Range", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Range", 20) / 2), ((float)GetScreenHeight() * 0.23f), 20, WHITE);
-    DrawText("Attack\nspeed", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Attack\nspeed", 20) / 2), ((float)GetScreenHeight() * 0.42f), 20, WHITE);
-    DrawText("Damage", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Damage", 20) / 2), ((float)GetScreenHeight() * 0.63f), 20, WHITE);
-    _T1.Display();
-    _T2.Display();
-    _T3.Display();
-    _T4.Display();
-    _T5.Display();
-    if (!_popUp->isHidden()) {
-        _popUp->draw();
-    }
-    if (_haveSelectedTower) {
-        DrawTexture(_selectedTower, GetMousePosition().x, GetMousePosition().y, WHITE);
-    }
+        std::string goldText = std::to_string(_gold);
+        DrawText(goldText.c_str(), 290 - (MeasureText(goldText.c_str(), 20) / 2), 65, 20, WHITE);
+        DrawText("Range", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Range", 20) / 2), ((float)GetScreenHeight() * 0.23f), 20, WHITE);
+        DrawText("Attack\nspeed", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Attack\nspeed", 20) / 2), ((float)GetScreenHeight() * 0.42f), 20, WHITE);
+        DrawText("Damage", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Damage", 20) / 2), ((float)GetScreenHeight() * 0.63f), 20, WHITE);
     _P1.Display();
     _P2.Display();
     _P3.Display();
+    if (_towerSelected && _towerSelected.get()) {
+        DrawText(std::to_string(_towerSelected->getNextRangeSkillPricing()).c_str(), ((float)GetScreenWidth() * 0.96f), ((float)GetScreenHeight() * 0.28f), 25, WHITE);
+        DrawText(std::to_string(_towerSelected->getNextDamageSkillPricing()).c_str(), ((float)GetScreenWidth() * 0.96f), ((float)GetScreenHeight() * 0.48f), 25, WHITE);
+        DrawText(std::to_string(_towerSelected->getNextAttackSpeedSkillPricing()).c_str(), ((float)GetScreenWidth() * 0.96f), ((float)GetScreenHeight() * 0.68f), 25, WHITE);
+    }
+    if (_player->getHP() <= 0 && !_defeatPopUp->isHidden()) {
+        _defeatPopUp->draw();
+    }
 }
 
 
@@ -236,15 +295,40 @@ void Game::GameScene::createMobs()
     }
 }
 
+void Game::GameScene::createIllusionMobs()
+{
+    _illusionMobs.resize(10);
+    _illusionMobs[0] = Game::Mob::MobFactory::createRedMob();
+    _illusionMobs[1] = Game::Mob::MobFactory::createBlueMob();
+    _illusionMobs[2] = Game::Mob::MobFactory::createGreenMob();
+    _illusionMobs[3] = Game::Mob::MobFactory::createYellowMob();
+    _illusionMobs[4] = Game::Mob::MobFactory::createPinkMob();
+    _illusionMobs[5] = Game::Mob::MobFactory::createWhiteMob();
+    _illusionMobs[6] = Game::Mob::MobFactory::createBlackMob();
+    _illusionMobs[7] = Game::Mob::MobFactory::createRainbowMob();
+    _illusionMobs[8] = Game::Mob::MobFactory::createMoabBlueMob();
+    _illusionMobs[9] = Game::Mob::MobFactory::createMoabRedMob();
+    for (size_t i = 0; i < 10; i++) {
+        _illusionMobs[i]->setIsIllusion(true);
+    }
+}
+
 void Game::GameScene::runWave()
 {
-    std::shared_ptr<Game::Tower::ITower> tower;
-
-    tower = _map->getMap()[5][23]->getTower();
-    tower->getMobToAttack(_mobs);
     for (size_t i = 0; i < _numberOfMobs && i < _maxDisplay; i++) {
         _mobs[i]->moveMob(*_map);
     }
+    if (_wave > 2) {
+        _illusionMobs[_random]->moveMob(*_map);
+    }
+
+    int newHp = 100 - (_map->getMobPassed() * 5);
+
+    if (newHp < 0) {
+        newHp = 0;
+    }
+    _hp = newHp;
+    _player->setHP(newHp);
     if (_time + 0.4 < GetTime()) {
         _maxDisplay++;
         _time = GetTime();
@@ -274,6 +358,7 @@ void Game::GameScene::reloadWave()
         _numberOfMobs += 8;
     }
     _wave += 1;
+    _random = rand() % 10;
 }
 
 
@@ -284,8 +369,8 @@ bool Game::GameScene::_isCaseClicked(Case *caseElement) {
     Vector2 casePosition = caseElement->getPosition();
     Vector2 mousePosition = GetMousePosition();
 
-    if ((mousePosition.x < casePosition.x || mousePosition.x > casePosition.x + caseTexture.width * scaleWidth)
-        || (mousePosition.y < casePosition.y || mousePosition.y > casePosition.y + caseTexture.height * scaleHeight)) {
+    if ((mousePosition.x < casePosition.x || mousePosition.x > casePosition.x + (caseTexture.width * scaleWidth))
+        || (mousePosition.y < casePosition.y|| mousePosition.y > casePosition.y + (caseTexture.height * scaleHeight))) {
         return false;
     }
     return true;
@@ -298,9 +383,28 @@ std::shared_ptr<Game::Tower::ITower> Game::GameScene::_createTower()
     switch (_selectedType) {
         case BASIC_TOWER:
             return Game::Tower::TowerFactory::createBasicTower(pos);
-        case BIG_TOWER:
+        case CLOSE_RANGE:
+            return Game::Tower::TowerFactory::createCloseRangeTower(pos);
+        case DAMAGE_TOWER:
+            return Game::Tower::TowerFactory::createDamageTower(pos);
+        case LONG_RANGE_TOWER:
+            return Game::Tower::TowerFactory::createLongRangeTower(pos);
+        case FAKE_TOWER:
             return Game::Tower::TowerFactory::createFakeTower(pos);
         default:
             return nullptr;
+    }
+}
+
+
+void Game::GameScene::_hideAllHitbox()
+{
+    for (size_t i = 0; i < _map->getMap().size(); i++) {
+        for (size_t j = 0; j < _map->getMap()[i].size(); j++) {
+            std::shared_ptr<Game::Tower::ITower> tower = (_map->getMap()[i][j])->getTower();
+            if (tower && tower->isDisplayingHitbox()) {
+                tower->toggleHitboxDisplay();
+            }
+        }
     }
 }

@@ -35,6 +35,6 @@ void MoabBlueMob::load()
     _visible = true;
     _stopMoving = false;
 
-    _hp = 5000;
+    _hp = 616;
     _type = Game::Mob::MOAB_BLUE_MOB;
 }

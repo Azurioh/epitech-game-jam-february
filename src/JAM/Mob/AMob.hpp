@@ -30,6 +30,8 @@ namespace Game {
                 void setPosition(Vector2 pos);
                 void setGold(int gold);
 
+                void setIsIllusion(bool illusion);
+
                 void handleRotation(std::tuple<char, char> offset);
                 void initMobMovement(Map &map);
                 void moveMob(Map &map);
@@ -60,6 +62,7 @@ namespace Game {
 
                 bool _visible;
                 bool _stopMoving;
+                bool _isIllusion;
 
                 MobType _type;
             private:

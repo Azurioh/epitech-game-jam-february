@@ -46,6 +46,7 @@ namespace Game {
                 virtual Vector2 getPosition() const = 0;
                 virtual int getGold() const = 0;
                 virtual void setPosition(Vector2 pos) = 0;
+                virtual void setIsIllusion(bool illusion) = 0;
 
                 virtual bool isVisible(void) const = 0;
 

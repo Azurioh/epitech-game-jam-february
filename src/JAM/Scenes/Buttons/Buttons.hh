@@ -14,7 +14,7 @@
 
 class Buttons {
     public:
-        Buttons(std::string text, std::string assetPath, float x = 0, float y = 0, int textSize = 15);
+        Buttons(std::string text, std::string assetPath, float x = 0, float y = 0, int textSize = 15, bool hoverEffect = true);
         void Display();
         void Event();
         bool isPressed();
@@ -32,4 +32,5 @@ class Buttons {
         Vector2 _mousePos;
         float _frameHeight;
         int _textSize;
+        bool _hoverEffect;
 };

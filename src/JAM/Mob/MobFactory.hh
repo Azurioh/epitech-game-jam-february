@@ -28,16 +28,16 @@ namespace Game {
             public:
                 MobFactory() {};
                 ~MobFactory() {};
-                static std::unique_ptr<Game::Mob::IMob> createRedMob();
-                static std::unique_ptr<Game::Mob::IMob> createBlueMob();
-                static std::unique_ptr<Game::Mob::IMob> createGreenMob();
-                static std::unique_ptr<Game::Mob::IMob> createYellowMob();
-                static std::unique_ptr<Game::Mob::IMob> createPinkMob();
-                static std::unique_ptr<Game::Mob::IMob> createBlackMob();
-                static std::unique_ptr<Game::Mob::IMob> createWhiteMob();
-                static std::unique_ptr<Game::Mob::IMob> createRainbowMob();
-                static std::unique_ptr<Game::Mob::IMob> createMoabBlueMob();
-                static std::unique_ptr<Game::Mob::IMob> createMoabRedMob();
+                static std::shared_ptr<Game::Mob::IMob> createRedMob();
+                static std::shared_ptr<Game::Mob::IMob> createBlueMob();
+                static std::shared_ptr<Game::Mob::IMob> createGreenMob();
+                static std::shared_ptr<Game::Mob::IMob> createYellowMob();
+                static std::shared_ptr<Game::Mob::IMob> createPinkMob();
+                static std::shared_ptr<Game::Mob::IMob> createBlackMob();
+                static std::shared_ptr<Game::Mob::IMob> createWhiteMob();
+                static std::shared_ptr<Game::Mob::IMob> createRainbowMob();
+                static std::shared_ptr<Game::Mob::IMob> createMoabBlueMob();
+                static std::shared_ptr<Game::Mob::IMob> createMoabRedMob();
 
             protected:
             private:

@@ -32,7 +32,7 @@ namespace Game {
             ~LevelsPage();
             void LoadLevels();
             void display();
-            void exec(std::size_t &currentScene, ...);
+            void exec(std::size_t &currentScene, int &playingMusic, ...);
 
             int GetSelectedLevel() const;
 

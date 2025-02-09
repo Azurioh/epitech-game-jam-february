@@ -17,6 +17,12 @@
 
     #include "Case.hpp"
 
+namespace Game {
+    namespace Mob {
+        class IMob;
+    }
+}
+
 class Map: public Case {
     public:
         Map(std::string filepath);
@@ -36,7 +42,7 @@ class Map: public Case {
         std::tuple<char, char> getNextCase(Vector2 pos, char offsetY, char offsetX, unsigned char &value);
         void createMap();
 
-        void drawMap();
+        int drawMap(std::vector<std::shared_ptr<Game::Mob::IMob>> mobs);
         void displayMap();
 
         float scaleWidth;
