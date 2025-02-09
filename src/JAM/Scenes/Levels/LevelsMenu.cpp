@@ -7,7 +7,7 @@
 
 #include "LevelsMenu.hpp"
 
-Game::LevelsPage::LevelsPage() : _selectedLevel(-1), _backgroundColor(LIME)
+Game::LevelsPage::LevelsPage() : _selectedLevel(-1), _backgroundColor(LIGHTGRAY)
 {
     LoadLevels();
     _backButtonArea = {10, 10, 100, 40};
