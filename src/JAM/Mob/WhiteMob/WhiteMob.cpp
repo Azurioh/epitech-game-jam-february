@@ -10,6 +10,16 @@
 WhiteMob::WhiteMob()
 {
     _texture = LoadTexture("asset/bloons/white.png");
+    load();
+}
+
+WhiteMob::~WhiteMob()
+{
+    UnloadTexture(_texture);
+}
+
+void WhiteMob::load()
+{
     _widthScale = 1.6389 * 0.7;
     _heightScale = 1.6170 * 0.7;
     _rotation = 0;
@@ -26,9 +36,4 @@ WhiteMob::WhiteMob()
     _stopMoving = false;
 
     _type = Game::Mob::WHITE_MOB;
-}
-
-WhiteMob::~WhiteMob()
-{
-    UnloadTexture(_texture);
 }

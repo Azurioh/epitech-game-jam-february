@@ -15,6 +15,8 @@ class WhiteMob : public Game::Mob::AMob {
         WhiteMob();
         ~WhiteMob();
 
+        void load();
+
     protected:
     private:
 };

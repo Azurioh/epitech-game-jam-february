@@ -10,6 +10,16 @@
 BlackMob::BlackMob()
 {
     _texture = LoadTexture("asset/bloons/black.png");
+    load();
+}
+
+BlackMob::~BlackMob()
+{
+    UnloadTexture(_texture);
+}
+
+void BlackMob::load()
+{
     _widthScale = 0.8;
     _heightScale = 0.8;
     _rotation = 0;
@@ -26,9 +36,4 @@ BlackMob::BlackMob()
     _stopMoving = false;
 
     _type = Game::Mob::BLACK_MOB;
-}
-
-BlackMob::~BlackMob()
-{
-    UnloadTexture(_texture);
 }

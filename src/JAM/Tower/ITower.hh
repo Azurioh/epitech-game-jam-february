@@ -23,6 +23,7 @@ namespace Game {
                 virtual void draw() const = 0;
 
                 virtual std::tuple<std::size_t, std::size_t> getPosition(void) const = 0;
+                virtual void setPosition(std::tuple<std::size_t, std::size_t>) = 0;
                 virtual unsigned int getCost(void) const = 0;
 
                 virtual int attack(void) = 0;

@@ -15,6 +15,8 @@ class BlueMob : public Game::Mob::AMob {
         BlueMob();
         ~BlueMob();
 
+        void load();
+
     protected:
     private:
 };

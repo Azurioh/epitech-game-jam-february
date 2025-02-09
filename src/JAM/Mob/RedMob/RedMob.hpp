@@ -16,6 +16,8 @@ class RedMob : public Game::Mob::AMob {
         RedMob();
         ~RedMob();
 
+        void load();
+
     protected:
     private:
 };

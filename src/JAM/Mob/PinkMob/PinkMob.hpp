@@ -15,6 +15,8 @@ class PinkMob : public Game::Mob::AMob {
         PinkMob();
         ~PinkMob();
 
+        void load();
+
     protected:
     private:
 };

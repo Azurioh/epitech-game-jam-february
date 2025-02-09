@@ -10,6 +10,16 @@
 RedMob::RedMob()
 {
     _texture = LoadTexture("asset/bloons/red.png");
+    load();
+}
+
+RedMob::~RedMob()
+{
+    UnloadTexture(_texture);
+}
+
+void RedMob::load()
+{
     _widthScale = 1.2041 * 0.7;
     _heightScale = 1.2063 * 0.7;
     _rotation = 0;
@@ -26,9 +36,4 @@ RedMob::RedMob()
     _stopMoving = false;
 
     _type = Game::Mob::RED_MOB;
-}
-
-RedMob::~RedMob()
-{
-    UnloadTexture(_texture);
 }

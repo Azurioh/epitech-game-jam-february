@@ -10,6 +10,16 @@
 GreenMob::GreenMob()
 {
     _texture = LoadTexture("asset/bloons/green.png");
+    load();
+}
+
+GreenMob::~GreenMob()
+{
+    UnloadTexture(_texture);
+}
+
+void GreenMob::load()
+{
     _widthScale = 1.0351 * 0.7;
     _heightScale = 1.0556 * 0.7;
     _rotation = 0;
@@ -26,9 +36,4 @@ GreenMob::GreenMob()
     _stopMoving = false;
 
     _type = Game::Mob::GREEN_MOB;
-}
-
-GreenMob::~GreenMob()
-{
-    UnloadTexture(_texture);
 }
