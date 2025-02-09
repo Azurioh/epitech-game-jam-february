@@ -24,7 +24,7 @@ void GreenMob::load()
     _heightScale = 1.0556 * 0.7;
     _rotation = 0;
 
-    _speed = 3.2 - (2.2);
+    _speed = 3.2 - (2.6);
     _mapValue = 2;
 
     _mapPos = {-1, -1};
