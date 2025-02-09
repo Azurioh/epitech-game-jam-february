@@ -10,7 +10,8 @@
 
     #include "JAM/JAM.hpp"
     #include "../Buttons/Buttons.hh"
-    #include "../../Player/Player.hh"
+    #include "JAM/Player/Player.hh"
+    #include "JAM/PopUp/IPopUp.hh"
 
 namespace Game {
     class GameScene : public Game::IScene {
@@ -38,6 +39,7 @@ namespace Game {
             Texture2D _board;
             float _T1PercentX;
             float _T1PercentY;
+            std::shared_ptr<Game::PopUp::IPopUp> _popUp;
     };
 }
 #endif /* !GAMESCENE_HPP_ */

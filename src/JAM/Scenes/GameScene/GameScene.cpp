@@ -6,6 +6,7 @@
 */
 
 #include "GameScene.hpp"
+#include "JAM/PopUp/PopUpFactory.hh"
 
 Game::GameScene::GameScene():
     REF_WIDTH(1920.0f), REF_HEIGHT(1080.0f),
@@ -13,7 +14,8 @@ Game::GameScene::GameScene():
     _T2("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.3f), ((float)GetScreenHeight() * 0.8f), 5),
     _T3("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.5f), ((float)GetScreenHeight() * 0.8f), 5),
     _T4("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.7f), ((float)GetScreenHeight() * 0.8f), 5),
-    _T5("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.9f), ((float)GetScreenHeight() * 0.8f), 5)
+    _T5("", "asset/gameUI/tower.png", ((float)GetScreenWidth() * 0.9f), ((float)GetScreenHeight() * 0.8f), 5),
+    _popUp(Game::PopUp::PopUpFactory::createStartPopUp())
 {
     Image frameImg = LoadImage("asset/gameUI/cadre.png");
     _frame = LoadTextureFromImage(frameImg);
@@ -44,11 +46,6 @@ Game::GameScene::~GameScene()
 
 void Game::GameScene::exec(std::size_t &currentScene, ...)
 {
-    _T1.Event();
-    _T2.Event();
-    _T3.Event();
-    _T4.Event();
-    _T5.Event();
     if (IsWindowResized()) {
         _T1.SetPosition(((float)GetScreenWidth() * 0.1f), ((float)GetScreenHeight() * 0.8f), 0);
         _T2.SetPosition(((float)GetScreenWidth() * 0.3f), ((float)GetScreenHeight() * 0.8f), 0);
@@ -56,6 +53,19 @@ void Game::GameScene::exec(std::size_t &currentScene, ...)
         _T4.SetPosition(((float)GetScreenWidth() * 0.7f), ((float)GetScreenHeight() * 0.8f), 0);
         _T5.SetPosition(((float)GetScreenWidth() * 0.9f), ((float)GetScreenHeight() * 0.8f), 0);
     }
+    if (!_popUp->isHidden()) {
+        Game::PopUp::IPopUp::PopUpAction output = _popUp->exec();
+
+        if (output == Game::PopUp::IPopUp::CLOSE) {
+            _popUp->toggleHidden();
+        }
+        return;
+    }
+    _T1.Event();
+    _T2.Event();
+    _T3.Event();
+    _T4.Event();
+    _T5.Event();
     if (_T1.isPressed()) {
         //action pour tour 1
     }
@@ -105,4 +115,7 @@ void Game::GameScene::display()
     _T3.Display();
     _T4.Display();
     _T5.Display();
+    if (!_popUp->isHidden()) {
+        _popUp->draw();
+    }
 }
