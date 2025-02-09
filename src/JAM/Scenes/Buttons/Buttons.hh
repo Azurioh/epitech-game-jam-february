@@ -19,6 +19,7 @@ class Buttons {
         void Event();
         bool isPressed();
         void SetPosition(float x, float y, float spacing);
+        Texture2D getTexture(void) const;
         Rectangle GetSize();
 
     private:
