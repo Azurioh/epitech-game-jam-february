@@ -11,7 +11,8 @@ Game::MainMenu::MainMenu():
     REF_WIDTH(1920.0f), REF_HEIGHT(1080.0f),
     _start("Start", "asset/menu/button_background.png", ((float)GetScreenWidth() / 2), ((float)GetScreenHeight() / 2) - 100, 20),
     _settings("Settings", "asset/menu/button_background.png", ((float)GetScreenWidth() / 2), ((float)GetScreenHeight() / 2) - 50, 20),
-    _quit("Quit", "asset/menu/button_background.png", ((float)GetScreenWidth() / 2), ((float)GetScreenHeight() / 2), 20)
+    _musicSelection("Music selection", "asset/menu/button_background.png", ((float)GetScreenWidth() / 2), ((float)GetScreenHeight() / 2), 20),
+    _quit("Quit", "asset/menu/button_background.png", ((float)GetScreenWidth() / 2), ((float)GetScreenHeight() / 2) - 50, 20)
 {
     Image backgroundImg = LoadImage("asset/menu/Menu_background.png");
     _background = LoadTextureFromImage(backgroundImg);
@@ -28,16 +29,19 @@ Game::MainMenu::~MainMenu()
 
 void Game::MainMenu::exec(std::size_t &currentScene, int &playingMusic, ...)
 {
+    (void)playingMusic;
     _start.Event();
     _settings.Event();
     _quit.Event();
+    _musicSelection.Event();
     if (IsWindowResized()) {
         float scaleY = GetScreenHeight() / REF_HEIGHT;
         float spacing = _start.GetSize().height + 50 * scaleY;
 
         _start.SetPosition((float)GetScreenWidth() / 2, (float)GetScreenHeight() / 2 - 100 * scaleY, 0);
         _settings.SetPosition((float)GetScreenWidth() / 2, (float)GetScreenHeight() / 2 - 100 * scaleY + spacing, 0);
-        _quit.SetPosition((float)GetScreenWidth() / 2, (float)GetScreenHeight() / 2 - 100 * scaleY + 2 * spacing, 0);
+        _musicSelection.SetPosition((float)GetScreenWidth() / 2, (float)GetScreenHeight() / 2 - 100 * scaleY + 2 * spacing, 0);
+        _quit.SetPosition((float)GetScreenWidth() / 2, (float)GetScreenHeight() / 2 - 100 * scaleY + 3 * spacing, 0);
     }
     if (_start.isPressed()) {
         currentScene = LEVELS_SCENE;
@@ -45,6 +49,10 @@ void Game::MainMenu::exec(std::size_t &currentScene, int &playingMusic, ...)
     }
     if (_settings.isPressed()) {
         currentScene = SETTINGS_SCENE;
+        return;
+    }
+    if (_musicSelection.isPressed()) {
+        currentScene = MUSIC_SELECTION;
         return;
     }
     if (_quit.isPressed()) {
@@ -76,5 +84,6 @@ void Game::MainMenu::display()
         subtitleFontSize, 0, BLACK);
     _start.Display();
     _settings.Display();
+    _musicSelection.Display();
     _quit.Display();
 }

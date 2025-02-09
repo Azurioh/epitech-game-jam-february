@@ -10,9 +10,9 @@
 #include <iostream>
 
 Game::SettingsScene::SettingsScene():
-    _returnButton("Go back", "asset/menu/button_background.png", GetScreenWidth() / 2. - 100, GetScreenHeight() / 2. - 200, 30),
-    _volumeUp("Volume Up", "asset/menu/button_background.png", GetScreenWidth() / 2. - 100, GetScreenHeight() / 2. - 100, 30),
-    _volumeDown("Volume Down", "asset/menu/button_background.png", GetScreenWidth() / 2. - 100, GetScreenHeight() / 2., 30),
+    _returnButton("Go back", "asset/menu/button_background.png", GetScreenWidth() / 2. - 150, GetScreenHeight() / 2. - 200, 20),
+    _volumeUp("Volume Up", "asset/menu/button_background.png", GetScreenWidth() / 2. - 150, GetScreenHeight() / 2. - 100, 20),
+    _volumeDown("Volume Down", "asset/menu/button_background.png", GetScreenWidth() / 2. - 150, GetScreenHeight() / 2., 20),
     _background(LoadTextureFromImage(LoadImage("asset/menu/Menu_background.png"))),
     _font(LoadFont("asset/fonts/Super_Pancake.ttf"))
 {
@@ -28,6 +28,7 @@ void Game::SettingsScene::exec(std::size_t &currentScene, int &playingMusic, ...
     va_list args;
     va_start(args, currentScene);
 
+    (void)playingMusic;
     _returnButton.Event();
     _volumeDown.Event();
     _volumeUp.Event();

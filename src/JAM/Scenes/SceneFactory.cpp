@@ -41,3 +41,8 @@ std::unique_ptr<Game::IScene> Game::SceneFactory::createGameScene(int levelNumbe
 {
     return std::unique_ptr<Game::GameScene>(new Game::GameScene(levelNumber));
 }
+
+std::unique_ptr<Game::IScene> Game::SceneFactory::MusicSelection()
+{
+    return std::unique_ptr<Game::MusicSelection>(new Game::MusicSelection);
+}

@@ -11,6 +11,7 @@
     #include "MainMenu/MainMenu.hpp"
     #include "Levels/LevelsMenu.hpp"
     #include "GameScene/GameScene.hpp"
+    #include "MusicSelection/MusicSelection.hh"
 
 namespace Game {
     class SceneFactory {
@@ -21,7 +22,7 @@ namespace Game {
             static std::unique_ptr<Game::IScene>createLevels();
             static std::unique_ptr<Game::IScene>createLevelScene(int levelNumber);
             static std::unique_ptr<Game::IScene>SettingsScene();
-            static std::unique_ptr<Game::IScene>createGameScene(int levelNumber);
+            static std::unique_ptr<Game::IScene>createGameScene();
             static std::unique_ptr<Game::IScene>MusicSelection();
     };
 }

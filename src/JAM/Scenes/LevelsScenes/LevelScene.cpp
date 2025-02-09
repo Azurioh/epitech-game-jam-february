@@ -25,6 +25,7 @@ void Game::LevelScene::display()
 
 void Game::LevelScene::exec(std::size_t &currentScene, int &playingMusic, ...)
 {
+    (void)playingMusic;
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         Vector2 mousePos = GetMousePosition();
 

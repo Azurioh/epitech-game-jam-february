@@ -28,6 +28,7 @@ namespace Game {
             Texture2D _logo;
             Buttons _start;
             Buttons _settings;
+            Buttons _musicSelection;
             Buttons _quit;
     };
 }
