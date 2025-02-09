@@ -23,7 +23,7 @@ Game::LevelsPage::~LevelsPage()
 void Game::LevelsPage::LoadLevels()
 {
     for (size_t i = 0; i < _levelNames.size(); ++i) {
-        Texture2D img = LoadTexture("asset/gameUI/Cadre.png");
+        Texture2D img = LoadTexture(std::string("asset/levels/" + std::to_string(i + 1) + ".png").c_str());
         float scale = 0.7f;
 
         _levels.push_back({
@@ -65,7 +65,6 @@ void Game::LevelsPage::exec(std::size_t &currentScene, ...)
             if (CheckCollisionPointRec(mousePos, _levels[i].area)) {
                 _selectedLevel = i;
                 currentScene = GAME_SCENE_ONE + i;
-                std::cout << "game scene : " << currentScene << std::endl;
             }
         }
     }
