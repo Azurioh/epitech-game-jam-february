@@ -24,7 +24,7 @@ void PinkMob::load()
     _heightScale = 0.95 * 0.7;
     _rotation = 0;
 
-    _speed = 3.2 - (2.2);
+    _speed = 3.2 - (2.3);
     _mapValue = 2;
 
     _mapPos = {-1, -1};
