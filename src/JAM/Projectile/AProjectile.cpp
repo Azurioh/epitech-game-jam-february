@@ -5,13 +5,19 @@ Game::Projectile::AProjectile::AProjectile(std::tuple<std::size_t, std::size_t> 
 	_position(towerPos),
 	_target(target),
 	_speed(speed),
-	_attackStatus(TRACKING)
+	_attackStatus(TRACKING),
+	_time(0)
 {
 	_angle = _calculAngle();
 }
 
 void Game::Projectile::AProjectile::move()
 {
+	if (_time + (_speed * 0.009) > GetTime()) {
+		return;
+	}
+	_time = GetTime();
+
 	int x1 = std::get<0>(_position);
     int y1 = std::get<1>(_position);
     int x2 = _target->getPosition().x;
@@ -39,14 +45,14 @@ void Game::Projectile::AProjectile::move()
 	_angle = _calculAngle();
 }
 
-void Game::Projectile::AProjectile::draw(void) const
+void Game::Projectile::AProjectile::draw(void)
 {
 	float posX = std::get<0>(_position);
 	float posY = std::get<1>(_position);
 	DrawTexturePro(_arrowTexture, {0, 0,
 		(float)_arrowTexture.width, (float)_arrowTexture.height},
-		{posX, posY, 25, 25},
-		{25, 12.5}, _angle, WHITE);
+		{posX, posY, 50, 50},
+		{50, 25}, _angle, WHITE);
 }
 
 std::shared_ptr<Game::Mob::IMob>Game::Projectile::AProjectile::getTarget(void) const

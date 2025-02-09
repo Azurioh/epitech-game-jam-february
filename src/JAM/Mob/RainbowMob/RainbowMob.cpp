@@ -10,6 +10,16 @@
 RainbowMob::RainbowMob()
 {
     _texture = LoadTexture("asset/bloons/rainbow.png");
+    load();
+}
+
+RainbowMob::~RainbowMob()
+{
+    UnloadTexture(_texture);
+}
+
+void RainbowMob::load()
+{
     _widthScale = 0.9365 * 0.7;
     _heightScale = 0.95 * 0.7;
     _rotation = 0;
@@ -26,9 +36,4 @@ RainbowMob::RainbowMob()
     _stopMoving = false;
 
     _type = Game::Mob::RAINBOW_MOB;
-}
-
-RainbowMob::~RainbowMob()
-{
-    UnloadTexture(_texture);
 }

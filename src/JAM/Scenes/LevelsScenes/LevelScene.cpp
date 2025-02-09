@@ -34,3 +34,4 @@ void Game::LevelScene::exec(std::size_t &currentScene, int &playingMusic, ...)
         }
     }
 }
+

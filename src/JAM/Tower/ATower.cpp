@@ -27,7 +27,7 @@ void Game::Tower::ATower::draw(void) const
     std::size_t posY = std::get<1>(_position);
 
     if (_displayHitbox) {
-        DrawCircle(posX + (float)(_towerTexture.width / 2), posY + (float)(_towerTexture.height / 2), _range, {255, 255, 255, 50});
+        DrawCircle(posX, posY, _range, {255, 255, 255, 50});
     }
     if (_projectile && _projectile.get() != nullptr) {
         _projectile->draw();
@@ -35,7 +35,13 @@ void Game::Tower::ATower::draw(void) const
             _projectile->move();
         }
     }
-    DrawTexture(_towerTexture, posX, posY, WHITE);
+    DrawTexturePro(
+		_towerTexture,
+		(Rectangle) {0, 0, (float)_towerTexture.width, (float)_towerTexture.height},
+		(Rectangle) {(float)posX, (float)posY, (float)_towerTexture.width, (float)_towerTexture.height},
+		(Vector2) {((float)_towerTexture.width) / 2, ((float)_towerTexture.height) / 2},
+		0, WHITE
+	);
     return;
 }
 
@@ -114,12 +120,13 @@ void Game::Tower::ATower::setCost(unsigned int cost)
 int Game::Tower::ATower::attack(void)
 {
     Game::Projectile::IProjectile::AttackResultType attackType;
+    int gold = 0;
 
     if (!_target) {
         return 0;
     }
     if (!_projectile || _projectile.get() == nullptr) {
-        _projectile = std::move(createProjectile(_position, _target, _attackSpeed));
+        _projectile = createProjectile(_position, _target, _attackSpeed);
         return 0;
     }
     attackType = _projectile->getAttackStatus();
@@ -127,10 +134,10 @@ int Game::Tower::ATower::attack(void)
         return 0;
     }
     if (_target->takeDamage(_damage) < 0) {
-        return _target->getGold();
+        gold = _target->getGold();
     }
     _projectile.reset();
-    return 0;
+    return gold;
 }
 
 std::shared_ptr<Game::Projectile::IProjectile> Game::Tower::ATower::getProjectile(void)

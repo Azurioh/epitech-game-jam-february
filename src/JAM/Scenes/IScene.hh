@@ -10,6 +10,8 @@
 #include <cstddef>
 #include <iostream>
 
+#include "../Tower/ITower.hh"
+
 namespace Game {
     class IScene {
         public:

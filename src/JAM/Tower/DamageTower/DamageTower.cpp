@@ -8,11 +8,11 @@
 #include "DamageTower.hh"
 
 Game::Tower::DamageTower::DamageTower(std::tuple<std::size_t, std::size_t> position):
-    ATower(position, 85, 30, 5, 2)
+    ATower(position, 150, 110, 8, 2)
 {
-    std::vector<std::tuple<unsigned int, unsigned int>> rangeSkillPricing = {{40, 5}, {60, 5}, {100, 5}};
-    std::vector<std::tuple<unsigned int, unsigned int>> damageSkillPricing = {{70, 5}, {250, 10}, {500, 20}};
-    std::vector<std::tuple<unsigned int, unsigned int>> attackSpeedSkillPricing = {{40, 2}, {60, 5}, {100, 10}};
+    std::vector<std::tuple<unsigned int, unsigned int>> rangeSkillPricing = {{120, 20}, {240, 20}, {350, 25}};
+    std::vector<std::tuple<unsigned int, unsigned int>> damageSkillPricing = {{140, 10}, {250, 10}, {500, 20}};
+    std::vector<std::tuple<unsigned int, unsigned int>> attackSpeedSkillPricing = {{150, 3}, {300, 5}, {450, 5}};
 
     setRangeSkillPricing(rangeSkillPricing);
     setDamageSkillPricing(damageSkillPricing);

@@ -8,11 +8,11 @@
 #include "LongRangeTower.hh"
 
 Game::Tower::LongRangeTower::LongRangeTower(std::tuple<std::size_t, std::size_t> position):
-    ATower(position, 45, 15, 5, 2)
+    ATower(position, 130, 180, 7, 2)
 {
-    std::vector<std::tuple<unsigned int, unsigned int>> rangeSkillPricing = {{80, 5}, {130, 5}, {180, 5}};
-    std::vector<std::tuple<unsigned int, unsigned int>> damageSkillPricing = {{50, 5}, {120, 10}, {250, 20}};
-    std::vector<std::tuple<unsigned int, unsigned int>> attackSpeedSkillPricing = {{80, 2}, {150, 5}, {350, 10}};
+    std::vector<std::tuple<unsigned int, unsigned int>> rangeSkillPricing = {{100, 30}, {200, 30}, {500, 30}};
+    std::vector<std::tuple<unsigned int, unsigned int>> damageSkillPricing = {{150, 4}, {300, 10}, {500, 15}};
+    std::vector<std::tuple<unsigned int, unsigned int>> attackSpeedSkillPricing = {{180, 2}, {300, 4}, {450, 5}};
 
     setRangeSkillPricing(rangeSkillPricing);
     setDamageSkillPricing(damageSkillPricing);

@@ -7,7 +7,7 @@
 
 #include "LevelsMenu.hpp"
 
-Game::LevelsPage::LevelsPage() : _selectedLevel(-1), _backgroundColor(LIME)
+Game::LevelsPage::LevelsPage() : _selectedLevel(-1), _backgroundColor(LIGHTGRAY)
 {
     LoadLevels();
     _backButtonArea = {10, 10, 100, 40};
@@ -23,7 +23,7 @@ Game::LevelsPage::~LevelsPage()
 void Game::LevelsPage::LoadLevels()
 {
     for (size_t i = 0; i < _levelNames.size(); ++i) {
-        Texture2D img = LoadTexture("asset/levels/default-featured-image.jpg");
+        Texture2D img = LoadTexture(std::string("asset/levels/" + std::to_string(i + 1) + ".png").c_str());
         float scale = 0.7f;
 
         _levels.push_back({
@@ -65,7 +65,7 @@ void Game::LevelsPage::exec(std::size_t &currentScene, int &playingMusic, ...)
         for (size_t i = 0; i < _levels.size(); ++i) {
             if (CheckCollisionPointRec(mousePos, _levels[i].area)) {
                 _selectedLevel = i;
-                currentScene = LEVEL_ONE_SCENE + i;
+                currentScene = GAME_SCENE_ONE + i;
             }
         }
     }

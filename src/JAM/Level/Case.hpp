@@ -10,6 +10,13 @@
 
     #include <iostream>
     #include <raylib.h>
+    #include <memory>
+
+namespace Game {
+    namespace Tower {
+        class ITower;
+    }
+}
 
 class Case {
     public:
@@ -26,8 +33,11 @@ class Case {
         void setValue(unsigned char value);
         Texture2D getTexture();
         Vector2 getPosition();
+        std::shared_ptr<Game::Tower::ITower> getTower();
+        void setTower(std::shared_ptr<Game::Tower::ITower> tower);
+        CaseType getType();
 
-        void drawCase(float scale, Vector2 pos);
+        void drawCase(Vector2 scale, Vector2 pos);
 
     protected:
     private:
@@ -36,6 +46,8 @@ class Case {
 
         Texture2D _texture;
         Vector2 _position;
+
+        std::shared_ptr<Game::Tower::ITower> _tower;
 };
 
 #endif /* !CASE_HPP_ */
