@@ -64,7 +64,6 @@ void JAM::gameLoop()
     while (!WindowShouldClose()) {
         UpdateMusicStream(_menuMusic);
         UpdateMusicStream(_inGameMusic);
-        std::cout << _currentScene << std::endl;
         _scenes[_currentScene]->exec(_currentScene, &this->_MusicValue);
         setVolume();
         ClearBackground(BLACK);
