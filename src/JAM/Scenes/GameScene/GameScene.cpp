@@ -103,17 +103,25 @@ void Game::GameScene::exec(std::size_t &currentScene, ...)
     _P1.Event();
     _P2.Event();
     _P3.Event();
-    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && _haveSelectedTower) {
+    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+        _hideAllHitbox();
         for (int i = 0; i < _map->getMap().size(); i++) {
             for (int j = 0; j < _map->getMap()[i].size(); j++) {
                 Case *tmp = (_map->getMap()[i][j]).get();
 
-                if (_isCaseClicked(tmp)) {
-                    if (!tmp->getTower()) {
-                        (_map->getMap()[i][j])->setTower(_createTower());
+                if (_haveSelectedTower) {
+                    if (_isCaseClicked(tmp)) {
+                        if (!tmp->getTower()) {
+                            (_map->getMap()[i][j])->setTower(_createTower());
+                        }
+                        _haveSelectedTower = false;
+                        return;
                     }
-                    _haveSelectedTower = false;
-                    return;
+                } else {
+                    std::shared_ptr<Game::Tower::ITower> tower = (_map->getMap()[i][j])->getTower();
+                    if (tower && _isCaseClicked(tmp)) {
+                        tower->toggleHitboxDisplay();
+                    }
                 }
             }
         }
@@ -169,9 +177,21 @@ void Game::GameScene::display()
     _T4.Display();
     _T5.Display();
 
-    if (_levelNumber > 0) {
-        _map->drawMap();
-        runWave();
+    _T1.Display();
+    _T2.Display();
+    _T3.Display();
+    _T4.Display();
+    _T5.Display();
+    if (!_popUp->isHidden()) {
+        _popUp->draw();
+    } else {
+        if (_levelNumber > 0) {
+            _gold += _map->drawMap(_mobs);
+            runWave();
+        }
+    }
+    if (_haveSelectedTower) {
+        DrawTexture(_selectedTower, GetMousePosition().x, GetMousePosition().y, WHITE);
     }
     DrawTexturePro(_frame,
         {0, 0, (float)_frame.width, (float)_frame.height},
@@ -190,22 +210,11 @@ void Game::GameScene::display()
         {0, 0, (float)_coin.width, (float)_coin.height},
         {220, 50, 50, 50},
         {0, 0}, 0.0f, WHITE);
-    std::string goldText = std::to_string(_gold);
-    DrawText(goldText.c_str(), 290 - (MeasureText(goldText.c_str(), 20) / 2), 65, 20, WHITE);
-    DrawText("Range", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Range", 20) / 2), ((float)GetScreenHeight() * 0.23f), 20, WHITE);
-    DrawText("Attack\nspeed", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Attack\nspeed", 20) / 2), ((float)GetScreenHeight() * 0.42f), 20, WHITE);
-    DrawText("Damage", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Damage", 20) / 2), ((float)GetScreenHeight() * 0.63f), 20, WHITE);
-    _T1.Display();
-    _T2.Display();
-    _T3.Display();
-    _T4.Display();
-    _T5.Display();
-    if (!_popUp->isHidden()) {
-        _popUp->draw();
-    }
-    if (_haveSelectedTower) {
-        DrawTexture(_selectedTower, GetMousePosition().x, GetMousePosition().y, WHITE);
-    }
+        std::string goldText = std::to_string(_gold);
+        DrawText(goldText.c_str(), 290 - (MeasureText(goldText.c_str(), 20) / 2), 65, 20, WHITE);
+        DrawText("Range", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Range", 20) / 2), ((float)GetScreenHeight() * 0.23f), 20, WHITE);
+        DrawText("Attack\nspeed", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Attack\nspeed", 20) / 2), ((float)GetScreenHeight() * 0.42f), 20, WHITE);
+        DrawText("Damage", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Damage", 20) / 2), ((float)GetScreenHeight() * 0.63f), 20, WHITE);
     _P1.Display();
     _P2.Display();
     _P3.Display();
@@ -326,8 +335,8 @@ bool Game::GameScene::_isCaseClicked(Case *caseElement) {
     Vector2 casePosition = caseElement->getPosition();
     Vector2 mousePosition = GetMousePosition();
 
-    if ((mousePosition.x < casePosition.x || mousePosition.x > casePosition.x + caseTexture.width * scaleWidth)
-        || (mousePosition.y < casePosition.y || mousePosition.y > casePosition.y + caseTexture.height * scaleHeight)) {
+    if ((mousePosition.x < casePosition.x || mousePosition.x > casePosition.x + (caseTexture.width * scaleWidth))
+        || (mousePosition.y < casePosition.y|| mousePosition.y > casePosition.y + (caseTexture.height * scaleHeight))) {
         return false;
     }
     return true;
@@ -344,5 +353,18 @@ std::shared_ptr<Game::Tower::ITower> Game::GameScene::_createTower()
             return Game::Tower::TowerFactory::createFakeTower(pos);
         default:
             return nullptr;
+    }
+}
+
+
+void Game::GameScene::_hideAllHitbox()
+{
+    for (int i = 0; i < _map->getMap().size(); i++) {
+        for (int j = 0; j < _map->getMap()[i].size(); j++) {
+            std::shared_ptr<Game::Tower::ITower> tower = (_map->getMap()[i][j])->getTower();
+            if (tower && tower->isDisplayingHitbox()) {
+                tower->toggleHitboxDisplay();
+            }
+        }
     }
 }

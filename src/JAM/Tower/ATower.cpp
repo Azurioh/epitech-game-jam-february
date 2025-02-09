@@ -30,8 +30,8 @@ void Game::Tower::ATower::draw(void) const
         DrawCircle(posX, posY, _range, {255, 255, 255, 50});
     }
     if (_projectile && _projectile.get() != nullptr) {
-        _projectile->draw();
         if (_projectile->getAttackStatus() == Game::Projectile::IProjectile::TRACKING) {
+            _projectile->draw();
             _projectile->move();
         }
     }
@@ -107,6 +107,11 @@ void Game::Tower::ATower::toggleHitboxDisplay(void)
     _displayHitbox = !_displayHitbox;
 }
 
+bool Game::Tower::ATower::isDisplayingHitbox(void)
+{
+    return _displayHitbox;
+}
+
 void Game::Tower::ATower::setPosition(std::tuple<std::size_t, std::size_t> pos)
 {
 	_position = pos;
@@ -133,8 +138,11 @@ int Game::Tower::ATower::attack(void)
     if (attackType == Game::Projectile::IProjectile::TRACKING) {
         return 0;
     }
-    if (_target->takeDamage(_damage) < 0) {
-        gold = _target->getGold();
+    std::cout << "ATTACK TYPE: " << attackType << std::endl;
+    if (attackType == Game::Projectile::IProjectile::HIT) {
+        if (_target->takeDamage(_damage) < 0) {
+            gold = _target->getGold();
+        }
     }
     _projectile.reset();
     return gold;

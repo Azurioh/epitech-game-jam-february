@@ -35,5 +35,6 @@ void YellowMob::load()
     _visible = true;
     _stopMoving = false;
 
+    _hp = 4;
     _type = Game::Mob::YELLOW_MOB;
 }
