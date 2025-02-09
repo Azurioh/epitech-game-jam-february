@@ -8,7 +8,7 @@
 #include "CloseRangeTower.hh"
 
 Game::Tower::CloseRangeTower::CloseRangeTower(std::tuple<std::size_t, std::size_t> position):
-    ATower(position, 140, 100, 4, 15)
+    ATower(position, 140, 100, 4, 25)
 {
     Image towerImage = LoadImage("asset/towers/close.png");
     std::vector<std::tuple<unsigned int, unsigned int>> rangeSkillPricing = {{100, 20}, {250, 20}, {350, 20}};

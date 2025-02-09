@@ -8,7 +8,7 @@
 #include "DamageTower.hh"
 
 Game::Tower::DamageTower::DamageTower(std::tuple<std::size_t, std::size_t> position):
-    ATower(position, 150, 110, 8, 15)
+    ATower(position, 150, 110, 8, 20)
 {
     Image towerImage = LoadImage("asset/towers/damage.png");
     std::vector<std::tuple<unsigned int, unsigned int>> rangeSkillPricing = {{120, 20}, {240, 20}, {350, 25}};

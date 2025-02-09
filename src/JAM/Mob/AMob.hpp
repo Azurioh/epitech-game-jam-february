@@ -16,7 +16,7 @@ namespace Game {
     namespace Mob {
         class AMob : public IMob {
             public:
-                AMob(int hp = 1, int gold = 5);
+                AMob(int hp = 1, int gold = 20);
                 virtual ~AMob() = default;
                 void setHp(int hp);
                 int getHp();

@@ -89,7 +89,7 @@ void Game::GameScene::exec(std::size_t &currentScene, int &playingMusic, ...)
         }
         return;
     }
-    if (_player->getHP() <= 0) {
+    if (_player->getHP() <= 0 || (_wave >= 20 && isWaveOver())) {
         currentScene = LEVELS_SCENE;
     }
     if (_gold >= 100) {
@@ -255,6 +255,10 @@ void Game::GameScene::display()
     if (_player->getHP() <= 0 && !_defeatPopUp->isHidden()) {
         _defeatPopUp->draw();
     }
+    std::cout << "wave: " << _wave << std::endl;
+    if ((_wave >= 20 && isWaveOver()) && !_victoryPopUp->isHidden()) {
+        _victoryPopUp->draw();
+    }
 }
 
 
@@ -315,6 +319,10 @@ void Game::GameScene::createIllusionMobs()
 
 void Game::GameScene::runWave()
 {
+    if (_wave >= 21) {
+        return;
+    }
+
     for (size_t i = 0; i < _numberOfMobs && i < _maxDisplay; i++) {
         _mobs[i]->moveMob(*_map);
     }
