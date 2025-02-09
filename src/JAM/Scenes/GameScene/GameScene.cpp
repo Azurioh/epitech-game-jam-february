@@ -121,7 +121,7 @@ void Game::GameScene::display()
     std::string goldText = std::to_string(_gold);
     DrawText(goldText.c_str(), 290 - (MeasureText(goldText.c_str(), 20) / 2), 65, 20, WHITE);
     DrawText("Range", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Range", 20) / 2), ((float)GetScreenHeight() * 0.23f), 20, WHITE);
-    DrawText("Attack\nspeed", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Attack\nspeed", 20) / 2), ((float)GetScreenHeight() * 0.42gf), 20, WHITE);
+    DrawText("Attack\nspeed", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Attack\nspeed", 20) / 2), ((float)GetScreenHeight() * 0.42f), 20, WHITE);
     DrawText("Damage", ((float)GetScreenWidth() * 0.92f) - (MeasureText("Damage", 20) / 2), ((float)GetScreenHeight() * 0.63f), 20, WHITE);
     _T1.Display();
     _T2.Display();
