@@ -21,6 +21,6 @@ namespace Game {
             static std::unique_ptr<Game::IScene>createLevels();
             static std::unique_ptr<Game::IScene>createLevelScene(int levelNumber);
             static std::unique_ptr<Game::IScene>SettingsScene();
-            static std::unique_ptr<Game::IScene>createGameScene();
+            static std::unique_ptr<Game::IScene>createGameScene(int levelNumber);
     };
 }

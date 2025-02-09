@@ -10,6 +10,16 @@
 PinkMob::PinkMob()
 {
     _texture = LoadTexture("asset/bloons/pink.png");
+    load();
+}
+
+PinkMob::~PinkMob()
+{
+    UnloadTexture(_texture);
+}
+
+void PinkMob::load()
+{
     _widthScale = 0.9365 * 0.7;
     _heightScale = 0.95 * 0.7;
     _rotation = 0;
@@ -26,9 +36,4 @@ PinkMob::PinkMob()
     _stopMoving = false;
 
     _type = Game::Mob::PINK_MOB;
-}
-
-PinkMob::~PinkMob()
-{
-    UnloadTexture(_texture);
 }

@@ -10,6 +10,16 @@
 MoabRedMob::MoabRedMob()
 {
     _texture = LoadTexture("asset/bloons/MOAB_red.png");
+    load();
+}
+
+MoabRedMob::~MoabRedMob()
+{
+    UnloadTexture(_texture);
+}
+
+void MoabRedMob::load()
+{
     _widthScale = 0.7;
     _heightScale = 0.7;
     _rotation = 0;
@@ -26,9 +36,4 @@ MoabRedMob::MoabRedMob()
     _stopMoving = false;
 
     _type = Game::Mob::MOAB_RED_MOB;
-}
-
-MoabRedMob::~MoabRedMob()
-{
-    UnloadTexture(_texture);
 }

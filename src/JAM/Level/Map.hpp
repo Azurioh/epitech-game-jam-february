@@ -39,7 +39,8 @@ class Map: public Case {
         void drawMap();
         void displayMap();
 
-        const float scale = 0.25f;
+        float scaleWidth;
+        float scaleHeight;
 
     protected:
     private:
@@ -48,6 +49,7 @@ class Map: public Case {
         std::tuple<char, char> _start;
 
         size_t _mobPassed;
+
 };
 
 #endif /* !MAP_HPP_ */
