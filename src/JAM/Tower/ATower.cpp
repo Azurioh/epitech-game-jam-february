@@ -120,6 +120,7 @@ void Game::Tower::ATower::setCost(unsigned int cost)
 int Game::Tower::ATower::attack(void)
 {
     Game::Projectile::IProjectile::AttackResultType attackType;
+    int gold = 0;
 
     if (!_target) {
         return 0;
@@ -133,10 +134,10 @@ int Game::Tower::ATower::attack(void)
         return 0;
     }
     if (_target->takeDamage(_damage) < 0) {
-        return _target->getGold();
+        gold = _target->getGold();
     }
     _projectile.reset();
-    return 0;
+    return gold;
 }
 
 std::shared_ptr<Game::Projectile::IProjectile> Game::Tower::ATower::getProjectile(void)
