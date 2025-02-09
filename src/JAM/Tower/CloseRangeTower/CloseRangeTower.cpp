@@ -8,9 +8,9 @@
 #include "CloseRangeTower.hh"
 
 Game::Tower::CloseRangeTower::CloseRangeTower(std::tuple<std::size_t, std::size_t> position):
-    ATower(position, 140, 25, 4, 5)
+    ATower(position, 140, 100, 4, 5)
 {
-    std::vector<std::tuple<unsigned int, unsigned int>> rangeSkillPricing = {{100, 2}, {250, 3}, {350, 5}};
+    std::vector<std::tuple<unsigned int, unsigned int>> rangeSkillPricing = {{100, 20}, {250, 20}, {350, 20}};
     std::vector<std::tuple<unsigned int, unsigned int>> damageSkillPricing = {{120, 3}, {275, 5}, {400, 10}};
     std::vector<std::tuple<unsigned int, unsigned int>> attackSpeedSkillPricing = {{150, 3}, {250, 5}, {450, 10}};
 
